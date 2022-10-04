@@ -1,4 +1,4 @@
-# ISS-Zvireci-utulek
+# IIS-Zvireci-utulek
 
 ## Popis
 
