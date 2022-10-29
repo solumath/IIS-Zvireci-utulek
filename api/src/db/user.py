@@ -1,21 +1,53 @@
-from ..main import db
-from .constants import STRING_LEN
-import sqlalchemy
+from .constants import STRING_LEN, db
+from sqlalchemy.orm import relation
+# import marshmallow as ma
 
 
-class user(db.Model):
+class User(db.Model):
     __tablename__ = "user"
-    id = sqlalchemy.Column(sqlalchemy.types.String(
-        STRING_LEN), primary_key=True)
-    login = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
-    password = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-    name = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
-    surname = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
-    address = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
-    email = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
-    tel_number = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
+    login = db.Column(db.String(STRING_LEN), unique=True)
+    password = db.Column(db.String(STRING_LEN))
 
-    rating = sqlalchemy.Column(sqlalchemy.types.Integer)
+    name = db.Column(db.String(STRING_LEN))
+    surname = db.Column(db.String(STRING_LEN))
+    address = db.Column(db.String(STRING_LEN))
+    email = db.Column(db.String(STRING_LEN))
+    tel_number = db.Column(db.String(STRING_LEN))
 
-    verified = sqlalchemy.Column(sqlalchemy.types.Boolean)
+    rating = db.Column(db.Integer)
+    verified = db.Column(db.Boolean)
+
+    role_id = db.Column(db.Integer, db.ForeignKey("user_role.id"))
+
+    user_role = relation("User_role", back_populates="users")
+    events = relation("Event", back_populates="user")
+    session = relation("Session", back_populates="user", uselist=False)
+
+    # created_at = db.Column(
+    #     db.DateTime, default=db.func.now())
+    # updated_at = db.Column(
+    #     db.DateTime, default=db.func.now(), onupdate=db.func.now())
+
+    def __init__(self, login, password, name, surname, address, email, tel_number, rating, verified=False):
+        self.login = login
+        self.password = password
+        self.name = name
+        self.surname = surname
+        self.address = address
+        self.email = email
+        self.tel_number = tel_number
+        self.rating = rating
+        self.verified = verified
+
+    def __repr__(self) -> str:
+        return "login: %10s, role %10r" % (self.login, self.user_role)
+
+
+# class UserSchema(ma.Schema):
+#     class Meta:
+#         fields = ('id', 'login', 'password', 'name', 'surname', 'address', 'email', 'tel_number', 'rating', 'verified')
+
+# user_schema = UserSchema()
+# users_schema = UserSchema(many=True)

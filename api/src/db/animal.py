@@ -1,30 +1,49 @@
-from ..main import db
-from .constants import STRING_LEN
-import sqlalchemy
+from datetime import date
+from .constants import STRING_LEN, db
+from sqlalchemy.orm import relation
 
 
-class animal(db.Model):
+class Animal(db.Model):
     """
     Table for animal, 
     contains basic info about animal
     connects to Event table for history of animal
     """
     __tablename__ = "animal"
-    id = sqlalchemy.Column(sqlalchemy.types.Integer, primary_key=True)
+    id = db.Column(db.Integer,
+                   primary_key=True, autoincrement=True)
 
-    name = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
-    sex = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
-    color = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
-    weight = sqlalchemy.Column(sqlalchemy.types.Integer)
-    height = sqlalchemy.Column(sqlalchemy.types.Integer)
-    kind = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
-    breed = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
-    chip_id = sqlalchemy.Column(sqlalchemy.types.Integer)
+    name = db.Column(db.String(STRING_LEN))
+    sex = db.Column(db.String(STRING_LEN))
+    color = db.Column(db.String(STRING_LEN))
+    weight = db.Column(db.Integer)
+    height = db.Column(db.Integer)
+    kind = db.Column(db.String(STRING_LEN))
+    breed = db.Column(db.String(STRING_LEN))
+    chip_id = db.Column(db.Integer)
 
-    birthday = sqlalchemy.Column(sqlalchemy.types.Date)
-    discovery_day = sqlalchemy.Column(sqlalchemy.types.Date)
-    discovery_place = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
+    birthday = db.Column(db.Date)
+    discovery_day = db.Column(db.Date)
+    discovery_place = db.Column(db.String(STRING_LEN))
 
-    description = sqlalchemy.Column(sqlalchemy.types.Text)
+    description = db.Column(db.Text)
 
-    # TODO events
+    events = relation("Event", back_populates="animal")
+
+    def __init__(self, name: str, sex: str, color: str,
+                 weight: int, height: int, kind: str, breed: str,
+                 chip_id: int, birthday: date, discovery_day: date,
+                 discovery_place: str, description: str):
+        """initializes row for table animal"""
+        self.name = name
+        self.sex = sex
+        self.color = color
+        self.weight = weight
+        self.height = height
+        self.kind = kind
+        self.breed = breed
+        self.chip_id = chip_id
+        self.birthday = birthday
+        self.discovery_day = discovery_day
+        self.discovery_place = discovery_place
+        self.description = description

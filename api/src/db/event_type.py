@@ -1,13 +1,20 @@
-from ..main import db
-from .constants import STRING_LEN
-import sqlalchemy
+from .constants import STRING_LEN, db
+from sqlalchemy.orm import relation
 
 
-class event_type(db.Model):
+class Event_type(db.Model):
     __tablename__ = "event_type"
-    id = sqlalchemy.Column(sqlalchemy.types.Integer, primary_key=True)
-    name = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(STRING_LEN), unique=True)
 
-    priority = sqlalchemy.Column(sqlalchemy.types.Integer)
+    priority = db.Column(db.Integer)
 
-    description = sqlalchemy.Column(sqlalchemy.types.Text)
+    description = db.Column(db.Text)
+
+    events = relation("Event", back_populates="event_type")
+    permissions = relation("Permission", back_populates="event_type")
+
+    def __init__(self, name: str, priority: int = 0, description: str = ""):
+        self.name = name
+        self.priority = priority
+        self.description = description

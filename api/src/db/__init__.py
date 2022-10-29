@@ -2,9 +2,12 @@
 Database :ez:
 """
 
-from .user_role import user_role
-from .user import user
-from .permission import permission
-from .event import event
-from .event_type import event_type
-from .animal import animal
+from .constants import db
+
+from .user_role import User_role
+from .user import User
+from .permission import Permission
+from .event import Event
+from .event_type import Event_type
+from .animal import Animal
+from .session import Session

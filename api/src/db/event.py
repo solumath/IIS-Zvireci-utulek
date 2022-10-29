@@ -1,22 +1,30 @@
-from ..main import db
-from .constants import STRING_LEN
-import sqlalchemy
+from datetime import date, datetime
+from .constants import db
+from sqlalchemy.orm import relation
 
 
-class event(db.Model):
+class Event(db.Model):
     __tablename__ = "event"
-    id = sqlalchemy.Column(sqlalchemy.types.Integer, primary_key=True)
-    animal_id = sqlalchemy.Column(
-        sqlalchemy.types.Integer, sqlalchemy.ForeignKey("animal.id"))
-    type_id = sqlalchemy.Column(
-        sqlalchemy.types.Integer, sqlalchemy.ForeignKey("event_type.id"))
+    id = db.Column(db.Integer,
+                   primary_key=True, autoincrement=True)
 
-    start = sqlalchemy.Column(sqlalchemy.types.DateTime)
-    end = sqlalchemy.Column(sqlalchemy.types.DateTime)
+    animal_id = db.Column(
+        db.Integer, db.ForeignKey("animal.id"))
+    event_type_id = db.Column(
+        db.Integer, db.ForeignKey("event_type.id"))
+    user_id = db.Column(
+        db.Integer, db.ForeignKey("user.id"))
 
-    description = sqlalchemy.Column(sqlalchemy.types.Text)
+    start = db.Column(db.DateTime)
+    end = db.Column(db.DateTime)
 
-    # TODO animal
-    # TODO type
-    # TODO author
-    # TODO performer
+    description = db.Column(db.Text)
+
+    animal = relation("Animal", back_populates="events")
+    event_type = relation("Event_type", back_populates="events")
+    user = relation("User", back_populates="events")
+
+    def __init__(self, start: datetime, end: datetime, description: str = ""):
+        self.start = start
+        self.end = end
+        self.description = description

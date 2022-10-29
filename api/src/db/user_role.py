@@ -1,12 +1,21 @@
-from ..main import db
-from .constants import STRING_LEN
-import sqlalchemy
+from .constants import STRING_LEN, db
+from sqlalchemy.orm import relation
 
 
-class user_role(db.Model):
+class User_role(db.Model):
     __tablename__ = "user_role"
-    id = sqlalchemy.Column(sqlalchemy.types.String(
-        STRING_LEN), primary_key=True)
-    name = sqlalchemy.Column(sqlalchemy.types.String(STRING_LEN))
+    id = db.Column(db.Integer,
+                   primary_key=True, autoincrement=True)
 
-    description = sqlalchemy.Column(sqlalchemy.types.Text)
+    name = db.Column(db.String(STRING_LEN), unique=True)
+    description = db.Column(db.Text)
+
+    users = relation("User", back_populates="user_role")
+    permissions = relation("Permission", back_populates="user_role")
+
+    def __init__(self, name: str, description: str = ""):
+        self.name = name
+        self.description = description
+
+    def __repr__(self):
+        return self.name
