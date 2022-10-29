@@ -1,21 +1,22 @@
-import flask
-import flask_sqlalchemy
+from user_session import *
+from app import app
+import db
+
+# cross origin resource sharing
+from flask_cors import cross_origin
 
 
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://login:password@localhost/iis'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://login:@localhost/iis'
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-db = flask_sqlalchemy.SQLAlchemy(app)
-
-
+@cross_origin
 @app.route('/')
 def hello_world():
     return 'Hello world!'
 
 
 if __name__ == "__main__":
+    # temporary reseting database data for debuging purposes
+    with app.app_context():
+        db.db.drop_all()
+        db.db.create_all()
+        import data
+        data.add_data()
     app.run()
