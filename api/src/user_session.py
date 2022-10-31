@@ -66,13 +66,21 @@ def authtenticate(func):
                 db.db.session.commit()
             return r.generate_response(r.AUTHENTICATION_FAILED, r.STATUS_UNAUTHORIZED)
 
+
         # if needed passing user into wrapped function
         user = session.user
         if "user" in inspect.getargspec(func).args:
             print("passing user")
             kwargs["user"] = user
 
-        return func(*args, **kwargs)
+        resp = func(*args, **kwargs)
+
+        # updating expiration
+        session.update()
+        resp.set_cookie("token", session.token, expires=session.expire)
+        db.db.session.commit()
+
+        return resp
     return wrapper
 
 
