@@ -41,5 +41,5 @@ class Session(db.Model):
         return self.expire > datetime.now()
 
     def update(self):
-        self.expire = datetime.now()
+        self.expire = get_expire_time()
         return

@@ -39,6 +39,7 @@ def login():
     # creating response
     resp = r.generate_OK()
     resp.set_cookie("token", session.token, expires=session.expire)
+    resp.set_cookie("user_role", user.user_role.name, expires=session.expire)
 
     return resp
 
@@ -65,7 +66,6 @@ def authtenticate(func):
                 db.db.session.commit()
             return r.generate_response(r.AUTHENTICATION_FAILED, r.STATUS_UNAUTHORIZED)
 
-
         # if needed passing user into wrapped function
         user = session.user
         if "user" in inspect.getargspec(func).args:
@@ -77,6 +77,7 @@ def authtenticate(func):
         # updating expiration
         session.update()
         resp.set_cookie("token", session.token, expires=session.expire)
+        resp.set_cookie("user_role", user.user_role.name, expires=session.expire)
         db.db.session.commit()
 
         return resp
