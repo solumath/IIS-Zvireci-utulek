@@ -39,7 +39,6 @@ class User(db.Model):
         self.email = email
         self.tel_number = tel_number
         self.rating = rating
-        self.verified = verified
 
     def __repr__(self) -> str:
         return "login: %10s, role %10r" % (self.login, self.user_role)
