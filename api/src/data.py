@@ -34,13 +34,22 @@ user_roles = [
 animals = [
     db.Animal("Gutenberg", "male", "brown", 15, 40, "dog ?", "dog with 4 legs", 15,
               date(2015, 12, 2), date(2019, 1, 2), "Bozetechova 2", "It is a dog."),
+    # TODO add animals
 ]
 
-admin_users = [
-    db.User("admin", "tryhards", "martin", "kneslik", "Berkova 54",
-            "m.kneslik@utulek.cz", "+420603334197", 10, True),
-    db.User("vet", "treehards", "martin", "kneslik", "Berkova 54",
-            "m.kneslik@utulek.cz", "+420603334197", 10, True),
+admin_user = db.User("admin", "tryhards", "martin", "kneslik", "Berkova 54",
+                     "m.kneslik@utulek.cz", "+420603334197", 10, True)
+
+vet_user = db.User("vet", "treehards", "martin", "kneslik", "Berkova 54",
+                   "m.kneslik@utulek.cz", "+420603334197", 10, True)
+# TODO add users (caretaker, volunteer, unverified)
+
+event_types = [
+    # TODO add event_types (2-3)
+]
+
+events = [
+    # TODO add events (2-3)
 ]
 
 
@@ -48,9 +57,15 @@ def add_data():
     for role in user_roles:
         db.db.session.add(role)
 
-    for admin in admin_users:
-        admin.user_role = role_admin
-        db.db.session.add(admin)
+    admin_user.user_role = role_admin
+    db.db.session.add(admin_user)
+
+    vet_user.user_role = role_vet
+    db.db.session.add(vet_user)
+
+    # TODO add users to db
+    # TODO add event types to db
+    # TODO add events to db (event.event_type = evetn_type)
 
     # must be last, commits all changes to database
     db.db.session.commit()
