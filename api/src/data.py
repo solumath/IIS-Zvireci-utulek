@@ -1,7 +1,27 @@
 from datetime import date
 import db
-from db.user_role import role_admin, role_volunteer, role_caretaker, role_unverified, role_vet
 
+role_admin = db.User_role(name="administrator", description="""
+            - has highest permissions""")
+
+role_caretaker = db.User_role(name="caretaker", description="""
+            - manages animals
+            - creates walking timetables
+            - verifies volunteers
+            - approves animal bookings
+            - creates veterinarian requests""")
+
+role_vet = db.User_role(name="veterinarian", description="""
+            - has access to medical records, 
+            - performs medical procedures""")
+
+role_volunteer = db.User_role(name="volunteer", description="""
+            - can book animal for a walk 
+            - can see his history""")
+
+role_unverified = db.User_role(name="unverified", description="""
+            - unverified volunteer
+            - awaits verification""")
 
 user_roles = [
     role_admin,
@@ -18,6 +38,8 @@ animals = [
 
 admin_users = [
     db.User("admin", "tryhards", "martin", "kneslik", "Berkova 54",
+            "m.kneslik@utulek.cz", "+420603334197", 10, True),
+    db.User("vet", "treehards", "martin", "kneslik", "Berkova 54",
             "m.kneslik@utulek.cz", "+420603334197", 10, True),
 ]
 
