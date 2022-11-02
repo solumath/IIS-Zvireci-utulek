@@ -1,77 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-        <link rel="stylesheet" href="../css/animals.css" />
-        <title>Pes gang</title>
-        <link rel="icon" type="image/x-icon" href="../assets/pets_blue.ico">
-    </head>
 
-    <body>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
-            <div class="container">
-                <a href="../index.html" class="navbar-brand"><img class="pets-image" src="../assets/pets_blue.png">Pes
-                    gang</a>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="../css/animals.css" />
+    <script src="./main.js"></script>
+    <title>Pes gang</title>
+    <link rel="icon" type="image/x-icon" href="../assets/pets_blue.ico">
+</head>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
+        <div class="container">
+            <a href="../index.html" class="navbar-brand"><img class="pets-image" src="../assets/pets_blue.png">Pes
+                gang</a>
 
-                <div class="collapse navbar-collapse" id="navmenu">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a href="animals.html" class="nav-link">Nalezená zvířátka</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="about_us.html" class="nav-link">O nás</a>
-                        </li>
-                        <li class="nav-item-login">
-                            <a href="login.html" class="btn btn-primary" role="button">Přihlásit</a>
-                        </li>
-                    </ul>
-                </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="animals.html" class="nav-link">Nalezená zvířátka</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about_us.html" class="nav-link">O nás</a>
+                    </li>
+                    <li class="nav-item-login">
+                        <a href="login.html" class="btn btn-primary" role="button">Přihlásit</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- Showcase -->
-        <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
-            <div class="container">
-                <div class="d-sm-flex align-items-center justify-content-between">
-                    <div>
-                        <h1>Adoptujte si <span style="color: #D9514E;">nového člena</span> rodiny</h1>
-                        <p class="lead my-4">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                            Quis architecto quas distinctio accusantium, rem obcaecati sint non m
-                            aiores porro odit numquam nemo voluptatibus ea ipsum ut quos reiciendis
-                            perspiciatis ipsa.
-                        </p>
-                        <button class="btn btn-primary btn-lg">Adoptuj</button>
+    <!-- Showcase -->
+    <section class="bg-dark text-light p-5 pt-lg-5">
+        <div class="container" style="padding-top: 40px;">
+            <h1 style="text-align:middle">Adoptujte si <span style="color: #D9514E;">nového člena</span> rodiny</h1>
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <div style="width: 100%;">
+                    <input type="text" class="input-filter" id="filtering" onkeyup="filtering()" placeholder="Hledej" />
+
+                    <div class="row" id="animals">
+                        <div class="column">
+                            <div class="card w-150">
+                                <img src="/assets/heheh.jpg" alt="Alex" style="width:100%">
+                                <div class="card-body">
+                                    <h2 class="card-title">Alex</h2>
+                                    <p class="card-subtitle">kříženec</p>
+                                    <p>Věk: <button type="button" class="btn btn-outline-info"><i
+                                                class="bi bi-pencil-square"></i>více informací</button></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="card w-150">
+                                <img src="/assets/Alex1.jpg" alt="Alex" style="width:100%">
+                                <div class="card-body">
+                                    <h2 class="card-title">Tvoje mama</h2>
+                                    <p class="card-subtitle">labrador</p>
+                                    <p>Věk: <button type="button" class="btn btn-outline-info"><i
+                                                class="bi bi-pencil-square"></i>více informací</button></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="card w-150">
+                                <img src="/assets/24272912_10204400312846091_1650509842_n.jpg" alt="Alex"
+                                    style="width:100%">
+                                <div class="card-body">
+                                    <h2 class="card-title">Jozef</h2>
+                                    <p class="card-subtitle">civava</p>
+                                    <p>Věk: <button type="button" class="btn btn-outline-info"><i
+                                                class="bi bi-pencil-square"></i>více informací</button></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="card w-150">
+                                <img src="/assets/24272912_10204400312846091_1650509842_n.jpg" alt="Alex"
+                                    style="width:100%">
+                                <div class="card-body">
+                                    <h2 class="card-title">Jozef</h2>
+                                    <p class="card-subtitle">civava</p>
+                                    <p>Věk: <button type="button" class="btn btn-outline-info"><i
+                                                class="bi bi-pencil-square"></i>více informací</button></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="card w-150">
+                                <img src="/assets/heheh.jpg" alt="Alex" style="width:100%">
+                                <div class="card-body">
+                                    <h2 class="card-title">Hovinko</h2>
+                                    <p class="card-subtitle">kříženec</p>
+                                    <p>Věk: <button type="button" class="btn btn-outline-info"><i
+                                                class="bi bi-pencil-square"></i>více informací</button></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="card w-150">
+                                <img src="/assets/Alex1.jpg" alt="Alex" style="width:100%">
+                                <div class="card-body">
+                                    <h2 class="card-title">Moje mama</h2>
+                                    <p class="card-subtitle">labrador</p>
+                                    <p>Věk: <button type="button" class="btn btn-outline-info"><i
+                                                class="bi bi-pencil-square"></i>více informací</button></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="card w-150">
+                                <img src="/assets/24272912_10204400312846091_1650509842_n.jpg" alt="Alex"
+                                    style="width:100%">
+                                <div class="card-body">
+                                    <h2 class="card-title">Gandalf</h2>
+                                    <p class="card-subtitle">civava</p>
+                                    <p>Věk: <button type="button" class="btn btn-outline-info"><i
+                                                class="bi bi-pencil-square"></i>více informací</button></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <img class="img-fluid w-50 d-none d-sm-block" src="img/showcase.svg" alt="" />
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
 
-        <!-- Footer -->
-        <footer class="p-5 bg-dark text-white text-center position-relative">
-            <div class="container">
-                <p class="lead">Copyright &copy; 2022 Tryhards</p>
+    <!-- Footer -->
+    <footer class="p-5 bg-dark text-white text-center position-relative">
+        <div class="container">
+            <p class="lead">Copyright &copy; 2022 Tryhards</p>
 
-                <a href="#" class="position-absolute bottom-0 end-0 p-5">
-                    <i class="bi bi-arrow-up-circle h1"></i>
-                </a>
-            </div>
-        </footer>
+            <a href="#" class="position-absolute bottom-0 end-0 p-5">
+                <i class="bi bi-arrow-up-circle h1"></i>
+            </a>
+        </div>
+    </footer>
+</body>
 
-        <!-- JavaScript Bundles -->
-        <script 
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" 
-          integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" 
-          crossorigin="anonymous"
-        ></script>
-    </body>
 </html>
