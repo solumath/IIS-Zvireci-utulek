@@ -76,9 +76,9 @@ unverified_user = db.User("unverified", "poop", "Juraj", "Prdelkový", "Vysoké 
                    "jurik.prdelka@utulek.cz", "+421913677100", 8, False)
 
 event_types = [
-    db.event_type("procházka", 1, "Vzití zviřete mimo útulek s povinnosti navrácení v předem určený čas."),
-    db.event_type("vyšetření", 9, "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
-    db.event_type("salón", 5, "Návštěva psího salónu s cílem vylepšení vzhledu zvířete (koupel, stříhání srsti, stříhání drápků).")
+    db.Event_type("procházka", 1, "Vzití zviřete mimo útulek s povinnosti navrácení v předem určený čas."),
+    db.Event_type("vyšetření", 9, "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
+    db.Event_type("salón", 5, "Návštěva psího salónu s cílem vylepšení vzhledu zvířete (koupel, stříhání srsti, stříhání drápků).")
 ]
 
 events = [
