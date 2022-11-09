@@ -3,7 +3,10 @@ localAddress = 'http://127.0.0.1:5500';
 
 $( document ).ready(function() {
     console.log( "ready!" );
-    
+
+    // load footer and navbar
+    $("#footer-placeholder").load("../html/footer.html");
+    $("#navbar-placeholder").load("../html/navbar.html");
     
     $("#loginForm").submit(function(e) {
         e.preventDefault();
