@@ -14,7 +14,7 @@ def login():
 
     # check if needed data was sent
     if "login" not in json or "password" not in json:
-        return r.generate_response(r.MISSING_USERNAME_OR_PASSWORD, r.STAUTS_BAD_REQUEST)
+        return r.generate_response(r.STAUTS_BAD_REQUEST, r.MISSING_USERNAME_OR_PASSWORD)
     login = json["login"]
     password = json["password"]
 
@@ -23,7 +23,7 @@ def login():
 
     # checking username and password
     if user is None or user.password != password:
-        return r.generate_response(r.WRONG_USERNAME_OR_PASSWORD, r.STATUS_FORBIDDEN)
+        return r.generate_response(r.STATUS_FORBIDDEN, r.WRONG_USERNAME_OR_PASSWORD)
 
     # deleting old session
     if user.session is not None:
@@ -51,7 +51,7 @@ def authtenticate(func):
 
         # checking for token in cookies
         if "token" not in cookies:
-            return r.generate_response(r.AUTHENTICATION_FAILED, r.STAUTS_BAD_REQUEST)
+            return r.generate_response(r.STAUTS_BAD_REQUEST, r.AUTHENTICATION_FAILED)
         token = cookies["token"]
 
         # searching session
@@ -64,7 +64,7 @@ def authtenticate(func):
             if session is not None:
                 db.db.session.delete(session)
                 db.db.session.commit()
-            return r.generate_response(r.AUTHENTICATION_FAILED, r.STATUS_UNAUTHORIZED)
+            return r.generate_response(r.STATUS_UNAUTHORIZED,r.AUTHENTICATION_FAILED)
 
         # if needed passing user into wrapped function
         user = session.user
@@ -77,7 +77,8 @@ def authtenticate(func):
         # updating expiration
         session.update()
         resp.set_cookie("token", session.token, expires=session.expire)
-        resp.set_cookie("user_role", user.user_role.name, expires=session.expire)
+        resp.set_cookie("user_role", user.user_role.name,
+                        expires=session.expire)
         db.db.session.commit()
 
         return resp
