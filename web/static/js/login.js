@@ -1,13 +1,11 @@
 // send post request to server
+apiAddress = 'http://127.0.0.1:5000';
 localAddress = 'http://127.0.0.1:5500';
 
 $( document ).ready(function() {
     console.log( "ready!" );
-
-    // load footer and navbar
-    $("#footer-placeholder").load("../html/footer.html");
-    $("#navbar-placeholder").load("../html/navbar.html");
-    
+    $('#arrowToTop').remove();
+        
     $("#loginForm").submit(function(e) {
         e.preventDefault();
         const login = $("#login").val();
@@ -26,7 +24,7 @@ $( document ).ready(function() {
         $.ajax({
             type: "POST",
             headers: headers,
-            url: localAddress+"/login",
+            url: apiAddress+"/login",
             data: JSON.stringify(formData),
             dataType: "json",
             success: function(data) {
@@ -36,7 +34,7 @@ $( document ).ready(function() {
 
                 // redirect if modal windows is closed
                 $('#successModal').on('hidden.bs.modal', function (e) {
-                    window.location.href = localAddress+"/index.html";
+                    window.location.href = localAddress;
                 });
             },
             crossDomain: true,
@@ -77,7 +75,7 @@ $( document ).ready(function() {
         $.ajax({
             type: "POST",
             headers: headers,
-            url: localAddress+"/register",
+            url: apiAddress+"/register",
             data: JSON.stringify(formData),
             dataType: "json",
             success: function(data) {
