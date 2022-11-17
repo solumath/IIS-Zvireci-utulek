@@ -16,7 +16,7 @@
     </head>
 <body>
 
-{% if true %}
+{% if not current_user.is_authenticated %}
 <!-- Navbar Not Logged in -->
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top" role="navigation" id="navbarNotLogged">
     <div class="container">

@@ -46,7 +46,7 @@ def register_form(form):
     db.db.session.add(new_user)
     db.db.session.commit()
 
-    return r.generate_OK()
+    return flask.redirect(flask.url_for("login"))
 
 
 def login_form(form):
