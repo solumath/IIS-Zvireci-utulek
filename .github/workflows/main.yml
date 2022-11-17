@@ -34,4 +34,4 @@ jobs:
     
     - name: Execute main.py
       run: |
-        python3 main.py
+        python3 main.py& PID=$!; sleep 5; kill $PID
