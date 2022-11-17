@@ -17,7 +17,6 @@ class User(db.Model):
     tel_number = db.Column(db.String(STRING_LEN))
 
     rating = db.Column(db.Integer)
-    verified = db.Column(db.Boolean)
 
     role_id = db.Column(db.Integer, db.ForeignKey("user_role.id"))
 
@@ -30,7 +29,7 @@ class User(db.Model):
     # updated_at = db.Column(
     #     db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
-    def __init__(self, login, password, name, surname, address, email, tel_number, rating, verified=False):
+    def __init__(self, login, password, name, surname, address, email, tel_number, rating=0, verified=False):
         self.login = login
         self.password = password
         self.name = name
