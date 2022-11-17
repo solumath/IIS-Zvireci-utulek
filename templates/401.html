@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block body %}
-<div class="text-center flex-column text-danger">
+<div class="text-center flex-column text-danger" id="body">
 <h1>401 Unauthorized</h1>
 <p>Nemáte dostatečné oprávnění k této stránce.</p>
-<a href="../html/login.html" class="btn btn-primary">Přihlásit se</a>
+<a href="{{ url_for('login') }}" class="btn btn-primary">Přihlásit se</a>
 </div>
 
 {% endblock %}
