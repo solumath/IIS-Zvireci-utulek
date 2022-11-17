@@ -63,6 +63,8 @@ def login_form(form):
             flask_login.login_user(user, remember=True)
 
             return flask.redirect(flask.url_for("index"))
+    return flask.redirect(flask.url_for("login"))
+
 
 
 @cross_origin
