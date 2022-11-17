@@ -1,4 +1,5 @@
 from user_session import *
+from user import *
 from app import app
 import db
 
