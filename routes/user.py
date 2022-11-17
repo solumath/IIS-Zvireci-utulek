@@ -66,7 +66,6 @@ def login_form(form):
     return flask.redirect(flask.url_for("login"))
 
 
-
 @cross_origin
 @app.route("/login", methods=["GET", "POST"])
 def login():

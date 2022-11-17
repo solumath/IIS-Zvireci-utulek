@@ -1,0 +1,37 @@
+name: Run
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    types: [ opened, reopened, synchronize ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Restore cache
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-${{ hashFiles('requirements*') }}
+
+    - name: Install dependencies
+      run: |
+        python3 -m pip install --upgrade pip wheel
+        python3 -m pip install --upgrade --upgrade-strategy eager flake8
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    
+    - name: execute main.py 
+        run: |
+          python main.py
