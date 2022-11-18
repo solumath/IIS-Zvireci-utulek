@@ -2,7 +2,7 @@ from .constants import STRING_LEN, db
 from sqlalchemy.orm import relation
 
 
-class Event_type(db.Model):
+class EventType(db.Model):
     __tablename__ = "event_type"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(STRING_LEN), unique=True)

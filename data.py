@@ -1,25 +1,25 @@
 from datetime import date
 import db
 
-role_admin = db.User_role(name="administrator", description="""
+role_admin = db.UserRole(name="administrator", description="""
             - has highest permissions""")
 
-role_caretaker = db.User_role(name="caretaker", description="""
+role_caretaker = db.UserRole(name="caretaker", description="""
             - manages animals
             - creates walking timetables
             - verifies volunteers
             - approves animal bookings
             - creates veterinarian requests""")
 
-role_vet = db.User_role(name="veterinarian", description="""
+role_vet = db.UserRole(name="veterinarian", description="""
             - has access to medical records, 
             - performs medical procedures""")
 
-role_volunteer = db.User_role(name="volunteer", description="""
+role_volunteer = db.UserRole(name="volunteer", description="""
             - can book animal for a walk 
             - can see his history""")
 
-role_unverified = db.User_role(name="unverified", description="""
+role_unverified = db.UserRole(name="unverified", description="""
             - unverified volunteer
             - awaits verification""")
 
@@ -76,11 +76,11 @@ unverified_user = db.User("unverified", "poop",  "Juraj", "Prdelkový", "Vysoké
                           "jurik.prdelka@utulek.cz", "+421913677100", 8)
 
 event_types = [
-    db.Event_type(
+    db.EventType(
         "procházka", 1, "Vzití zviřete mimo útulek s povinnosti navrácení v předem určený čas."),
-    db.Event_type("vyšetření", 9,
+    db.EventType("vyšetření", 9,
                   "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
-    db.Event_type(
+    db.EventType(
         "salón", 5, "Návštěva psího salónu s cílem vylepšení vzhledu zvířete (koupel, stříhání srsti, stříhání drápků).")
 ]
 

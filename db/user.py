@@ -1,6 +1,5 @@
 from .constants import STRING_LEN, db
 from sqlalchemy.orm import relation
-import marshmallow as ma
 from flask_login import UserMixin
 
 
@@ -39,11 +38,6 @@ class User(db.Model):
     def is_anonymous(self):
         return False
 
-    # created_at = db.Column(
-    #     db.DateTime, default=db.func.now())
-    # updated_at = db.Column(
-    #     db.DateTime, default=db.func.now(), onupdate=db.func.now())
-
     def __init__(self, login, password, name, surname, address, email, tel_number, rating=0):
         self.login = login
         self.password = password
@@ -56,7 +50,7 @@ class User(db.Model):
 
     def __repr__(self) -> str:
         return f"login: {self.login}, role {self.user_role}"
-    
+
     def get_info(self) -> dict:
         return {
             "Jméno": f"{self.name} {self.surname}",
@@ -85,14 +79,3 @@ class User(db.Model):
         if equal is NotImplemented:
             return NotImplemented
         return not equal
-
-
-class User_Schema(ma.Schema):
-    pass
-
-# class UserSchema(ma.Schema):
-#     class Meta:
-#         fields = ('id', 'login', 'password', 'name', 'surname', 'address', 'email', 'tel_number', 'rating', 'verified')
-
-# user_schema = UserSchema()
-# users_schema = UserSchema(many=True)

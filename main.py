@@ -2,7 +2,6 @@ from app import app
 import db
 
 from routes import *
-# cross origin resource sharing
 
 
 if __name__ == "__main__":

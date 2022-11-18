@@ -2,7 +2,7 @@ from .constants import STRING_LEN, db
 from sqlalchemy.orm import relation
 
 
-class User_role(db.Model):
+class UserRole(db.Model):
     __tablename__ = "user_role"
     id = db.Column(db.Integer,
                    primary_key=True, autoincrement=True)
