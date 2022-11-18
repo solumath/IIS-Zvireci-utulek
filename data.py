@@ -40,7 +40,7 @@ animals = [
 
     db.Animal("Mrkvička", "samice", "bílá", 5, 30, "kočka", "Ragdoll", 15002,
               date(2021, 2, 2), date(2022, 1, 2), "Purkyňova 93", "Agresivní malá kočka s alergií na ryby."),
-    
+
     db.Animal("Oscar", "samec", "modrá", 0.01, 5, "ryba", "Bojovka", 15003,
               date(2022, 2, 8), date(2022, 10, 2), "Mánesova 2524/12", "Rybka většího vzrůstu, musí být v akvárku sama."),
 
@@ -61,24 +61,27 @@ animals = [
 ]
 
 admin_user = db.User("admin", "tryhards",  "Martin", "Kneslik", "Berkova 54",
-                      "m.kneslik@utulek.cz", "+420603334197", 11)
+                     "m.kneslik@utulek.cz", "+420603334197", 11)
 
 vet_user = db.User("vet", "treehards",  "Martin", "Kneslík", "Berkova 54",
-                    "asdds@utulek.cz", "+420603334197", 10)
+                   "asdds@utulek.cz", "+420603334197", 10)
 
 caretaker_user = db.User("caretaker", "1234",  "Ahmed", "Prdík", "Revoluční 1820",
-                     "ahm.prd@utulek.cz", "+420721059221", 10)
+                         "ahm.prd@utulek.cz", "+420721059221", 10)
 
 volunteer_user = db.User("volunteer", "abcd",  "Jolanda", "Veliká", "Breberkova 1420",
-                    "jolis.velis@utulek.cz", "+420603674100", 9)
+                         "jolis.velis@utulek.cz", "+420603674100", 9)
 
 unverified_user = db.User("unverified", "poop",  "Juraj", "Prdelkový", "Vysoké Tatry 4",
-                    "jurik.prdelka@utulek.cz", "+421913677100", 8)
+                          "jurik.prdelka@utulek.cz", "+421913677100", 8)
 
 event_types = [
-    db.Event_type("procházka", 1, "Vzití zviřete mimo útulek s povinnosti navrácení v předem určený čas."),
-    db.Event_type("vyšetření", 9, "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
-    db.Event_type("salón", 5, "Návštěva psího salónu s cílem vylepšení vzhledu zvířete (koupel, stříhání srsti, stříhání drápků).")
+    db.Event_type(
+        "procházka", 1, "Vzití zviřete mimo útulek s povinnosti navrácení v předem určený čas."),
+    db.Event_type("vyšetření", 9,
+                  "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
+    db.Event_type(
+        "salón", 5, "Návštěva psího salónu s cílem vylepšení vzhledu zvířete (koupel, stříhání srsti, stříhání drápků).")
 ]
 
 events = [
@@ -101,6 +104,15 @@ def add_data():
 
     volunteer_user.user_role = role_volunteer
     db.db.session.add(volunteer_user)
+
+    for animal in animals:
+        db.db.session.add(animal)
+
+    for event_type in event_types:
+        db.db.session.add(event_type)
+
+    for event in events:
+        db.db.session.add(event)
 
     # TODO add event types to db
     # TODO add events to db (event.event_type = event_type)
