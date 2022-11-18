@@ -88,7 +88,7 @@ def login():
         if 'registerSubmit' in flask.request.form:
             return register_form(flask.request.form)
 
-        flask.flash(r.STAUTS_BAD_REQUEST, "Bez dopice")
+        flask.flash(r.STATUS_BAD_REQUEST, "Bez dopice")
         return flask.render_template("login.html")
 
     return flask.render_template("login.html")
