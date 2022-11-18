@@ -6,9 +6,9 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}" />
-        <script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+        <script src="{{ url_for('static', filename='js/base.js') }}"></script>
         <link rel="icon" href="{{ url_for('static', filename='assets/pets_blue.ico') }}">
         <title>Pes gang</title>
         {% block head %}
@@ -18,15 +18,15 @@
 
 {% if not current_user.is_authenticated %}
 <!-- Navbar Not Logged in -->
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top" role="navigation" id="navbarNotLogged">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top" role="navigation">
     <div class="container">
         <a href="{{ url_for('index') }}" class="navbar-brand"><img class="pets-image" src="{{ url_for('static', filename='assets/pets_blue.png') }}" />Pes gang</a>
         
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNotLogged" aria-controls="navbarNotLogged" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        <div class="collapse navbar-collapse">
+        <div class="collapse navbar-collapse" id="navbarNotLogged">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a href="{{ url_for('animals') }}" class="nav-link">Nalezená zvířátka</a>
@@ -44,15 +44,15 @@
 
 {% else %}
 <!-- navbar when logged in -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top" role="navigation" id="navbarLogged">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top" role="navigation">
         <div class="container">
             <a href="{{ url_for('index') }}" class="navbar-brand"><img class="pets-image" src="{{ url_for('static', filename='assets/pets_blue.png') }}" />Pes gang</a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLogged" aria-controls="navbarLogged" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <div class="collapse navbar-collapse" id="navMenuLogged">
+            <div class="collapse navbar-collapse" id="navbarLogged">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a href="{{ url_for('animals') }}" class="nav-link">Nalezená zvířátka</a>
@@ -63,8 +63,18 @@
                     <li class="nav-item">
                         <a href="{{url_for('walks') }}" class="nav-link">Procházky</a>
                     </li>
+                    {% if current_user.rating > 9 %}
+                    <li class="nav-item">
+                        <a href="{{url_for('examinations') }}" class="nav-link">Prohlídky</a>
+                    </li>
+                    {% endif %}
+                    {% if current_user.rating > 10 %}
                     <li class="nav-item">
                         <a href="{{ url_for('admin') }}" class="nav-link">Administrace</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a href="{{ url_for('profile') }}" class="nav-link">Profil</a>
                     </li>
                     <li class="nav-item-logout">
                         <a href="{{ url_for('logout') }}" class="btn btn-primary" role="button">Odhlásit</a>

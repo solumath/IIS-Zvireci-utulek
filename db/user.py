@@ -56,6 +56,15 @@ class User(db.Model):
 
     def __repr__(self) -> str:
         return f"login: {self.login}, role {self.user_role}"
+    
+    def get_info(self) -> dict:
+        return {
+            "Jméno": f"{self.name} {self.surname}",
+            "Bydliště": self.address,
+            "email": self.email,
+            "Telefon": self.tel_number,
+            "Hodnocení": self.rating
+        }
 
     def get_id(self):
         return self.login

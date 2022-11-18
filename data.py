@@ -61,7 +61,7 @@ animals = [
 ]
 
 admin_user = db.User("admin", "tryhards",  "Martin", "Kneslik", "Berkova 54",
-                      "m.kneslik@utulek.cz", "+420603334197", 10)
+                      "m.kneslik@utulek.cz", "+420603334197", 11)
 
 vet_user = db.User("vet", "treehards",  "Martin", "Kneslík", "Berkova 54",
                     "asdds@utulek.cz", "+420603334197", 10)

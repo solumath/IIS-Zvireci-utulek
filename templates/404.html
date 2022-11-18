@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/404.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/404.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<div class="text-center flex-column text-danger" id="body">
+<h1>404 Not Found</h1>
+<p>Tato stránka neexistuje.</p>
+<a href="{{ url_for('index') }}" class="btn btn-primary">Vrátit se domů</a>
+</div>
+
+{% endblock %}

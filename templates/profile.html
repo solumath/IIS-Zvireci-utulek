@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/profile.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<!-- Showcase -->
+<section class="p-3 bg-dark text-white text-center text-sm-start">
+    <div class="container">
+        <h1>Vítej {{ current_user.name }}</h1>
+    </div>
+</section>
+
+<section class="bg-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+    <div class="container">
+
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col" colspan="2">Informace</th>
+          </tr>
+        </thead>
+        <tbody>
+            {%  for key, value in user_info.items() %}
+            <tr>
+                <th scope="row"> {{ key }}</th>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    
+    <table class="table table-striped table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col" colspan="2">Moje procházky</th>
+        </tr>
+      </thead>
+      <tbody>
+          {%  for key, value in user_info.items() %}
+          <tr>
+              <th scope="row"> {{ key }}</th>
+              <td>{{ value }}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+</div>
+</section>
+
+{% endblock %}
