@@ -10,14 +10,14 @@ from datetime import datetime
 # ANIMALS
 
 
-def get_animal(id: int) -> Animal | None:
+def get_animal(id: int):
     """
         returns animal with id, or None if not found
     """
     return db.session.query(Animal).get(id)
 
 
-def get_animals() -> list[Animal]:
+def get_animals():
     """
         returns serialized array of all animals,
     """
@@ -30,14 +30,14 @@ def get_animals() -> list[Animal]:
 # USERS
 
 
-def get_user(id) -> User | None:
+def get_user(id):
     """
         returns user with id, or None if not found
     """
     return db.session.query(User).get(id)
 
 
-def get_users(login: str = None, email: str = None, name: str = None, surname: str = None) -> list[User]:
+def get_users(login: str = None, email: str = None, name: str = None, surname: str = None):
     """
         return array of users,
         if some of the arguments are set, filter by them
@@ -63,7 +63,7 @@ def get_users(login: str = None, email: str = None, name: str = None, surname: s
 # EVENTS
 
 
-def get_events_query(user: User | int = None, animal: Animal | int = None, event_type: EventType | int = None):
+def get_events_query(user=None, animal=None, event_type=None):
     """
         returns query for events
     """
@@ -88,7 +88,7 @@ def get_events_query(user: User | int = None, animal: Animal | int = None, event
     return query
 
 
-def get_past_events(user: User | int = None, animal: Animal | int = None, event_type: EventType | int = None) -> list[Event]:
+def get_past_events(user=None, animal=None, event_type=None):
     """
         returns serialized array of events that will end in future,
         default returns all,
@@ -99,7 +99,7 @@ def get_past_events(user: User | int = None, animal: Animal | int = None, event_
     return query.filter(Event.end < datetime.now()).all()
 
 
-def get_future_events(user: User | int = None, animal: Animal | int = None, event_type: EventType | int = None) -> list[Event]:
+def get_future_events(user=None, animal=None, event_type=None):
     """
         returns serialized array of events that already ended,
         default returns all,
