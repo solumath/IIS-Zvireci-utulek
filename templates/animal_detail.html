@@ -1,1 +1,78 @@
-<!-- https://www.w3schools.com/howto/howto_css_image_sticky.asp -->
+{% extends 'base.html' %}
+{% block title %}
+{{animal.name}}
+{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animal_detail.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<section class="bg-dark text-light p-5 pt-lg-5">
+    <div class="containerik">
+        <div class="picture">
+            <img src="{{ url_for('static', filename='assets/Alex1.jpg') }}" alt="Alex">
+        </div>
+        <div class="text">
+            <h1>{{animal.name}}</h1>
+            <table class="delsi">
+
+                <tr>
+                    <td>Pohlaví</td>
+                    <td class="p">{{animal.sex}}</td>
+
+                </tr>
+                <tr>
+                    <td>Druh</td>
+                    <td class="p">{{animal.kind}}</td>
+
+                </tr>
+                <tr>
+                    <td>Plemeno</td>
+                    <td class="p">{{animal.breed}}</td>
+
+                </tr>
+                <tr>
+                    <td>(Odhadované) datum narození</td>
+                    <td class="p">{{animal.birthday}}</td>
+
+                </tr>
+                <tr>
+                    <td>Barva</td>
+                    <td class="p">{{animal.color}}</td>
+
+                </tr>
+                <tr>
+                    <td>Váha[kg]</td>
+                    <td class="p">{{animal.weight}}</td>
+                </tr>
+                <tr>
+                    <td>Výška[cm]</td>
+                    <td class="p">{{animal.height}}</td>
+                </tr>
+                <tr>
+                    <td>Datum nalezení</td>
+                    <td class="p">{{animal.discovery_day}}</td>
+                </tr>
+                <tr>
+                    <td>Místo nalezení</td>
+                    <td class="p">{{animal.discovery_place}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="describe">
+            {{animal.description}}<br>
+            <!-- TODO zobrazeni podle role -->
+            {% if current_user.is_authenticated %}
+            <a type="button" href="{{url_for('walks') }}" class="btn btn-success btn-sm">Vyvenčit</a>
+            <a type="button" class="btn btn-secondary btn-sm">Historie</a>
+            <a type="button" class="btn btn-primary btn-sm">Zdravotní záznam</a>
+            <a type="button" class="btn btn-primary btn-sm">Upravit zvíře</a>
+
+            {%endif%}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

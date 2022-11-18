@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block title %}
+Nalezená zvířata
+{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/animals.css') }}" />
 <script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script>
@@ -12,97 +15,32 @@
         <div class="d-sm-flex align-items-center justify-content-between">
             <div style="width: 100%;">
                 <input type="text" class="input-filter" id="filtering" onkeyup="filtering()" placeholder="Hledej" />
+                <a type="button" class="btn btn-primary btn-sm">Přidat zvíře</a>
+
                 <div class="row" id="animals">
+                    {% for animal in animal_info %}
                     <div class="column">
                         <div class="card w-150">
-                            <img src="{{ url_for('static', filename='assets/Alex1.jpg') }}" alt="Alex" style="width:100%">
-                            <div class="card-body">
-                                <h2 class="card-title">Alex</h2>
-                                <p class="card-subtitle">kříženec</p>
-                                <p>Věk: <button type="button" class="btn btn-outline-info"><i
-                                            class="bi bi-pencil-square"></i>více informací</button></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="card w-150">
-                            <img src="{{ url_for('static', filename='assets/Alex2.jpg') }}" alt="Alex" style="width:100%">
-                            <div class="card-body">
-                                <h2 class="card-title">Tvoje mama</h2>
-                                <p class="card-subtitle">labrador</p>
-                                <p>Věk: <button type="button" class="btn btn-outline-info"><i
-                                            class="bi bi-pencil-square"></i>více informací</button></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="card w-150">
-                            <img src="{{ url_for('static', filename='assets/Alex3.jpg') }}" alt="Alex"
+                            <img src="{{ url_for('static', filename='assets/Alex1.jpg') }}" alt="Alex"
                                 style="width:100%">
                             <div class="card-body">
-                                <h2 class="card-title">Jozef</h2>
-                                <p class="card-subtitle">civava</p>
-                                <p>Věk: <button type="button" class="btn btn-outline-info"><i
-                                            class="bi bi-pencil-square"></i>více informací</button></p>
-                            </div>
-                        </div>
-                    </div>
+                                <h2 class="card-title">{{animal.name}}</h2>
+                                <p class="card-subtitle">{{animal.breed}}</p>
 
-                    <div class="column">
-                        <div class="card w-150">
-                            <img src="{{ url_for('static', filename='assets/Alex2.jpg') }}" alt="Alex"
-                                style="width:100%">
-                            <div class="card-body">
-                                <h2 class="card-title">Jozef</h2>
-                                <p class="card-subtitle">civava</p>
-                                <p>Věk: <button type="button" class="btn btn-outline-info"><i
-                                            class="bi bi-pencil-square"></i>více informací</button></p>
-                            </div>
-                        </div>
-                    </div>
+                                <p>Věk: {{animal.birthday}}
+                                    <a type="button" href="detail/{{animal.id}}" class="btn btn-outline-info"><i
+                                            class="bi bi-pencil-square"></i>více
+                                        informací</a>
+                                </p>
 
-                    <div class="column">
-                        <div class="card w-150">
-                            <img src="{{ url_for('static', filename='assets/Alex1.jpg') }}" alt="Alex" style="width:100%">
-                            <div class="card-body">
-                                <h2 class="card-title">Hovinko</h2>
-                                <p class="card-subtitle">kříženec</p>
-                                <p>Věk: <button type="button" class="btn btn-outline-info"><i
-                                            class="bi bi-pencil-square"></i>více informací</button></p>
                             </div>
                         </div>
                     </div>
-
-                    <div class="column">
-                        <div class="card w-150">
-                            <img src="{{ url_for('static', filename='assets/Alex3.jpg') }}" alt="Alex" style="width:100%">
-                            <div class="card-body">
-                                <h2 class="card-title">Moje mama</h2>
-                                <p class="card-subtitle">labrador</p>
-                                <p>Věk: <button type="button" class="btn btn-outline-info"><i
-                                            class="bi bi-pencil-square"></i>více informací</button></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="card w-150">
-                            <img src="{{ url_for('static', filename='assets/Alex2.jpg') }}" alt="Alex"
-                                style="width:100%">
-                            <div class="card-body">
-                                <h2 class="card-title">Gandalf</h2>
-                                <p class="card-subtitle">civava</p>
-                                <p>Věk: <button type="button" class="btn btn-outline-info"><i
-                                            class="bi bi-pencil-square"></i>více informací</button></p>
-                            </div>
-                        </div>
-                    </div>
+                    {%endfor%}
                 </div>
             </div>
         </div>
     </div>
 </section>
-    
+
 {% endblock %}

@@ -1,26 +1,59 @@
 {% extends 'base.html' %}
+{% block title %}
+O nás
+{% endblock %}
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}" />
-    <script type="text/javascript" src="{{ url_for('static', filename='js/about.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/about.js') }}"></script>
 {% endblock %}
 
 {% block body %}
 <!-- Showcase -->
 <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
-    <div class="container">
-        <div class="d-sm-flex align-items-center justify-content-between">
-            <div>
-                <h1>Adoptujte si <span style="color: #D9514E;">nového člena</span> rodiny</h1>
-                <p class="lead my-4">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Quis architecto quas distinctio accusantium, rem obcaecati sint non m
-                    aiores porro odit numquam nemo voluptatibus ea ipsum ut quos reiciendis
-                    perspiciatis ipsa.
-                </p>
-                <button class="btn btn-primary btn-lg">Adoptuj</button>
-            </div>
+    <div class="containerik">
+        <div class="head">
+            <h1>Útulek Pes Gang</h1>
+            <p class="lead my-4">
+                Tento útulek byl založen 17. listopadu roku 2022. Od té doby se stal domovem desítek zvířat, od
+                psů,
+                koček, přes koně až k hlodavcům. Zakladateli
+                tohoto útulku jsou Edko, Dan a Anička, kteří si jednoho deštivého dne řekli, že opuštěným
+                zvířatům
+                musí sami pomoct. Útulek samotný nyní umožňuje i možnost venčení. Přijďte se k nám podívat.
+                Naleznete nás na adrese
+                <a target="_blank"
+                    href="https://www.google.com/maps/place/Fakulta+informa%C4%8Dn%C3%ADch+technologi%C3%AD+Vysok%C3%A9ho+u%C4%8Den%C3%AD+technick%C3%A9ho+v+Brn%C4%9B/@49.2264605,16.5916985,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x47129408344d3457:0x9a79d20803e23ef0!2zQm_FvmV0xJtjaG92YSAyLzYsIDYxMiAwMCBCcm5vLUtyw6Fsb3ZvIFBvbGU!3b1!8m2!3d49.2281999!4d16.5953646!3m4!1s0x471294099dc06bbb:0xbfcf161b01a48b0d!8m2!3d49.2264571!4d16.5959257">
+                    Božetěchova 1/2, Brno</a>.
+            </p>
         </div>
+        <div class="otv">
+            <h5>Otevírací hodiny:</h5>
+            <table class="lead my-4">
+                <tr>
+                    <td> Po - pá:</td>
+                    <td style="text-align: right;">8:00 - 18:00</td>
+                </tr>
+                <tr>
+                    <td>So:</td>
+                    <td style="text-align: right;">9:00 - 20:00</td>
+                </tr>
+                <tr>
+                    <td>Ne:</td>
+                    <td style="text-align: right;">10:00 - 17:00</td>
+                </tr>
+            </table>
+            <p class="lead my-4"> Po telefonické domluvě je možné se domluvit na jiný čas.<br></p>
+        </div>
+        <div class="helppls">
+            <h5>Pokud chcete pomoct:</h5>
+            <p class="lead my-4">
+                -adoptujte některé z našich zvířat <br> -pomozte nám s vyvenčením <br> -přispějte
+                na bankovní účet: 1017476763/0300
+            </p>
+        </div>
+
     </div>
+
 </section>
 
 {% endblock %}

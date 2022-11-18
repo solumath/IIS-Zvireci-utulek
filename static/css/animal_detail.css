@@ -1,0 +1,63 @@
+.containerik {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1.7fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "picture picture text text"
+        "describe describe describe describe";
+    padding-top: 45px;
+    /* posunuti kvuli navbaru*/
+
+}
+
+.picture {
+    grid-area: picture;
+}
+
+.text {
+    grid-area: text;
+    color: white;
+}
+
+.describe {
+    grid-area: describe;
+}
+
+img {
+    float: left;
+    width: 480px;
+    height: 480px;
+    object-fit: cover;
+    border-radius: 5px 5px 5px 5px;
+
+}
+
+tr {
+    line-height: 45.5px;
+    border-bottom: 0.5pt solid grey;
+    color: gray;
+}
+
+td {
+    padding: 0 15px;
+}
+
+.delsi {
+    width: 100%;
+}
+
+.p {
+    text-align: right;
+    color: white;
+
+}
+
+table {
+    border-collapse: collapse;
+}
+
+element {
+    padding: 10px;
+}

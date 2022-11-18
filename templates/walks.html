@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
+{% block title %}
+Procházky
+{% endblock %}
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" />
-    <script type="text/javascript" src="{{ url_for('static', filename='js/admin.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/admin.js') }}"></script>
 {% endblock %}
 
 {% block body %}

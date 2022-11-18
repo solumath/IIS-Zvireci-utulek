@@ -3,6 +3,7 @@ import flask_login
 from app import app
 from functools import wraps
 import db
+from flask import redirect
 
 def role_required(roles):
     """
@@ -28,13 +29,21 @@ def index():
 
 @app.route('/animals')
 def animals():
-    return flask.render_template('animals.html')
+    return flask.render_template('animals.html',  animal_info=db.get_animals())
+
+@app.route('/detail/<id>')
+def detail(id):
+    for animal in db.get_animals():
+        sameId = int(animal.id)
+        if sameId == int(id):
+            return flask.render_template('animal_detail.html', animal=animal)
+        # TODO flash animal with this id doesnt exist
+    return redirect('/animals')
 
 
 @app.route('/about')
 def about():
     return flask.render_template('about.html')
-
 
 @app.route('/walks')
 @flask_login.login_required
