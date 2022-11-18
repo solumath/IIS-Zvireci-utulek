@@ -1,8 +1,12 @@
 
 OK = "Ok"
+ERROR = "Error"
+LOGIN_SUCCESS = "Byl jsi úspěšně přihlášen."
+LOGOUT_SUCCESS = "Byl jsi úspěšně odhlášen."
+REGISTER_SUCCESS = "Byl jsi úspěšně zaregistrován."
 
-MISSING_USERNAME_OR_PASSWORD = "Username or password is missing"
-WRONG_USERNAME_OR_PASSWORD = "Wrong username or password"
-AUTHENTICATION_FAILED = "Authentication failed"
-MISSING_FIELD = "Missing field in request"
-USER_ALREADY_EXISTS = "User with this username already exists"
+MISSING_LOGIN_OR_PASSWORD = "Uživatelské jméno nebo heslo je prázdné."
+WRONG_LOGIN_OR_PASSWORD = "Uživatelské jméno nebo heslo je špatné."
+AUTHENTICATION_FAILED = "Ověření selhalo."
+MISSING_FIELD = "Chybějící pole ve formuláři."
+USER_ALREADY_EXISTS = "Uživatel s těmito přihlašovacími údaji již existuje."
