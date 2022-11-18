@@ -21,7 +21,7 @@ class Event(db.Model):
     description = db.Column(db.Text)
 
     animal = relation("Animal", back_populates="events")
-    event_type = relation("Event_type", back_populates="events")
+    event_type = relation("EventType", back_populates="events")
     user = relation("User", back_populates="events")
 
     def __init__(self, start: datetime, end: datetime, description: str = ""):

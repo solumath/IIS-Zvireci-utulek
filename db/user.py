@@ -22,7 +22,7 @@ class User(db.Model):
 
     role_id = db.Column(db.Integer, db.ForeignKey("user_role.id"))
 
-    user_role = relation("User_role", back_populates="users")
+    user_role = relation("UserRole", back_populates="users")
     events = relation("Event", back_populates="user")
     session = relation("Session", back_populates="user", uselist=False)
 

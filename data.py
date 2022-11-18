@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 import db
 
 role_admin = db.UserRole(name="administrator", description="""
@@ -79,13 +79,17 @@ event_types = [
     db.EventType(
         "procházka", 1, "Vzití zviřete mimo útulek s povinnosti navrácení v předem určený čas."),
     db.EventType("vyšetření", 9,
-                  "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
+                 "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
     db.EventType(
         "salón", 5, "Návštěva psího salónu s cílem vylepšení vzhledu zvířete (koupel, stříhání srsti, stříhání drápků).")
 ]
 
 events = [
-    # TODO add events (2-3)
+
+    db.Event(datetime(2025, 1, 1), datetime(2025, 1, 1, 23),
+             "Future is close :D"),
+    db.Event(datetime(2020, 1, 1), datetime(2020, 1, 1, 23),
+             "Let the past be."),
 ]
 
 
@@ -112,6 +116,9 @@ def add_data():
         db.db.session.add(event_type)
 
     for event in events:
+        event.animal = animals[0]
+        event.user = admin_user
+        event.event_type = event_types[0]
         db.db.session.add(event)
 
     # TODO add event types to db

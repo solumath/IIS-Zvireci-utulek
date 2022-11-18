@@ -10,8 +10,8 @@ class Permission(db.Model):
         "event_type.id"), primary_key=True)
     action = db.Column(db.Integer)
 
-    user_role = relation("User_role", back_populates="permissions")
-    event_type = relation("Event_type", back_populates="permissions")
+    user_role = relation("UserRole", back_populates="permissions")
+    event_type = relation("EventType", back_populates="permissions")
 
     def __init__(self, actions: int):
         self.action = actions

@@ -11,3 +11,5 @@ from .event import Event
 from .event_type import EventType
 from .animal import Animal
 from .session import Session
+
+from .queries import get_animals, get_past_events
