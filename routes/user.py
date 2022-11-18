@@ -29,6 +29,7 @@ def register_form(form):
     data = {}
     for field in needed_fields:
         if field not in form:
+            flask.flash(r.MISSING_FIELD, r.Error)
             return r.generate_response(r.STAUTS_BAD_REQUEST, r.MISSING_FIELD)
         data[field] = form[field]
 
@@ -39,6 +40,7 @@ def register_form(form):
 
     # login conflict
     if user is not None:
+        flask.flash(r.USER_ALREADY_EXISTS, r.ERROR)
         return r.generate_response(r.STAUTS_BAD_REQUEST, r.USER_ALREADY_EXISTS)
 
     # create user and insert to db
@@ -46,7 +48,8 @@ def register_form(form):
     db.db.session.add(new_user)
     db.db.session.commit()
 
-    return flask.redirect(flask.url_for("login"))
+    flask.flash(r.REGISTER_SUCCESS, r.OK)
+    return flask.render_template("login.html")
 
 
 def login_form(form):
@@ -62,8 +65,14 @@ def login_form(form):
             db.db.session.commit()
             flask_login.login_user(user, remember=True)
 
-            return flask.redirect(flask.url_for("index"))
-    return flask.redirect(flask.url_for("login"))
+            print("good")
+
+            flask.flash(r.LOGIN_SUCCESS, r.OK)
+            return flask.render_template("index.html")
+
+    print("jebe")
+    flask.flash(r.WRONG_LOGIN_OR_PASSWORD, r.ERROR)
+    return flask.render_template("login.html")
 
 
 @cross_origin
@@ -79,7 +88,8 @@ def login():
         if 'registerSubmit' in flask.request.form:
             return register_form(flask.request.form)
 
-        return r.generate_response(r.STAUTS_BAD_REQUEST, "Bez dopice")
+        flask.flash(r.STAUTS_BAD_REQUEST, "Bez dopice")
+        return flask.render_template("login.html")
 
     return flask.render_template("login.html")
 
@@ -94,4 +104,5 @@ def logout():
     db.db.session.add(user)
     db.db.session.commit()
     flask_login.logout_user()
-    return flask.redirect(flask.url_for("index"))
+    flask.flash(r.LOGOUT_SUCCESS, r.OK)
+    return flask.render_template("index.html")

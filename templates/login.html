@@ -12,15 +12,15 @@
             <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-login-tab" data-bs-toggle="pill"
-                        data-bs-target="#loginTab" type="button" role="tab" aria-controls="loginTab"
-                        aria-selected="true">Přihlásit se</button>
+                    data-bs-target="#loginTab" type="button" role="tab" aria-controls="loginTab"
+                    aria-selected="true">Přihlásit se</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-register-tab" data-bs-toggle="pill" data-bs-target="#registerTab"
-                        type="button" role="tab" aria-controls="registerTab" aria-selected="false">Registrovat</button>
+                    type="button" role="tab" aria-controls="registerTab" aria-selected="false">Registrovat</button>
                 </li>
             </ul>
-
+            
             <!-- Login tab -->
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="loginTab" role="tabpanel" aria-labelledby="loginTab">
@@ -31,96 +31,95 @@
                                 <!-- Inputs -->
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="login" placeholder="Login" name="login"
-                                        value="{{ request.form['login'] }}" required>
+                                    value="{{ request.form['login'] }}" required>
                                     <label for="login">Login</label>
                                 </div>
                                 <div class="form-floating mb-3">
                                     <input type="password" class="form-control" id="password" placeholder="Password"
-                                        name="password" value="{{ request.form['password'] }}" required>
+                                    name="password" value="{{ request.form['password'] }}" required>
                                     <label for="password">Heslo</label>
                                 </div>
                                 <!-- Login button -->
                                 <div class="d-grid">
                                     <button class="btn btn-primary btn-login text-uppercase" type="submit"
-                                        name="loginSubmit">Přihlásit
-                                        se</button>
+                                    name="loginSubmit">Přihlásit se</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Register tab -->
                 <div class="tab-pane fade" id="registerTab" role="tabpanel" aria-labelledby="registerTab">
                     <div class="card border-0 shadow rounded-3 my-5">
                         <div class="card-body p-4 p-sm-5">
                             <h5 class="card-title text-center mb-4 fw-light fs-3">Registrovat se</h5>
                             <form method="POST" id="registerForm"
-                                oninput='password2.setCustomValidity(password2.value != password.value ? "Hesla se neshodují." : "")'>
-
-                                <!-- Inputs -->
-                                <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="registerEmail" placeholder="Email"
-                                        name="email" value="{{ request.form['email'] }}" required>
-                                    <label for="email">Email*</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="registerLogin" placeholder="Login"
-                                        name="login" value="{{ request.form['login'] }}" required>
-                                    <label for="login">Login*</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="registerFirstname" placeholder="Jméno"
-                                        name="name" value="{{ request.form['name'] }}" required>
-                                    <label for="name">Jméno*</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="registerSurname" placeholder="Příjmení"
-                                        name="surname" value="{{ request.form['surname'] }}" required>
-                                    <label for="surname">Příjmení*</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control" id="registerTel" placeholder="Telefon"
-                                        name="tel_number" value="{{ request.form['tel_number'] }}"
-                                        pattern="[0-9]{9}|'[0-9]{3} [0-9]{3} [0-9]{3}'|[0-9]{3}-[0-9]{3}-[0-9]{3}"
-                                        required>
-                                    <label for="tel">Telefon*</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="registerAddress" placeholder="Bydliště"
-                                        value="{{ request.form['address'] }}" name="address" required>
-                                    <label for="address">Bydliště*</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="registerPassword"
-                                        value="{{ request.form['password'] }}" placeholder="Password" name="password"
-                                        required>
-                                    <label for="password">Heslo*</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="passwordCheck" name="password2"
-                                        placeholder="Password" required>
-                                    <label for="passwordCheck">Potvrďte heslo*</label>
-                                </div>
-
-                                <hr class="my-4">
-
-                                <!-- Checkbox -->
-                                <div class="form-check d-flex justify-content-center mb-4">
-                                    <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck"
-                                        required aria-describedby="registerCheckHelpText" />
-                                    <label class="form-check-label" for="registerCheck">
-                                        Souhlasím s <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">podmínkami
-                                            používání služeb Pes Gang s.r.o.</a>
+                            oninput='password2.setCustomValidity(password2.value != password.value ? "Hesla se neshodují." : "")'>
+                            
+                            <!-- Inputs -->
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="registerEmail" placeholder="Email"
+                                name="email" value="{{ request.form['email'] }}" required>
+                                <label for="email">Email*</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="registerLogin" placeholder="Login"
+                                name="login" value="{{ request.form['login'] }}" required>
+                                <label for="login">Login*</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="registerFirstname" placeholder="Jméno"
+                                name="name" value="{{ request.form['name'] }}" required>
+                                <label for="name">Jméno*</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="registerSurname" placeholder="Příjmení"
+                                name="surname" value="{{ request.form['surname'] }}" required>
+                                <label for="surname">Příjmení*</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="tel" class="form-control" id="registerTel" placeholder="Telefon"
+                                name="tel_number" value="{{ request.form['tel_number'] }}"
+                                pattern="[0-9]{9}|'[0-9]{3} [0-9]{3} [0-9]{3}'|[0-9]{3}-[0-9]{3}-[0-9]{3}"
+                                required>
+                                <label for="tel">Telefon*</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="registerAddress" placeholder="Bydliště"
+                                value="{{ request.form['address'] }}" name="address" required>
+                                <label for="address">Bydliště*</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="registerPassword"
+                                value="{{ request.form['password'] }}" placeholder="Password" name="password"
+                                required>
+                                <label for="password">Heslo*</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="passwordCheck" name="password2"
+                                placeholder="Password" required>
+                                <label for="passwordCheck">Potvrďte heslo*</label>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <!-- Checkbox -->
+                            <div class="form-check d-flex justify-content-center mb-4">
+                                <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck"
+                                required aria-describedby="registerCheckHelpText" />
+                                <label class="form-check-label" for="registerCheck">
+                                    Souhlasím s <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">podmínkami
+                                        používání služeb Pes Gang s.r.o.</a>
                                     </label>
                                 </div>
-
+                                
                                 <!-- Register button -->
                                 <div class="d-grid">
                                     <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
-                                        name="registerSubmit">Registrovat se</button>
+                                    name="registerSubmit">Registrovat se</button>
                                 </div>
-
+                                
                             </form>
                         </div>
                     </div>
@@ -128,6 +127,8 @@
             </div>
         </div>
     </div>
-</div>
+</div> 
+
+{% include 'modal.html' %}
 
 {% endblock %}

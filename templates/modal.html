@@ -1,0 +1,29 @@
+
+<div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'Error' %}
+                        <div class="modal-content" style="background-color: #f26374; --bs-modal-header-border-color: black;">
+                            <div class="modal-header" id="flashes">
+                                <h5 class="modal-title" id="error-title">Chyba</h5>
+                                <button type="button" class="btn btn-close" class="btn-close" aria-label="Close" onclick="closeModalWindow('#modalId')"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="modal-message">{{ message }}</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="modal-content" style="background-color: #6eba5d; --bs-modal-header-border-color: None;">
+                            <div class="modal-header" id="flashes">
+                                <h5 class="modal-title" id="success-title">{{ message }}</h5>
+                                <button type="button" class="btn btn-close" class="btn-close" aria-label="Close" onclick="closeModalWindow('#modalId')"></button>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
