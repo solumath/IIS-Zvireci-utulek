@@ -3,7 +3,6 @@ from .animal import Animal
 from .user import User
 from .event import Event
 from .event_type import EventType
-from .schemas import *
 from datetime import datetime
 
 
@@ -12,12 +11,11 @@ def get_animals(filter: str = None):
         returns serialized array of animals,
         filter not yet implemented
     """
-    schema = AnimalSchema()
     if filter is None:
         result = db.session.query(Animal).all()
     else:
         result = []
-    return schema.dump(result, many=True)
+    return result
 
 
 def get_past_events(user: User | int = None, animal: Animal = None, event_type: EventType = None):
@@ -39,10 +37,7 @@ def get_past_events(user: User | int = None, animal: Animal = None, event_type: 
     if event_type is not None:
         query = query.filter(Event.event_type == event_type)
 
-    schema = EventSchema(
-        only=("start", "end", "description", "animal.name", "animal.id"))
-
-    return schema.dump(query.all(), many=True)
+    return query.all()
 
 
 def get_future_events(user: User | int = None, animal: Animal = None, event_type: EventType = None):
@@ -64,7 +59,4 @@ def get_future_events(user: User | int = None, animal: Animal = None, event_type
     if event_type is not None:
         query = query.filter(Event.event_type == event_type)
 
-    schema = EventSchema(
-        only=("start", "end", "description", "animal.name", "animal.id"))
-
-    return schema.dump(query.all(), many=True)
+    return query.all()
