@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %} Přidat zvíře {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/add_animal.css') }}" />
+<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script> -->
+{% endblock %}
+
+{% block body %}
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start"></section>
+<div class="containerik">
+    <h2>Vytvořit zvíře:</h2>
+    <!-- TODO osetrit data-aby se nenarodilo zvire driv, aby nebyl prijat nez se narodil, aby tam, kde patri cisla byla cisla,...  -->
+    <form method='POST'>
+        <div class=" row">
+            <div class="col">
+                <label for="name">Jméno:</label>
+                <input type="text" class="form-control" name="name" placeholder="zadejte jméno"
+                    value="{{ request.form['name']}}">
+            </div>
+            <div class="col">
+                <label for="sex">Pohlaví:</label>
+                <select class="form-control" name="sex" value="{{ request.form['sex']}}">
+                    <option>Samec</option>
+                    <option>Samice</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="color">Barva:</label>
+                <input type="text" class="form-control" name="color" placeholder="zadejte barvu"
+                    value="{{ request.form['color']}}">
+            </div>
+
+            <div class="form-group col">
+                <label for="weight"> Váha [kg]:</label>
+                <input type="text" class="form-control" name="weight" placeholder="zadejte váhu"
+                    value="{{ request.form['weight']}}">
+            </div>
+            <div class="form-group col">
+                <label for="height"> Výška [cm]:</label>
+                <input type="text" class="form-control" name="height" placeholder="zadejte výšku"
+                    value="{{ request.form['height']}}">
+            </div>
+            <div class="form-group col">
+                <label for=" kind">Druh zvířete:</label>
+                <select class="form-control" name="kind" value="{{ request.form['kind']}}">
+                    <option>Pes</option>
+                    <option>Kočka</option>
+                    <option>Hlodavec</option>
+                    <option>Ryba</option>
+                    <option>Jiné</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+
+            <div class="form-group col">
+                <label for=" breed"> Plemeno:</label>
+                <input type="text" class="form-control" name="breed" placeholder="zadejte plemeno"
+                    value="{{ request.form['breed']}}">
+                <small id="emailHelp" class="form-text text-muted">V případě nejistoty zadejte
+                    "Kříženec"</small>
+            </div>
+            <div class="form-group col">
+                <label for="chip"> Číslo čipu:</label>
+                <input type="text" class="form-control" name="chip" placeholder="zadejte číslo čipu"
+                    value="{{ request.form['chip_id']}}">
+                <small id="emailHelp" class="form-text text-muted">Toto pole je volitelné.</small>
+            </div>
+
+            <div class="form-group col">
+                <label for="birthday"> (Odhadované) datum narození:</label>
+                <input type="date" class="form-control" name="birthday" value="{{ request.form['birthday']}}">
+            </div>
+            <div class="form-group col">
+                <label for="discovery_day"> Datum nalezení/přijetí:</label>
+                <input type="date" class="form-control" name="discovery_day" value="{{ request.form['discovery_day']}}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="form-group col">
+                <label for="place"> Místo nalezení/přijetí:</label>
+                <input type="text" class="form-control" name="place" value="{{ request.form['discovery_place']}}">
+                <small id="place" class="form-text text-muted">V případě přijetí zvířete zde v útulku
+                    zadejte Božetěchova 2</small>
+            </div>
+            <div class="form-group col-4">
+                <label for="description"> Popis:</label>
+                <input type="text-area" class="form-control" name="description" placeholder="zadejte popis zvířete"
+                    value="{{ request.form['description']}}">
+            </div>
+            <div class="form-group col">
+                <label for="pic">Přidat fotku:</label><br>
+                <input type="file" name="pic">
+            </div>
+
+        </div>
+        <div class="text-center">
+            <button type="submit" style="text-align: center;" class="btn btn-primary "><i class="bi bi-plus"></i>
+                Přidat</button>
+        </div>
+
+
+        <br>
+
+    </form>
+</div>
+</section>
+
+{% endblock%}

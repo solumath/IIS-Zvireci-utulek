@@ -3,7 +3,8 @@ import flask_login
 from app import app
 from functools import wraps
 import db
-from flask import redirect
+
+from flask import redirect, request
 
 def role_required(roles):
     """
@@ -49,6 +50,37 @@ def about():
 @flask_login.login_required
 def walks():
     return flask.render_template('walks.html')
+
+@app.route('/add', methods=['GET'])
+@flask_login.login_required
+@role_required(['administrator', 'caretaker'])
+def add_get():
+    return flask.render_template('add_animal.html')
+
+@app.route('/add', methods=['POST'])
+@flask_login.login_required
+@role_required(['administrator', 'caretaker'])
+def add_post():
+    name = request.form.get('name')
+    print(request.form)
+    sex = request.form.get('sex')
+    color = request.form.get('color')
+    weight = request.form.get('weight')
+    height = request.form.get('height')
+    kind = request.form.get('kind')
+    breed = request.form.get('breed')
+    chip = request.form.get('chip')
+    birthday = request.form.get('birtday')
+    discovery_day = request.form.get('date')
+    discovery_place = request.form.get('place')
+    description = request.form.get('description')
+    pic = request.form.get('pic')
+
+    new_animal = db.Animal(name = name, sex=sex, color = color, weight=weight, height=height, kind=kind, breed=breed, chip_id = chip, birthday=int(birthday), discovery_day=int(discovery_day), discovery_place=discovery_place, description=description)
+    db.db.session.add(new_animal)
+    db.db.session.commit()
+    print(new_animal.id)
+    return flask.redirect('detail/' + str(new_animal.id))
 
 
 @app.route('/examinations')
