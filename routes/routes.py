@@ -76,7 +76,7 @@ def add_post():
     description = request.form.get('description')
     pic = request.form.get('pic')
 
-    new_animal = db.Animal(name = name, sex=sex, color = color, weight=weight, height=height, kind=kind, breed=breed, chip_id = chip, birthday=int(birthday), discovery_day=int(discovery_day), discovery_place=discovery_place, description=description)
+    new_animal = db.Animal(name = name, sex=sex, color = color, weight=weight, height=height, kind=kind, breed=breed, chip_id = chip, birthday=birthday, discovery_day=discovery_day, discovery_place=discovery_place, description=description)
     db.db.session.add(new_animal)
     db.db.session.commit()
     print(new_animal.id)
