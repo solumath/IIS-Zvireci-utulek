@@ -96,10 +96,16 @@ def examinations():
 def admin():
     return flask.render_template('admin.html')
 
+
 @app.route('/profile')
 @flask_login.login_required
 def profile():
-    return flask.render_template('profile.html', user_info=flask_login.current_user.get_info())
+    return flask.render_template(
+        'profile.html',
+        user_info=flask_login.current_user.get_info(),
+        past_events=db.get_past_events(user=flask_login.current_user.id),
+        future_events=db.get_future_events(user=flask_login.current_user.id)
+    )
 
 
 @app.errorhandler(401)
@@ -108,5 +114,5 @@ def not_enough_perms(e):
 
 
 @app.errorhandler(404)
-def not_enough_perms(e):
+def page_not_found(e):
     return flask.render_template('404.html')

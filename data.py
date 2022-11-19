@@ -90,6 +90,8 @@ events = [
              "Future is close :D"),
     db.Event(datetime(2020, 1, 1), datetime(2020, 1, 1, 23),
              "Let the past be."),
+    db.Event(datetime(2022, 11, 21, 15), datetime(2022, 11, 21, 17),
+             "Procházka po lese."),
 ]
 
 
