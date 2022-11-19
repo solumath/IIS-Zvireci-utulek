@@ -38,7 +38,7 @@ def detail(id):
         sameId = int(animal.id)
         if sameId == int(id):
             return flask.render_template('animal_detail.html', animal=animal)
-    return flask.render_template('404.html')
+    # return flask.render_template('404.html')
 
 
 @app.route('/about')
@@ -62,7 +62,6 @@ def add_get():
 @role_required(['administrator', 'caretaker'])
 def add_post():
     name = request.form.get('name')
-    print(request.form)
     sex = request.form.get('sex')
     color = request.form.get('color')
     weight = request.form.get('weight')
@@ -79,8 +78,7 @@ def add_post():
     new_animal = db.Animal(name = name, sex=sex, color = color, weight=weight, height=height, kind=kind, breed=breed, chip_id = chip, birthday=birthday, discovery_day=discovery_day, discovery_place=discovery_place, description=description)
     db.db.session.add(new_animal)
     db.db.session.commit()
-    print(new_animal.id)
-    return flask.redirect('detail/' + str(new_animal.id))
+    return flask.redirect('animal/' + str(new_animal.id))
 
 
 @app.route('/examinations')
