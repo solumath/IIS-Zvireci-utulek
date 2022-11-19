@@ -63,7 +63,7 @@
             </div>
             <div class="form-group col">
                 <label for="chip"> Číslo čipu:</label>
-                <input type="text" class="form-control" name="chip" placeholder="zadejte číslo čipu"
+                <input type="text" class="form-control" name="chip_id" placeholder="zadejte číslo čipu"
                     value="{{ request.form['chip_id']}}">
                 <small id="emailHelp" class="form-text text-muted">Toto pole je volitelné.</small>
             </div>
@@ -74,14 +74,14 @@
             </div>
             <div class="form-group col">
                 <label for="discovery_day"> Datum nalezení/přijetí:</label>
-                <input type="date" class="form-control" name="discovery_day" value="{{ request.form['discovery_day']}}">
+                <input type="date" class="form-control" name="discovery_day" value="{{}}">
             </div>
         </div>
         <br>
         <div class="row">
             <div class="form-group col">
                 <label for="place"> Místo nalezení/přijetí:</label>
-                <input type="text" class="form-control" name="place" value="{{ request.form['discovery_place']}}">
+                <input type="text" class="form-control" name="discovery_place">
                 <small id="place" class="form-text text-muted">V případě přijetí zvířete zde v útulku
                     zadejte Božetěchova 2</small>
             </div>

@@ -3,8 +3,32 @@ import flask_login
 from app import app
 from functools import wraps
 import db
+import datetime
 
-from flask import redirect, request
+
+def date(date: str) -> datetime.date:
+    return datetime.datetime.strptime(date, "%Y-%m-%d").date()
+
+
+def parse_form(form, convertors):
+    """
+    Checks for fields in form and converts them using convertors dict
+
+    Convertors E.x.: {"name":str, "weight":int, "birthday":date}
+    """
+    result = {}
+
+    for key, convertor in convertors.items():
+        value = form.get(key)
+        if value is None:
+            # TODO handle error input
+            print(f"did not find {key}")
+            print(form)
+            return None
+        result[key] = convertor(value)
+
+    return result
+
 
 def role_required(roles):
     """
@@ -32,12 +56,10 @@ def index():
 def animals():
     return flask.render_template('animals.html',  animal_info=db.get_animals())
 
+
 @app.route('/animal/<id>')
 def detail(id):
-    for animal in db.get_animals():
-        sameId = int(animal.id)
-        if sameId == int(id):
-            return flask.render_template('animal_detail.html', animal=animal)
+    return flask.render_template('animal_detail.html', animal=db.get_animal(id))
     # return flask.render_template('404.html')
 
 
@@ -51,34 +73,27 @@ def about():
 def walks():
     return flask.render_template('walks.html')
 
+
 @app.route('/add', methods=['GET'])
 @flask_login.login_required
 @role_required(['administrator', 'caretaker'])
 def add_get():
     return flask.render_template('add_animal.html')
 
+
 @app.route('/add', methods=['POST'])
 @flask_login.login_required
 @role_required(['administrator', 'caretaker'])
 def add_post():
-    name = request.form.get('name')
-    sex = request.form.get('sex')
-    color = request.form.get('color')
-    weight = request.form.get('weight')
-    height = request.form.get('height')
-    kind = request.form.get('kind')
-    breed = request.form.get('breed')
-    chip = request.form.get('chip')
-    birthday = request.form.get('birtday')
-    discovery_day = request.form.get('date')
-    discovery_place = request.form.get('place')
-    description = request.form.get('description')
-    pic = request.form.get('pic')
+    convertors = {"name": str, "sex": str, "color": str, "weight": int, "height": int, "kind": str, "breed": str,
+                  "chip_id": int, "birthday": date, "discovery_day": date, "discovery_place": str, "description": str}
 
-    new_animal = db.Animal(name = name, sex=sex, color = color, weight=weight, height=height, kind=kind, breed=breed, chip_id = chip, birthday=birthday, discovery_day=discovery_day, discovery_place=discovery_place, description=description)
+    values = parse_form(flask.request.form, convertors)
+
+    new_animal = db.Animal(**values)
     db.db.session.add(new_animal)
     db.db.session.commit()
-    return flask.redirect('animal/' + str(new_animal.id))
+    return flask.redirect(f'animal/{new_animal.id}')
 
 
 @app.route('/examinations')
