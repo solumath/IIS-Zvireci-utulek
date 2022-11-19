@@ -36,7 +36,7 @@ python3 main.py
 
 4. dobrovolník:
     - [ ] rezervuje zvířata na venčení
-    - [ ] vidí historii svých venčení
+    - [x] vidí historii svých venčení
 
 5. neregistrovaný uživatel
     - [ ] prochází informace o útulku a zvířatech

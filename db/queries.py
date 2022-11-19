@@ -62,6 +62,12 @@ def get_users(login: str = None, email: str = None, name: str = None, surname: s
 # ====================================================================================================
 # EVENTS
 
+def get_event(id):
+    """
+        returns user with id, or None if not found
+    """
+    return db.session.query(Event).get(id)
+
 
 def get_events_query(user=None, animal=None, event_type=None):
     """
@@ -107,4 +113,4 @@ def get_future_events(user=None, animal=None, event_type=None):
     """
 
     query = get_events_query(user, animal, event_type)
-    return query.filter(Event.end < datetime.now()).all()
+    return query.filter(Event.end > datetime.now()).all()
