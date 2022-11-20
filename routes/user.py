@@ -65,12 +65,9 @@ def login_form(form):
             db.db.session.commit()
             flask_login.login_user(user, remember=True)
 
-            print("good")
-
             flask.flash(r.LOGIN_SUCCESS, r.OK)
             return flask.render_template("index.html")
 
-    print("jebe")
     flask.flash(r.WRONG_LOGIN_OR_PASSWORD, r.ERROR)
     return flask.render_template("login.html")
 
