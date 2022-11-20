@@ -16,7 +16,6 @@ def render():
 
 
 def delete_user(form):
-    global message
     if int(form['id']) == flask_login.current_user.id:
         flask.flash(r.DELETE_YOURSELF_FAILED, r.ERROR)
         return render()

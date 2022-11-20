@@ -3,12 +3,15 @@ import flask_login
 from app import app
 import db
 import datetime
+import response as r
 from .permissions import role_required, render_with_permissions
 
 
 def parse_date(date: str) -> datetime.date:
     return datetime.datetime.strptime(date, "%Y-%m-%d").date()
 
+def date_from_datetime(date: str) -> datetime.datetime:
+    return datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S").date()
 
 @app.route('/')
 def index():
@@ -36,6 +39,17 @@ def about():
 def walks():
     if flask.request.method == 'POST':
         if 'DELETE' in flask.request.form['action']:
+            # todo admin může mazat všechny eventy
+            if date_from_datetime(flask.request.form['start']) == datetime.datetime.today().date():
+                flask.flash(r.DELETE_PRESENT_WALK, r.ERROR)
+                return flask.render_template(
+                'walks.html',
+                past_events=db.get_past_events(
+                    user=flask_login.current_user.id),
+                future_events=db.get_future_events(
+                    user=flask_login.current_user.id)
+            )
+                
             event = db.get_event(flask.request.form['id'])
             db.db.session.delete(event)
             db.db.session.commit()

@@ -11,3 +11,5 @@ AUTHENTICATION_FAILED = "Ověření selhalo."
 MISSING_FIELD = "Chybějící pole ve formuláři."
 USER_ALREADY_EXISTS = "Uživatel s těmito přihlašovacími údaji již existuje."
 DELETE_YOURSELF_FAILED = "Nemůžeš se vymazat Ujo."
+DELETE_PRESENT_WALK = "Nemůžeš vymazat procházky ve stejný den, ve který se konají."
+
