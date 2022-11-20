@@ -38,6 +38,10 @@ class User(db.Model):
     def is_anonymous(self):
         return False
 
+    @property
+    def verified(self):
+        return self.user_role.name != "unverified"
+
     def __init__(self, login, password, name, surname, address, email, tel_number, rating=0):
         self.login = login
         self.password = password
