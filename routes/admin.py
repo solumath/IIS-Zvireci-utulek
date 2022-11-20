@@ -48,26 +48,28 @@ def delete_event(form):
 def edit_event(form):
     pass
 
-@app.route('/admin', methods=['GET', 'POST', 'DELETE', 'EDIT'])
+
+@app.route('/admin', methods=['GET', 'POST'])
 @flask_login.login_required
 @routes.role_required(['administrator'])
 def admin():
     global message
-    if flask.request.method == 'EDIT':
-        if flask.request.form['object'] == 'user':
-            return edit_user(flask.request.form)
-        if flask.request.form['object'] == 'animal':
-            return edit_animal(flask.request.form)
-        if flask.request.form['object'] == 'event':
-            return edit_event(flask.request.form)
+    if flask.request.method == 'POST':
+        if 'EDIT' in flask.request.form['action']:
+            if flask.request.form['object'] == 'user':
+                return edit_user(flask.request.form)
+            if flask.request.form['object'] == 'animal':
+                return edit_animal(flask.request.form)
+            if flask.request.form['object'] == 'event':
+                return edit_event(flask.request.form)
 
-    elif flask.request.method == 'DELETE':
-        if flask.request.form['object'] == 'user':
-            return delete_user(flask.request.form)
-        if flask.request.form['object'] == 'animal':
-            return delete_animal(flask.request.form)
-        if flask.request.form['object'] == 'event':
-            return delete_event(flask.request.form)
+        if 'DELETE' in flask.request.form['action']:
+            if flask.request.form['object'] == 'user':
+                return delete_user(flask.request.form)
+            if flask.request.form['object'] == 'animal':
+                return delete_animal(flask.request.form)
+            if flask.request.form['object'] == 'event':
+                return delete_event(flask.request.form)
 
     if message is None:
         return render()

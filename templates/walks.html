@@ -49,6 +49,8 @@
                                 <form method="POST" class="deleteWalk">
                                     <button class="btn btn-danger btn-login text-uppercase fw-bold deleteButton" type="submit">Zrušit</button>
                                     <input type="hidden" value="{{ future.id }}" name="id"/>
+                                    <input type="hidden" value="event" name="object"/>
+                                    <input type="hidden" value="DELETE" name="action"/>
                                     <input type="hidden" value="{{ url_for('walks') }}" name="url"/>
                                 </form>
                             </td>

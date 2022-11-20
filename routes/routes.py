@@ -68,23 +68,22 @@ def about():
     return flask.render_template('about.html')
 
 
-@app.route('/walks', methods=['GET', 'POST', 'DELETE'])
+@app.route('/walks', methods=['GET', 'POST'])
 @flask_login.login_required
 def walks():
-    if flask.request.method == 'DELETE':
-        event = db.get_user(flask.request.form['id'])
-        db.db.session.delete(event)
-        db.db.session.commit()
-        return flask.render_template(
-            'walks.html',
-            user_info=flask_login.current_user.get_info(),
-            past_events=db.get_past_events(user=flask_login.current_user.id),
-            future_events=db.get_future_events(user=flask_login.current_user.id)
-        )
+    if flask.request.method == 'POST':
+        if 'DELETE' in flask.request.form['action']:
+            event = db.get_event(flask.request.form['id'])
+            db.db.session.delete(event)
+            db.db.session.commit()
+            return flask.render_template(
+                'walks.html',
+                past_events=db.get_past_events(user=flask_login.current_user.id),
+                future_events=db.get_future_events(user=flask_login.current_user.id)
+            )
 
     return flask.render_template(
             'walks.html',
-            user_info=flask_login.current_user.get_info(),
             past_events=db.get_past_events(user=flask_login.current_user.id),
             future_events=db.get_future_events(user=flask_login.current_user.id)
         )

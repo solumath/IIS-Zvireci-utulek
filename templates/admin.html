@@ -45,14 +45,32 @@
                         <td>{{ user.tel_number }}</td>
                         <td>{{ user.rating }}</td>
                         {% if user.verified %}
-                        <td class="text-success">Ano</td>
+                        <td class="col text-center">
+                            <form method="POST" class="verifyUser">
+                                <button class="btn btn-success btn-login text-uppercase fw-bold bi-check-square-fill verifyUser" type="submit"></button>
+                                <input type="hidden" value="{{ user.id }}" name="id"/>
+                                <input type="hidden" value="user" name="object"/>
+                                <input type="hidden" value="EDIT" name="action"/>
+                                <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
+                            </form>
+                        </td>
                         {% else %}
-                        <td class="text-danger">Ne</td>
+                        <td class="col text-center">
+                            <form method="POST" class="verifyUser">
+                                <button class="btn btn-danger btn-login text-uppercase fw-bold bi-x-square-fill verifyUser" type="submit"></button>
+                                <input type="hidden" value="{{ user.id }}" name="id"/>
+                                <input type="hidden" value="user" name="object"/>
+                                <input type="hidden" value="VERIFY" name="action"/>
+                                <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
+                            </form>
+                        </td>
                         {% endif %}
                         <td class="col text-center">
                             <form method="POST" class="editUser">
                                 <button class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editUser" type="submit"></button>
                                 <input type="hidden" value="{{ user.id }}" name="id"/>
+                                <input type="hidden" value="user" name="object"/>
+                                <input type="hidden" value="VERIFY" name="action"/>
                                 <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
                             </form>
                         </td>
@@ -60,6 +78,8 @@
                             <form method="POST" class="deleteUser">
                                 <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteUser" type="submit"></button>
                                 <input type="hidden" value="{{ user.id }}" name="id"/>
+                                <input type="hidden" value="user" name="object"/>
+                                <input type="hidden" value="DELETE" name="action"/>
                                 <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
                             </form>
                         </td>
@@ -106,6 +126,8 @@
                             <form method="POST" class="editAnimal">
                                 <button class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editAnimal" type="submit"></button>
                                 <input type="hidden" value="{{ animal.id }}" name="id"/>
+                                <input type="hidden" value="animal" name="object"/>
+                                <input type="hidden" value="EDIT" name="action"/>
                                 <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
                             </form>
                         </td>
@@ -113,6 +135,8 @@
                             <form method="POST" class="deleteAnimal">
                                 <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteAnimal" type="submit"></button>
                                 <input type="hidden" value="{{ animal.id }}" name="id"/>
+                                <input type="hidden" value="animal" name="object"/>
+                                <input type="hidden" value="DELETE" name="action"/>
                                 <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
                             </form>
                         </td>
@@ -161,6 +185,8 @@
                             <form method="POST" class="editEvent">
                                 <button class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent" type="submit"></button>
                                 <input type="hidden" value="{{ event.id }}" name="id"/>
+                                <input type="hidden" value="event" name="object"/>
+                                <input type="hidden" value="EDIT" name="action"/>
                                 <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
                             </form>
                         </td>
@@ -168,6 +194,8 @@
                             <form method="POST" class="deleteEvent">
                                 <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteEvent" type="submit"></button>
                                 <input type="hidden" value="{{ event.id }}" name="id"/>
+                                <input type="hidden" value="event" name="object"/>
+                                <input type="hidden" value="DELETE" name="action"/>
                                 <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
                             </form>
                         </td>
