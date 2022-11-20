@@ -117,13 +117,6 @@ def examinations():
     return flask.render_template('examinations.html')
 
 
-@app.route('/admin')
-@flask_login.login_required
-@role_required(['administrator'])
-def admin():
-    return flask.render_template('admin.html')
-
-
 @app.route('/profile')
 @flask_login.login_required
 def profile():

@@ -12,4 +12,4 @@ from .event_type import EventType
 from .animal import Animal
 from .session import Session
 
-from .queries import get_animal, get_animals, get_event, remove_event, get_past_events, get_future_events, get_user, get_users
+from .queries import get_animal, get_animals, get_event, get_events_query, get_past_events, get_future_events, get_user, get_users
