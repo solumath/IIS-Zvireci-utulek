@@ -69,16 +69,6 @@ def get_event(id):
     return db.session.query(Event).get(id)
 
 
-def remove_event(id):
-    """
-        removes event with id or returns None if not found
-    """
-    query = db.session.query(Event)
-    query.filter(Event.id == id).delete()
-    db.session.commit()
-    return query
-
-
 def get_events_query(user=None, animal=None, event_type=None):
     """
         returns query for events
