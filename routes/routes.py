@@ -5,7 +5,6 @@ import db
 import datetime
 from .permissions import role_required, render_with_permissions
 
-
 def date(date: str) -> datetime.date:
     return datetime.datetime.strptime(date, "%Y-%m-%d").date()
 

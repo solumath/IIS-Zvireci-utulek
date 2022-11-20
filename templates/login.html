@@ -85,7 +85,7 @@ Přihlášení
                             <div class="form-floating mb-3">
                                 <input type="tel" class="form-control" id="registerTel" placeholder="Telefon"
                                 name="tel_number" value="{{ request.form['tel_number'] }}"
-                                pattern="[0-9]{9}|'[0-9]{3} [0-9]{3} [0-9]{3}'|[0-9]{3}-[0-9]{3}-[0-9]{3}"
+                                pattern="(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}" 
                                 required>
                                 <label for="tel">Telefon*</label>
                             </div>

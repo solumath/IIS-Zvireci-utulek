@@ -5,8 +5,6 @@ import db
 import response as r
 from .permissions import render_with_permissions, role_required
 
-message = None
-
 
 def render():
     return flask.render_template(
@@ -20,7 +18,7 @@ def render():
 def delete_user(form):
     global message
     if int(form['id']) == flask_login.current_user.id:
-        message = [r.DELETE_YOURSELF_FAILED, r.ERROR]
+        flask.flash(r.DELETE_YOURSELF_FAILED, r.ERROR)
         return render()
 
     user = db.get_user(form['id'])
@@ -59,7 +57,6 @@ def edit_event(form):
 @flask_login.login_required
 @role_required(['administrator'])
 def admin():
-    global message
     if flask.request.method == 'POST':
         if 'EDIT' in flask.request.form['action']:
             if flask.request.form['object'] == 'user':
@@ -77,9 +74,4 @@ def admin():
             if flask.request.form['object'] == 'event':
                 return delete_event(flask.request.form)
 
-    if message is None:
-        return render()
-    else:
-        flask.flash(*message)
-        message = None
-        return render()
+    return render()

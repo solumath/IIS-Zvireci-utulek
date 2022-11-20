@@ -45,25 +45,9 @@
                         <td>{{ user.tel_number }}</td>
                         <td>{{ user.rating }}</td>
                         {% if user.verified %}
-                        <td class="col text-center">
-                            <form method="POST" class="verifyUser">
-                                <button class="btn btn-success btn-login text-uppercase fw-bold bi-check-square-fill verifyUser" type="submit"></button>
-                                <input type="hidden" value="{{ user.id }}" name="id"/>
-                                <input type="hidden" value="user" name="object"/>
-                                <input type="hidden" value="EDIT" name="action"/>
-                                <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
-                            </form>
-                        </td>
+                        <td class="col text-center"><i class="bi-check" style="font-size: 2rem; color: #198754;"></i></td>
                         {% else %}
-                        <td class="col text-center">
-                            <form method="POST" class="verifyUser">
-                                <button class="btn btn-danger btn-login text-uppercase fw-bold bi-x-square-fill verifyUser" type="submit"></button>
-                                <input type="hidden" value="{{ user.id }}" name="id"/>
-                                <input type="hidden" value="user" name="object"/>
-                                <input type="hidden" value="VERIFY" name="action"/>
-                                <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
-                            </form>
-                        </td>
+                        <td class="col text-center"><i class="bi-x" style="font-size: 2rem; color: #dc3545;"></i></td>
                         {% endif %}
                         <td class="col text-center">
                             <form method="POST" class="editUser">
