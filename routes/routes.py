@@ -162,6 +162,9 @@ def add_post():
     except:
         return flask.redirect("404")
 
+    if discovery_day < birthday:
+        return flask.redirect("404")
+
     new_animal = db.Animal(name, sex, color, weight, height, kind, breed,
                            chip_id, birthday, discovery_day, discovery_place, description)
     db.db.session.add(new_animal)
