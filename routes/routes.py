@@ -72,7 +72,9 @@ def about():
 @flask_login.login_required
 def walks():
     if flask.request.method == 'DELETE':
-        db.remove_event(flask.request.form['id'])
+        event = db.get_user(flask.request.form['id'])
+        db.db.session.delete(event)
+        db.db.session.commit()
         return flask.render_template(
             'walks.html',
             user_info=flask_login.current_user.get_info(),
