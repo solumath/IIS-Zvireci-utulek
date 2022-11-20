@@ -3,10 +3,10 @@ import flask
 from app import app
 import db
 import response as r
-import routes
-
+from .permissions import render_with_permissions, role_required
 
 message = None
+
 
 def render():
     return flask.render_template(
@@ -15,6 +15,7 @@ def render():
         animals=db.get_animals(),
         events=db.get_events_query()
     )
+
 
 def delete_user(form):
     global message
@@ -27,8 +28,10 @@ def delete_user(form):
     db.db.session.commit()
     return render()
 
+
 def edit_user(form):
     pass
+
 
 def delete_animal(form):
     animal = db.get_animal(form['id'])
@@ -36,8 +39,10 @@ def delete_animal(form):
     db.db.session.commit()
     return render()
 
+
 def edit_animal(form):
     pass
+
 
 def delete_event(form):
     animal = db.get_event(form['id'])
@@ -45,13 +50,14 @@ def delete_event(form):
     db.db.session.commit()
     return render()
 
+
 def edit_event(form):
     pass
 
 
 @app.route('/admin', methods=['GET', 'POST'])
 @flask_login.login_required
-@routes.role_required(['administrator'])
+@role_required(['administrator'])
 def admin():
     global message
     if flask.request.method == 'POST':

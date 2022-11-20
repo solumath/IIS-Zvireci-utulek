@@ -1,9 +1,9 @@
 import flask
 import flask_login
 from app import app
-from functools import wraps
 import db
 import datetime
+from .permissions import role_required, render_with_permissions
 
 
 def date(date: str) -> datetime.date:
@@ -28,23 +28,6 @@ def parse_form(form, convertors):
         result[key] = convertor(value)
 
     return result
-
-
-def role_required(roles):
-    """
-    Decorator for checking if user has required role.
-    accepts multiple roles in list.
-    """
-    def decorator(f):
-        @wraps(f)
-        def wrapper(*args, **kwargs):
-            for role in roles:
-                if flask_login.current_user.user_role.name == role:
-                    return f(*args, **kwargs)
-            else:
-                return flask.render_template('401.html')
-        return wrapper
-    return decorator
 
 
 @app.route('/')
@@ -78,15 +61,18 @@ def walks():
             db.db.session.commit()
             return flask.render_template(
                 'walks.html',
-                past_events=db.get_past_events(user=flask_login.current_user.id),
-                future_events=db.get_future_events(user=flask_login.current_user.id)
+                past_events=db.get_past_events(
+                    user=flask_login.current_user.id),
+                future_events=db.get_future_events(
+                    user=flask_login.current_user.id)
             )
 
     return flask.render_template(
-            'walks.html',
-            past_events=db.get_past_events(user=flask_login.current_user.id),
-            future_events=db.get_future_events(user=flask_login.current_user.id)
-        )
+        'walks.html',
+        past_events=db.get_past_events(user=flask_login.current_user.id),
+        future_events=db.get_future_events(
+            user=flask_login.current_user.id)
+    )
 
 
 @app.route('/add', methods=['GET'])

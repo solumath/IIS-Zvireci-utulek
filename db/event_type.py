@@ -12,7 +12,6 @@ class EventType(db.Model):
     description = db.Column(db.Text)
 
     events = relation("Event", back_populates="event_type")
-    permissions = relation("Permission", back_populates="event_type")
 
     def __init__(self, name: str, priority: int = 0, description: str = ""):
         self.name = name
