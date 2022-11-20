@@ -68,10 +68,24 @@ def about():
     return flask.render_template('about.html')
 
 
-@app.route('/walks')
+@app.route('/walks', methods=['GET', 'POST', 'DELETE'])
 @flask_login.login_required
 def walks():
-    return flask.render_template('walks.html')
+    if flask.request.method == 'DELETE':
+        db.remove_event(flask.request.form['id'])
+        return flask.render_template(
+            'walks.html',
+            user_info=flask_login.current_user.get_info(),
+            past_events=db.get_past_events(user=flask_login.current_user.id),
+            future_events=db.get_future_events(user=flask_login.current_user.id)
+        )
+
+    return flask.render_template(
+            'walks.html',
+            user_info=flask_login.current_user.get_info(),
+            past_events=db.get_past_events(user=flask_login.current_user.id),
+            future_events=db.get_future_events(user=flask_login.current_user.id)
+        )
 
 
 @app.route('/add', methods=['GET'])

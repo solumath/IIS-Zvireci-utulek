@@ -55,9 +55,10 @@ class User(db.Model):
         return {
             "Jméno": f"{self.name} {self.surname}",
             "Bydliště": self.address,
-            "email": self.email,
+            "Email": self.email,
             "Telefon": self.tel_number,
-            "Hodnocení": self.rating
+            "Hodnocení": self.rating,
+            "Ověřen": "Ano" if self.authenticated else "Ne"
         }
 
     def get_id(self):
