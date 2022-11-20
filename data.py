@@ -127,7 +127,7 @@ def add_data():
 
     for event in events:
         event.animal = animals[0]
-        event.user = admin_user
+        event.user = volunteer_user
         event.event_type = event_types[0]
         db.db.session.add(event)
 

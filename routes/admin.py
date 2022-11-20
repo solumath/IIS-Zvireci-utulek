@@ -3,6 +3,7 @@ import flask
 from app import app
 import db
 import response as r
+import datetime
 from .permissions import render_with_permissions, role_required
 
 
@@ -21,6 +22,11 @@ def delete_user(form):
         return render()
 
     user = db.get_user(form['id'])
+
+    for event in user.events:
+        if event.start > datetime.datetime.now():
+            db.db.session.delete(event)
+
     db.db.session.delete(user)
     db.db.session.commit()
     return render()

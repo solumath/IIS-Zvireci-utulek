@@ -45,26 +45,29 @@
                         <td>{{ user.tel_number }}</td>
                         <td>{{ user.rating }}</td>
                         {% if user.verified %}
-                        <td class="col text-center"><i class="bi-check" style="font-size: 2rem; color: #198754;"></i></td>
+                        <td class="col text-center"><i class="bi-check" style="font-size: 2rem; color: #198754;"></i>
+                        </td>
                         {% else %}
                         <td class="col text-center"><i class="bi-x" style="font-size: 2rem; color: #dc3545;"></i></td>
                         {% endif %}
                         <td class="col text-center">
                             <form method="POST" class="editUser">
-                                <button class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editUser" type="submit"></button>
-                                <input type="hidden" value="{{ user.id }}" name="id"/>
-                                <input type="hidden" value="user" name="object"/>
-                                <input type="hidden" value="VERIFY" name="action"/>
-                                <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editUser"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ user.id }}" name="id" />
+                                <input type="hidden" value="user" name="object" />
+                                <input type="hidden" value="VERIFY" name="action" />
+                                <input type="hidden" value="{{ url_for('admin') }}" name="url" />
                             </form>
                         </td>
                         <td class="col text-center">
                             <form method="POST" class="deleteUser">
-                                <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteUser" type="submit"></button>
-                                <input type="hidden" value="{{ user.id }}" name="id"/>
-                                <input type="hidden" value="user" name="object"/>
-                                <input type="hidden" value="DELETE" name="action"/>
-                                <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
+                                <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteUser"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ user.id }}" name="id" />
+                                <input type="hidden" value="user" name="object" />
+                                <input type="hidden" value="DELETE" name="action" />
+                                <input type="hidden" value="{{ url_for('admin') }}" name="url" />
                             </form>
                         </td>
                     </tr>
@@ -72,9 +75,9 @@
                 </tbody>
             </table>
         </div>
-        
-        <hr/>
-        
+
+        <hr />
+
         <div class="my-5 animalsTable">
             <a class="btn btn-primary my-2" role="button">Přidat zvíře</a>
             <table class="table table-striped table-bordered align-middle" id="animalsTable">
@@ -108,20 +111,24 @@
                         <td>{{ animal.chip_id }}</td>
                         <td class="col text-center">
                             <form method="POST" class="editAnimal">
-                                <button class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editAnimal" type="submit"></button>
-                                <input type="hidden" value="{{ animal.id }}" name="id"/>
-                                <input type="hidden" value="animal" name="object"/>
-                                <input type="hidden" value="EDIT" name="action"/>
-                                <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
+                                <button
+                                    class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editAnimal"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ animal.id }}" name="id" />
+                                <input type="hidden" value="animal" name="object" />
+                                <input type="hidden" value="EDIT" name="action" />
+                                <input type="hidden" value="{{ url_for('admin') }}" name="url" />
                             </form>
                         </td>
                         <td class="col text-center">
                             <form method="POST" class="deleteAnimal">
-                                <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteAnimal" type="submit"></button>
-                                <input type="hidden" value="{{ animal.id }}" name="id"/>
-                                <input type="hidden" value="animal" name="object"/>
-                                <input type="hidden" value="DELETE" name="action"/>
-                                <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
+                                <button
+                                    class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteAnimal"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ animal.id }}" name="id" />
+                                <input type="hidden" value="animal" name="object" />
+                                <input type="hidden" value="DELETE" name="action" />
+                                <input type="hidden" value="{{ url_for('admin') }}" name="url" />
                             </form>
                         </td>
                     </tr>
@@ -130,7 +137,7 @@
             </table>
         </div>
 
-        <hr/>
+        <hr />
 
         <div class="my-5 eventsTable">
             <a class="btn btn-primary my-2" role="button">Přidat událost</a>
@@ -157,7 +164,11 @@
                     {% for event in events %}
                     <tr>
                         <td>{{ event.event_type.name.title() }}</td>
+                        {% if event.user %}
                         <td>{{ event.user.name + " " + event.user.surname }}</td>
+                        {% else %}
+                        <td>Deleted User</td>
+                        {% endif %}
                         <td>{{ event.user.email }}</td>
                         <td>{{ event.start }}</td>
                         <td>{{ event.end }}</td>
@@ -167,20 +178,24 @@
                         <td>{{ event.description }}</td>
                         <td class="col text-center">
                             <form method="POST" class="editEvent">
-                                <button class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent" type="submit"></button>
-                                <input type="hidden" value="{{ event.id }}" name="id"/>
-                                <input type="hidden" value="event" name="object"/>
-                                <input type="hidden" value="EDIT" name="action"/>
-                                <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
+                                <button
+                                    class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ event.id }}" name="id" />
+                                <input type="hidden" value="event" name="object" />
+                                <input type="hidden" value="EDIT" name="action" />
+                                <input type="hidden" value="{{ url_for('admin') }}" name="url" />
                             </form>
                         </td>
                         <td class="col text-center">
                             <form method="POST" class="deleteEvent">
-                                <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteEvent" type="submit"></button>
-                                <input type="hidden" value="{{ event.id }}" name="id"/>
-                                <input type="hidden" value="event" name="object"/>
-                                <input type="hidden" value="DELETE" name="action"/>
-                                <input type="hidden" value="{{ url_for('admin') }}" name="url"/>
+                                <button
+                                    class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteEvent"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ event.id }}" name="id" />
+                                <input type="hidden" value="event" name="object" />
+                                <input type="hidden" value="DELETE" name="action" />
+                                <input type="hidden" value="{{ url_for('admin') }}" name="url" />
                             </form>
                         </td>
                     </tr>
@@ -189,9 +204,9 @@
             </table>
         </div>
 
-        <hr/>
+        <hr />
 
-</div>
+    </div>
 </section>
 
 {% endblock %}
