@@ -33,6 +33,9 @@ def edit_user(form):
 
 def delete_animal(form):
     animal = db.get_animal(form['id'])
+    for event in animal.events:
+        db.db.session.delete(event)
+
     db.db.session.delete(animal)
     db.db.session.commit()
     return render()
