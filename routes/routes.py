@@ -5,28 +5,9 @@ import db
 import datetime
 from .permissions import role_required, render_with_permissions
 
-def date(date: str) -> datetime.date:
+
+def parse_date(date: str) -> datetime.date:
     return datetime.datetime.strptime(date, "%Y-%m-%d").date()
-
-
-def parse_form(form, convertors):
-    """
-    Checks for fields in form and converts them using convertors dict
-
-    Convertors E.x.: {"name":str, "weight":int, "birthday":date}
-    """
-    result = {}
-
-    for key, convertor in convertors.items():
-        value = form.get(key)
-        if value is None:
-            # TODO handle error input
-            print(f"did not find {key}")
-            print(form)
-            return None
-        result[key] = convertor(value)
-
-    return result
 
 
 @app.route('/')
@@ -85,12 +66,104 @@ def add_get():
 @flask_login.login_required
 @role_required(['administrator', 'caretaker'])
 def add_post():
-    convertors = {"name": str, "sex": str, "color": str, "weight": int, "height": int, "kind": str, "breed": str,
-                  "chip_id": int, "birthday": date, "discovery_day": date, "discovery_place": str, "description": str}
+    name = flask.request.form.get("name")
+    if name is None:
+        return flask.redirect("404")
+    try:
+        name = str(name)
+    except:
+        return flask.redirect("404")
 
-    values = parse_form(flask.request.form, convertors)
+    sex = flask.request.form.get("sex")
+    if sex is None:
+        return flask.redirect("404")
+    try:
+        sex = str(sex)
+    except:
+        return flask.redirect("404")
 
-    new_animal = db.Animal(**values)
+    color = flask.request.form.get("color")
+    if color is None:
+        return flask.redirect("404")
+    try:
+        color = str(color)
+    except:
+        return flask.redirect("404")
+
+    weight = flask.request.form.get("weight")
+    if weight is None:
+        return flask.redirect("404")
+    try:
+        weight = int(weight)
+    except:
+        return flask.redirect("404")
+
+    height = flask.request.form.get("height")
+    if height is None:
+        return flask.redirect("404")
+    try:
+        height = int(height)
+    except:
+        return flask.redirect("404")
+
+    kind = flask.request.form.get("kind")
+    if kind is None:
+        return flask.redirect("404")
+    try:
+        kind = str(kind)
+    except:
+        return flask.redirect("404")
+
+    breed = flask.request.form.get("breed")
+    if breed is None:
+        return flask.redirect("404")
+    try:
+        breed = str(breed)
+    except:
+        return flask.redirect("404")
+
+    chip_id = flask.request.form.get("chip_id")
+    if chip_id is None:
+        return flask.redirect("404")
+    try:
+        chip_id = int(chip_id)
+    except:
+        return flask.redirect("404")
+
+    birthday = flask.request.form.get("birthday")
+    if birthday is None:
+        return flask.redirect("404")
+    try:
+        birthday = parse_date(birthday)
+    except:
+        return flask.redirect("404")
+
+    discovery_day = flask.request.form.get("discovery_day")
+    if discovery_day is None:
+        return flask.redirect("404")
+    try:
+        discovery_day = parse_date(discovery_day)
+    except:
+        return flask.redirect("404")
+
+    discovery_place = flask.request.form.get("discovery_place")
+    if discovery_place is None:
+        return flask.redirect("404")
+    try:
+        discovery_place = str(discovery_place)
+    except:
+        return flask.redirect("404")
+
+    description = flask.request.form.get("description")
+    if description is None:
+        return flask.redirect("404")
+    try:
+        description = str(description)
+    except:
+        return flask.redirect("404")
+
+    new_animal = db.Animal(name, sex, color, weight, height, kind, breed,
+                           chip_id, birthday, discovery_day, discovery_place, description)
     db.db.session.add(new_animal)
     db.db.session.commit()
     return flask.redirect(f'animal/{new_animal.id}')
