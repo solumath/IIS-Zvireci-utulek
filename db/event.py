@@ -7,6 +7,7 @@ class Event(db.Model):
     __tablename__ = "event"
     id = db.Column(db.Integer,
                    primary_key=True, autoincrement=True)
+    comfirmed = db.Column(db.Boolean, default=False)
 
     animal_id = db.Column(
         db.Integer, db.ForeignKey("animal.id"))
@@ -28,3 +29,4 @@ class Event(db.Model):
         self.start = start
         self.end = end
         self.description = description
+        self.comfirmed=False
