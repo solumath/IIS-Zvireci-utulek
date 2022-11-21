@@ -10,29 +10,29 @@ from .permissions import role_required, render_with_permissions
 def parse_date(date: str) -> datetime.date:
     return datetime.datetime.strptime(date, "%Y-%m-%d").date()
 
+
 def date_from_datetime(date: str) -> datetime.datetime:
     return datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S").date()
 
+
 @app.route('/')
 def index():
-    return flask.render_template('index.html')
+    return render_with_permissions('index.html')
 
 
 @app.route('/animals', methods=['GET', 'POST'])
 def animals():
-    # if flask.request.method == 'POST':
-    #     return delete_animal(flask.request.form)
     return flask.render_template('animals.html',  animal_info=db.get_animals())
+
 
 @app.route('/animal/<id>')
 def detail(id):
-    return flask.render_template('animal_detail.html', animal=db.get_animal(id))
-    # return flask.render_template('404.html')
+    return render_with_permissions('animal_detail.html', animal=db.get_animal(id))
 
 
 @app.route('/about')
 def about():
-    return flask.render_template('about.html')
+    return render_with_permissions('about.html')
 
 
 @app.route('/walks', methods=['GET', 'POST'])
@@ -43,18 +43,18 @@ def walks():
             # todo admin může mazat všechny eventy
             if date_from_datetime(flask.request.form['start']) == datetime.datetime.today().date():
                 flask.flash(r.DELETE_PRESENT_WALK, r.ERROR)
-                return flask.render_template(
-                'walks.html',
-                past_events=db.get_past_events(
-                    user=flask_login.current_user.id),
-                future_events=db.get_future_events(
-                    user=flask_login.current_user.id)
-            )
-                
+                return render_with_permissions(
+                    'walks.html',
+                    past_events=db.get_past_events(
+                        user=flask_login.current_user.id),
+                    future_events=db.get_future_events(
+                        user=flask_login.current_user.id)
+                )
+
             event = db.get_event(flask.request.form['id'])
             db.db.session.delete(event)
             db.db.session.commit()
-            return flask.render_template(
+            return render_with_permissions(
                 'walks.html',
                 past_events=db.get_past_events(
                     user=flask_login.current_user.id),
@@ -62,7 +62,7 @@ def walks():
                     user=flask_login.current_user.id)
             )
 
-    return flask.render_template(
+    return render_with_permissions(
         'walks.html',
         past_events=db.get_past_events(user=flask_login.current_user.id),
         future_events=db.get_future_events(
@@ -74,7 +74,7 @@ def walks():
 @flask_login.login_required
 @role_required(['administrator', 'caretaker'])
 def add_get():
-    return flask.render_template('add_animal.html')
+    return render_with_permissions('add_animal.html')
 
 
 @app.route('/animal/add', methods=['POST'])
@@ -151,13 +151,13 @@ def edit_animal(id):
 @flask_login.login_required
 @role_required(['administrator', 'vet'])
 def examinations():
-    return flask.render_template('examinations.html')
+    return render_with_permissions('examinations.html')
 
 
 @app.route('/profile')
 @flask_login.login_required
 def profile():
-    return flask.render_template(
+    return render_with_permissions(
         'profile.html',
         user_info=flask_login.current_user.get_info(),
         past_events=db.get_past_events(user=flask_login.current_user.id),
@@ -167,9 +167,9 @@ def profile():
 
 @app.errorhandler(401)
 def not_enough_perms(e):
-    return flask.render_template('401.html')
+    return render_with_permissions('401.html')
 
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return flask.render_template('404.html')
+    return render_with_permissions('404.html')

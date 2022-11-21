@@ -15,8 +15,9 @@ Nalezená zvířata
         <div class="d-sm-flex align-items-center justify-content-between">
             <div style="width: 100%;">
                 <input type="text" class="input-filter" id="filtering" onkeyup="filtering()" placeholder="Hledej" />
+                {% if PERMISSION_ANIMALS_ADD %}
                 <a type="button" class="btn btn-primary btn-sm" href="{{url_for('add_get')}}">Přidat zvíře</a>
-
+                {% endif %}
                 <div class="row" id="animals">
                     {% for animal in animal_info %}
                     <div class="column">

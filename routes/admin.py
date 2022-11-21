@@ -8,7 +8,7 @@ from .permissions import render_with_permissions, role_required
 
 
 def render():
-    return flask.render_template(
+    return render_with_permissions(
         'admin.html',
         users=db.get_users(),
         animals=db.get_animals(),
@@ -23,9 +23,8 @@ def delete_user(form):
 
     user = db.get_user(form['id'])
 
-    for event in user.events:
-        if event.start > datetime.datetime.now():
-            db.db.session.delete(event)
+    for event in db.get_future_events(user):
+        db.db.session.delete(event)
 
     db.db.session.delete(user)
     db.db.session.commit()

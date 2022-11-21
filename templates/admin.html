@@ -15,7 +15,10 @@
 <section class="bg-light p-5 p-lg-0 pt-lg-3 text-center text-sm-start" id="sectionBody">
     <div class="container">
         <div class="mb-5 mt-2 usersTable">
+            {% if PERMISSION_USERS_ADD %}
             <a class="btn btn-primary my-2" role="button">Přidat uživatele</a>
+            {% endif %}
+            {% if PERMISSION_USERS_SHOW %}
             <table class="table table-striped table-bordered align-middle" id="usersTable">
                 <thead class="table-dark">
                     <tr>
@@ -29,9 +32,15 @@
                         <th scope="col">Email</th>
                         <th scope="col">Telefon</th>
                         <th scope="col">Hodnocení</th>
+                        {% if PERMISSION_USERS_VERIFY %}
                         <th scope="col">Ověření</th>
+                        {% endif %}
+                        {% if PERMISSION_USERS_EDIT %}
                         <th scope="col">Edit</th>
+                        {% endif %}
+                        {% if PERMISSION_USERS_DELETE %}
                         <th scope="col">Smazat</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -74,6 +83,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+            {% endif %} <!-- users show -->
         </div>
 
         <hr />

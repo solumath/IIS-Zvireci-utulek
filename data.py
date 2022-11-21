@@ -1,34 +1,92 @@
 from datetime import date, datetime
 import db
 
-role_admin = db.UserRole(name="administrator", description="""
+admin_role = db.UserRole(name="administrator", description="""
             - has highest permissions""")
 
-role_caretaker = db.UserRole(name="caretaker", description="""
+caretaker_role = db.UserRole(name="caretaker", description="""
             - manages animals
             - creates walking timetables
             - verifies volunteers
             - approves animal bookings
             - creates veterinarian requests""")
 
-role_vet = db.UserRole(name="veterinarian", description="""
+vet_role = db.UserRole(name="veterinarian", description="""
             - has access to medical records, 
             - performs medical procedures""")
 
-role_volunteer = db.UserRole(name="volunteer", description="""
+volunteer_role = db.UserRole(name="volunteer", description="""
             - can book animal for a walk 
             - can see his history""")
 
-role_unverified = db.UserRole(name="unverified", description="""
+unverified_role = db.UserRole(name="unverified", description="""
             - unverified volunteer
             - awaits verification""")
 
-user_roles = [
-    role_admin,
-    role_caretaker,
-    role_vet,
-    role_volunteer,
-    role_unverified,
+
+admin_permissions = [
+    db.PERMISSION_ANIMALS_SHOW,
+    db.PERMISSION_ANIMALS_DELETE,
+    db.PERMISSION_ANIMALS_EDIT,
+    db.PERMISSION_ANIMALS_ADD,
+
+    db.PERMISSION_USERS_SHOW,
+    db.PERMISSION_USERS_EDIT,
+    db.PERMISSION_USERS_VERIFY,
+    db.PERMISSION_USERS_ADD,
+    db.PERMISSION_USERS_DELETE,
+
+    db.PERMISSION_EVENTS_SHOW,
+    db.PERMISSION_EVENTS_DELETE,
+    db.PERMISSION_EVENTS_EDIT,
+    db.PERMISSION_EVENTS_ADD,
+
+    db.PERMISSION_WALKS_SHOW,
+    db.PERMISSION_WALKS_ADD,
+    db.PERMISSION_WALKS_DELETE,
+    db.PERMISSION_WALKS_CONFIRM,
+
+    db.PERMISSION_EXAMINATIONS_SHOW,
+]
+
+caretaker_permissions = [
+    db.PERMISSION_ANIMALS_SHOW,
+    db.PERMISSION_ANIMALS_DELETE,
+    db.PERMISSION_ANIMALS_EDIT,
+    db.PERMISSION_ANIMALS_ADD,
+
+    db.PERMISSION_USERS_SHOW,
+    db.PERMISSION_USERS_VERIFY,
+
+    db.PERMISSION_EVENTS_SHOW,
+    db.PERMISSION_EVENTS_DELETE,
+    db.PERMISSION_EVENTS_EDIT,
+    db.PERMISSION_EVENTS_ADD,
+
+    db.PERMISSION_WALKS_SHOW,
+    db.PERMISSION_WALKS_ADD,
+    db.PERMISSION_WALKS_DELETE,
+    db.PERMISSION_WALKS_CONFIRM,
+
+    db.PERMISSION_EXAMINATIONS_SHOW
+]
+
+volunteer_permissions = [
+    db.PERMISSION_ANIMALS_SHOW,
+
+    db.PERMISSION_WALKS_SHOW,
+    db.PERMISSION_WALKS_ADD,
+    db.PERMISSION_WALKS_DELETE,
+]
+
+vet_permissions = [
+    db.PERMISSION_ANIMALS_SHOW,
+
+    db.PERMISSION_EXAMINATIONS_SHOW
+]
+
+unverified_permissions = [
+    db.PERMISSION_ANIMALS_SHOW,
 ]
 
 animals = [
@@ -103,20 +161,31 @@ events = [
 ]
 
 
-def add_data():
-    for role in user_roles:
-        db.db.session.add(role)
+def add_role(role, permissions):
+    db.db.session.add(role)
+    for perm_code in permissions:
+        permission = db.Permission(perm_code)
+        permission.user_role = role
+        db.db.session.add(permission)
 
-    admin_user.user_role = role_admin
+
+def add_data():
+    add_role(admin_role, admin_permissions)
+    add_role(caretaker_role, caretaker_permissions)
+    add_role(vet_role, vet_permissions)
+    add_role(volunteer_role, volunteer_permissions)
+    add_role(unverified_role, unverified_permissions)
+
+    admin_user.user_role = admin_role
     db.db.session.add(admin_user)
 
-    vet_user.user_role = role_vet
+    vet_user.user_role = vet_role
     db.db.session.add(vet_user)
 
-    caretaker_user.user_role = role_caretaker
+    caretaker_user.user_role = caretaker_role
     db.db.session.add(caretaker_user)
 
-    volunteer_user.user_role = role_volunteer
+    volunteer_user.user_role = volunteer_role
     db.db.session.add(volunteer_user)
 
     for animal in animals:
