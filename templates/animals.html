@@ -26,13 +26,21 @@ Nalezená zvířata
                             <div class="card-body">
                                 <h2 class="card-title">{{animal.name}}</h2>
                                 <p class="card-subtitle">{{animal.breed}}</p>
-
-                                <p>Věk: {{animal.birthday}}
+                                <p>Věk: {{animal.birthday}} </p>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <a type="button" href="animal/{{animal.id}}" class="btn btn-outline-info"><i
-                                            class="bi bi-pencil-square"></i>více
+                                            class="bi bi-info-square"></i> Více
                                         informací</a>
-                                </p>
-
+                                    <form method="POST" class="deleteAnimal">
+                                        <button
+                                            class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteAnimal"
+                                            type="submit"></button>
+                                        <input type="hidden" value="{{ animal.id }}" name="id" />
+                                        <input type="hidden" value="animal" name="object" />
+                                        <input type="hidden" value="DELETE" name="action" />
+                                        <input type="hidden" value="{{ url_for('admin') }}" name="url" />
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

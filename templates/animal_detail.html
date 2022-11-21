@@ -67,7 +67,7 @@
             <a type="button" href="{{url_for('walks') }}" class="btn btn-success btn-sm">Vyvenčit</a>
             <!-- <a type="button" class="btn btn-secondary btn-sm">Historie</a> -->
             <a type="button" class="btn btn-primary btn-sm">Zdravotní záznam</a>
-            <a type="button" class="btn btn-primary btn-sm">Upravit zvíře</a>
+            <a type="button" class="btn btn-warning btn-sm" href="/animals/edit/{{animal.id}}">Upravit zvíře</a>
 
             {%endif%}
         </div>

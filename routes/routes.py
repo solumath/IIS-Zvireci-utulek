@@ -18,10 +18,11 @@ def index():
     return flask.render_template('index.html')
 
 
-@app.route('/animals')
+@app.route('/animals', methods=['GET', 'POST'])
 def animals():
+    # if flask.request.method == 'POST':
+    #     return delete_animal(flask.request.form)
     return flask.render_template('animals.html',  animal_info=db.get_animals())
-
 
 @app.route('/animal/<id>')
 def detail(id):
@@ -69,122 +70,82 @@ def walks():
     )
 
 
-@app.route('/add', methods=['GET'])
+@app.route('/animal/add', methods=['GET'])
 @flask_login.login_required
 @role_required(['administrator', 'caretaker'])
 def add_get():
     return flask.render_template('add_animal.html')
 
 
-@app.route('/add', methods=['POST'])
+@app.route('/animal/add', methods=['POST'])
 @flask_login.login_required
 @role_required(['administrator', 'caretaker'])
 def add_post():
     name = flask.request.form.get("name")
-    if name is None:
-        return flask.redirect("404")
-    try:
-        name = str(name)
-    except:
-        return flask.redirect("404")
-
     sex = flask.request.form.get("sex")
-    if sex is None:
-        return flask.redirect("404")
-    try:
-        sex = str(sex)
-    except:
-        return flask.redirect("404")
-
     color = flask.request.form.get("color")
-    if color is None:
-        return flask.redirect("404")
-    try:
-        color = str(color)
-    except:
-        return flask.redirect("404")
-
     weight = flask.request.form.get("weight")
-    if weight is None:
-        return flask.redirect("404")
-    try:
-        weight = int(weight)
-    except:
-        return flask.redirect("404")
-
+    if(int(weight) < 0):
+        flask.flash('Váha nesmí být záporná.')
+        return flask.redirect(flask.url_for('add_post', id=str(id)))
     height = flask.request.form.get("height")
-    if height is None:
-        return flask.redirect("404")
-    try:
-        height = int(height)
-    except:
-        return flask.redirect("404")
-
+    if(int(height) < 0):
+            flask.flash('Výška nesmí být záporná.')
+            return flask.redirect(flask.url_for('add_post', id=str(id)))
     kind = flask.request.form.get("kind")
-    if kind is None:
-        return flask.redirect("404")
-    try:
-        kind = str(kind)
-    except:
-        return flask.redirect("404")
-
     breed = flask.request.form.get("breed")
-    if breed is None:
-        return flask.redirect("404")
-    try:
-        breed = str(breed)
-    except:
-        return flask.redirect("404")
-
     chip_id = flask.request.form.get("chip_id")
-    if chip_id is None:
-        return flask.redirect("404")
-    try:
-        chip_id = int(chip_id)
-    except:
-        return flask.redirect("404")
-
-    birthday = flask.request.form.get("birthday")
-    if birthday is None:
-        return flask.redirect("404")
-    try:
-        birthday = parse_date(birthday)
-    except:
-        return flask.redirect("404")
-
-    discovery_day = flask.request.form.get("discovery_day")
-    if discovery_day is None:
-        return flask.redirect("404")
-    try:
-        discovery_day = parse_date(discovery_day)
-    except:
-        return flask.redirect("404")
-
+    if(int(chip_id) < 0):
+        flask.flash('Číslo čipu nesmí být záporné.')
+        return flask.redirect(flask.url_for('add_post', id=str(id)))
+    birthday = parse_date(flask.request.form.get("birthday"))
+    discovery_day = parse_date(flask.request.form.get("discovery_day"))
+    if(discovery_day < birthday):
+        flask.flash('Špatné datum přijetí nebo narození.')
+        return flask.redirect(flask.url_for('add_post', id=str(id)))
     discovery_place = flask.request.form.get("discovery_place")
-    if discovery_place is None:
-        return flask.redirect("404")
-    try:
-        discovery_place = str(discovery_place)
-    except:
-        return flask.redirect("404")
-
     description = flask.request.form.get("description")
-    if description is None:
-        return flask.redirect("404")
-    try:
-        description = str(description)
-    except:
-        return flask.redirect("404")
-
-    if discovery_day < birthday:
-        return flask.redirect("404")
 
     new_animal = db.Animal(name, sex, color, weight, height, kind, breed,
                            chip_id, birthday, discovery_day, discovery_place, description)
     db.db.session.add(new_animal)
     db.db.session.commit()
-    return flask.redirect(f'animal/{new_animal.id}')
+    return flask.redirect(f'{new_animal.id}')
 
+@app.route('/animals/edit/<id>', methods=['GET', 'POST'])
+@flask_login.login_required
+@role_required(['administrator', 'caretaker'])
+def edit_animal(id):
+    if flask.request.method == 'POST':
+        animal = db.get_animal(id)
+        id=animal.id
+        animal.name=flask.request.form.get('name')
+        animal.sex=flask.request.form.get('sex')
+        animal.color=flask.request.form.get('color')
+        animal.weight=flask.request.form.get('weight')
+        if(int(animal.weight) < 0):
+            flask.flash('Váha nesmí být záporná.')
+            return flask.redirect(flask.url_for('edit_animal', id=str(id)))
+        animal.height=flask.request.form.get('height')
+        if(int(animal.height) < 0):
+            flask.flash('Výška nesmí být záporná.')
+            return flask.redirect(flask.url_for('edit_animal', id=str(id)))
+        animal.kind=flask.request.form.get('kind')
+        animal.breed=flask.request.form.get('breed')
+        animal.chip_id=flask.request.form.get('chip_id')
+        if(int(animal.chip_id) < 0):
+            flask.flash('Číslo čipu nesmí být záporné.')
+            return flask.redirect(flask.url_for('edit_animal', id=str(id)))
+        animal.birthday=parse_date(flask.request.form.get('birthday'))
+        animal.discovery_day=parse_date(flask.request.form.get('discovery_day'))
+        if(animal.discovery_day < animal.birthday):
+            flask.flash('Špatné datum přijetí nebo narození.')
+            return flask.redirect(flask.url_for('edit_animal', id=str(id)))
+        animal.discovery_place=flask.request.form.get('discovery_place')
+        animal.description=flask.request.form.get('description')
+        db.db.session.commit()
+        return flask.redirect(flask.url_for('detail', id=str(id)))
+    return flask.render_template('edit_animal.html', animal=db.get_animal(id))
 
 @app.route('/examinations')
 @flask_login.login_required
