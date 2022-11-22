@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block title %} Události {% endblock %}
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/events.css') }}" />
-    <script type="text/javascript" src="{{ url_for('static', filename='js/events.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/events.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/events.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -29,8 +29,6 @@
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
                         <th scope="col">Jméno zvířete</th>
-                        <th scope="col">Druh</th>
-                        <th scope="col">Kód čipu</th>
                         <th scope="col">Popis</th>
                         <th scope="col">Upravit</th>
                         <th scope="col">Smazat</th>
@@ -48,13 +46,16 @@
                         <td>{{ event.user.email }}</td>
                         <td>{{ event.start }}</td>
                         <td>{{ event.end }}</td>
-                        <td>{{ event.animal.name }}</td>
-                        <td>{{ event.animal.kind }}</td>
-                        <td>{{ event.animal.chip_id }}</td>
+                        <td>
+                            <a type="button" href="{{url_for('animals_detail', id=event.animal.id)}}" class="btn">{{
+                                event.animal.name }}</a>
+                        </td>
                         <td>{{ event.description }}</td>
                         {% if PERMISSION_EVENTS_EDIT %}
                         <td class="col text-center">
-                            <a href="events/edit/{{event.id}}" class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent" role="button"></a>
+                            <a href="events/edit/{{event.id}}"
+                                class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent"
+                                role="button"></a>
                         </td>
                         {% endif %}
                         {% if PERMISSION_EVENTS_DELETE %}
@@ -76,4 +77,3 @@
 </section>
 
 {% endblock %}
-    

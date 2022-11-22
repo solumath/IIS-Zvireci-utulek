@@ -29,19 +29,23 @@ def register_form(form):
     data = {}
     for field in needed_fields:
         if field not in form:
-            flask.flash(r.MISSING_FIELD, r.Error)
-            return r.generate_response(r.STAUTS_BAD_REQUEST, r.MISSING_FIELD)
+            flask.flash(r.MISSING_FIELD, r.ERROR)
+            return r.generate_response(r.STATUS_BAD_REQUEST, r.MISSING_FIELD)
         data[field] = form[field]
 
     # user lookup
     login = form["login"]
-    user = db.db.session.query(db.User).filter(
-        db.User.login == login).first()
+    user_login = db.db.session.query(db.User).filter(db.User.login == login).first()
 
-    # login conflict
-    if user is not None:
+    if user_login is not None:
         flask.flash(r.USER_ALREADY_EXISTS, r.ERROR)
-        return r.generate_response(r.STAUTS_BAD_REQUEST, r.USER_ALREADY_EXISTS)
+        return utility.render_with_permissions('login.html')
+
+    email = form["email"]
+    user_email = db.db.session.query(db.User).filter(db.User.email == email).first()
+    if user_email is not None:
+        flask.flash(r.USER_ALREADY_EXISTS, r.ERROR)
+        return utility.render_with_permissions('login.html')
 
     # create user and insert to db
     new_user = db.User(**data)
