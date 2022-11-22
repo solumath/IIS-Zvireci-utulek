@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% block title %} Uživatelé {% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" />
-<script type="text/javascript" src="{{ url_for('static', filename='js/admin.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/users.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/users.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -36,7 +37,7 @@
                         <th scope="col">Ověření</th>
                         {% endif %}
                         {% if PERMISSION_USERS_EDIT %}
-                        <th scope="col">Edit</th>
+                        <th scope="col">Upravit</th>
                         {% endif %}
                         {% if PERMISSION_USERS_DELETE %}
                         <th scope="col">Smazat</th>
@@ -67,29 +68,18 @@
                         <!-- USER EDIT -->
                         {% if PERMISSION_USERS_EDIT %}
                         <td class="col text-center">
-                            <!-- <form method="GET" class="editUser"> -->
-                            <!-- <button class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editUser" -->
-                            <!-- type="submit" href="/users/edit/{{user.id}}"></button> -->
-                            <!-- <input type="hidden" value="{{ user.id }}" name="id" />
-                            <input type="hidden" value="user" name="object" />
-                            <input type="hidden" value="VERIFY" name="action" />
-                            <input type="hidden" value="{{ url_for('admin') }}" name="url" /> -->
-                            <!-- </form> -->
-                            <a type="button" class="btn btn-primary text-uppercase fw-bold bi-pencil-fill "
-                                href="/users/edit/{{user.id}}"></button>
+                            <a href="users/edit/{{user.id}}" class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editUser" role="button"></a>
                         </td>
                         {% endif %}
 
                         <!-- USER DELETE -->
                         {% if PERMISSION_USERS_DELETE %}
                         <td class="col text-center">
-                            <form method="POST" class="deleteUser">
+                            <form method="POST" class="deleteUser" action="{{ url_for('users_delete') }}">
                                 <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteUser"
                                     type="submit"></button>
                                 <input type="hidden" value="{{ user.id }}" name="id" />
-                                <input type="hidden" value="user" name="object" />
-                                <input type="hidden" value="DELETE" name="action" />
-                                <input type="hidden" value="{{ url_for('admin') }}" name="url" />
+                                <input type="hidden" value="{{ url_for('users_delete') }}" name="url" />
                             </form>
                         </td>
                         {% endif %}

@@ -7,36 +7,37 @@ from app import app
 import utility
 
 
+@app.route('/my_walks/delete', methods=['GET', 'POST'])
+@flask_login.login_required
+def my_walks_delete():
+    if flask.request.method == 'POST':
+        if utility.date_from_datetime(flask.request.form['start']) == datetime.datetime.today().date():
+                flask.flash(r.DELETE_PRESENT_WALK, r.ERROR)
+                return flask.render_template(
+                'my_walks.html',
+                past_events=db.get_past_events(user=flask_login.current_user.id),
+                future_events=db.get_future_events(user=flask_login.current_user.id)
+            )
+        animal = db.get_event(flask.request.form['id'])
+        db.db.session.delete(animal)
+        db.db.session.commit()
+        return utility.render_with_permissions(
+            'my_walks.html',
+            past_events=db.get_past_events(user=flask_login.current_user.id),
+            future_events=db.get_future_events(user=flask_login.current_user.id)
+        )
+
+    return utility.render_with_permissions(
+        'my_walks.html',
+        past_events=db.get_past_events(user=flask_login.current_user.id),
+        future_events=db.get_future_events(user=flask_login.current_user.id)
+    )
+
 @app.route('/my_walks', methods=['GET', 'POST'])
 @flask_login.login_required
 def my_walks():
-    if flask.request.method == 'POST':
-        if 'DELETE' in flask.request.form['action']:
-            # todo admin může mazat všechny eventy
-            if utility.date_from_datetime(flask.request.form['start']) == datetime.datetime.today().date():
-                flask.flash(r.DELETE_PRESENT_WALK, r.ERROR)
-                return utility.render_with_permissions(
-                    'walks.html',
-                    past_events=db.get_past_events(
-                        user=flask_login.current_user.id),
-                    future_events=db.get_future_events(
-                        user=flask_login.current_user.id)
-                )
-
-            event = db.get_event(flask.request.form['id'])
-            db.db.session.delete(event)
-            db.db.session.commit()
-            return utility.render_with_permissions(
-                'walks.html',
-                past_events=db.get_past_events(
-                    user=flask_login.current_user.id),
-                future_events=db.get_future_events(
-                    user=flask_login.current_user.id)
-            )
-
     return utility.render_with_permissions(
-        'walks.html',
+        'my_walks.html',
         past_events=db.get_past_events(user=flask_login.current_user.id),
-        future_events=db.get_future_events(
-            user=flask_login.current_user.id)
+        future_events=db.get_future_events(user=flask_login.current_user.id)
     )

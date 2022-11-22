@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %} Události {% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/events.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/events.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<!-- Showcase -->
+<section class="p-3 bg-dark text-white text-center text-sm-start">
+    <div class="container">
+        <h1>Události</h1>
+    </div>
+</section>
+
+<section class="bg-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start" id="sectionBody">
+    <div class="container">
+        <div class="mb-5 mt-2 eventsTable">
+            <a class="btn btn-primary my-2" role="button">Přidat událost</a>
+            <table class="table table-striped table-bordered align-middle" id="eventsTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="h3" scope="col" colspan="11">Události</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Druh</th>
+                        <th scope="col">Jméno osoby</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Začátek</th>
+                        <th scope="col">Konec</th>
+                        <th scope="col">Jméno zvířete</th>
+                        <th scope="col">Druh</th>
+                        <th scope="col">Kód čipu</th>
+                        <th scope="col">Popis</th>
+                        <th scope="col">Upravit</th>
+                        <th scope="col">Smazat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                    <tr>
+                        <td>{{ event.event_type.name.title() }}</td>
+                        {% if event.user %}
+                        <td>{{ event.user.name + " " + event.user.surname }}</td>
+                        {% else %}
+                        <td>Deleted User</td>
+                        {% endif %}
+                        <td>{{ event.user.email }}</td>
+                        <td>{{ event.start }}</td>
+                        <td>{{ event.end }}</td>
+                        <td>{{ event.animal.name }}</td>
+                        <td>{{ event.animal.kind }}</td>
+                        <td>{{ event.animal.chip_id }}</td>
+                        <td>{{ event.description }}</td>
+                        {% if PERMISSION_EVENTS_EDIT %}
+                        <td class="col text-center">
+                            <a href="events/edit/{{event.id}}" class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent" role="button"></a>
+                        </td>
+                        {% endif %}
+                        {% if PERMISSION_EVENTS_DELETE %}
+                        <td class="col text-center">
+                            <form method="POST" class="deleteEvent" action="{{ url_for('events_delete') }}">
+                                <button
+                                    class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteEvent"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ event.id }}" name="id" />
+                            </form>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+    

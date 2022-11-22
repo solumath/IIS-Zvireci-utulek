@@ -13,3 +13,8 @@ USER_ALREADY_EXISTS = "Uživatel s těmito přihlašovacími údaji již existuj
 DELETE_YOURSELF_FAILED = "Nemůžeš se vymazat Ujo."
 DELETE_PRESENT_WALK = "Nemůžeš vymazat procházky ve stejný den, ve který se konají."
 
+WRONG_DISCOVERY_DATE = "Špatné datum přijetí nebo narození"
+NEGATIVE_CHIP_ID = "Číslo čipu nesmí být záporné."
+NEGATIVE_HEIGHT = "Výška nesmí být záporná"
+NEGATIVE_WEIGHT = "Váha nesmí být záporná."
+NEGATIVE_USER_RATING = 'Hodnocení uživatele nesmí být záporné.'

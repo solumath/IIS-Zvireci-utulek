@@ -5,10 +5,28 @@ import db
 import utility
 import response as r
 
+def delete_animal(form):
+    animal = db.get_animal(form['id'])
+    for event in animal.events:
+        db.db.session.delete(event)
+
+    db.db.session.delete(animal)
+    db.db.session.commit()
+    return utility.render_with_permissions(
+        'admin.html',
+        users=db.get_users(),
+        animals=db.get_animals(),
+        events=db.get_events_query()
+    )
 
 @app.route('/animals', methods=['GET', 'POST'])
 def animals():
-    return utility.render_with_permissions('animals.html',  animal_info=db.get_animals())
+    if flask.request.method == "POST":
+        if 'DELETE' in flask.request.form['action']:
+            if flask.request.form['object'] == 'animal':
+                return delete_animal(flask.request.form)
+    if flask.request.method == "GET":
+        return utility.render_with_permissions('animals.html',  animal_info=db.get_animals())
 
 
 @app.route('/animals/<id>')
@@ -29,22 +47,22 @@ def animals_add():
     color = flask.request.form.get("color")
     weight = flask.request.form.get("weight")
     if (int(weight) < 0):
-        flask.flash('Váha nesmí být záporná.', r.ERROR)
+        flask.flash(r.NEGATIVE_WEIGHT, r.ERROR)
         return flask.redirect(flask.url_for('animals_add', id=str(id)))
     height = flask.request.form.get("height")
     if (int(height) < 0):
-        flask.flash('Výška nesmí být záporná.', r.ERROR)
+        flask.flash(r.NEGATIVE_HEIGHT, r.ERROR)
         return flask.redirect(flask.url_for('animals_add', id=str(id)))
     kind = flask.request.form.get("kind")
     breed = flask.request.form.get("breed")
     chip_id = flask.request.form.get("chip_id")
     if (int(chip_id) < 0):
-        flask.flash('Číslo čipu nesmí být záporné.', r.ERROR)
+        flask.flash(r.NEGATIVE_CHIP_ID, r.ERROR)
         return flask.redirect(flask.url_for('animals_add', id=str(id)))
     birthday = utility.parse_date(flask.request.form.get("birthday"))
     discovery_day = utility.parse_date(flask.request.form.get("discovery_day"))
     if (discovery_day < birthday):
-        flask.flash('Špatné datum přijetí nebo narození.', r.ERROR)
+        flask.flash(r.WRONG_DISCOVERY_DATE, r.ERROR)
         return flask.redirect(flask.url_for('animals_add', id=str(id)))
     discovery_place = flask.request.form.get("discovery_place")
     description = flask.request.form.get("description")
@@ -68,23 +86,23 @@ def animals_edit(id):
         animal.color = flask.request.form.get('color')
         animal.weight = flask.request.form.get('weight')
         if (int(animal.weight) < 0):
-            flask.flash('Váha nesmí být záporná.', r.ERROR)
+            flask.flash(r.NEGATIVE_WEIGHT, r.ERROR)
             return flask.redirect(flask.url_for('animals_edit', id=str(id)))
         animal.height = flask.request.form.get('height')
         if (int(animal.height) < 0):
-            flask.flash('Výška nesmí být záporná.', r.ERROR)
+            flask.flash(r.NEGATIVE_HEIGHT, r.ERROR)
             return flask.redirect(flask.url_for('animals_edit', id=str(id)))
         animal.kind = flask.request.form.get('kind')
         animal.breed = flask.request.form.get('breed')
         animal.chip_id = flask.request.form.get('chip_id')
         if (int(animal.chip_id) < 0):
-            flask.flash('Číslo čipu nesmí být záporné.', r.ERROR)
+            flask.flash(r.NEGATIVE_CHIP_ID, r.ERROR)
             return flask.redirect(flask.url_for('animals_edit', id=str(id)))
         animal.birthday = utility.parse_date(flask.request.form.get('birthday'))
         animal.discovery_day = utility.parse_date(
             flask.request.form.get('discovery_day'))
         if (animal.discovery_day < animal.birthday):
-            flask.flash('Špatné datum přijetí nebo narození.', r.ERROR)
+            flask.flash(r.WRONG_DISCOVERY_DATE, r.ERROR)
             return flask.redirect(flask.url_for('animals_edit', id=str(id)))
         animal.discovery_place = flask.request.form.get('discovery_place')
         animal.description = flask.request.form.get('description')

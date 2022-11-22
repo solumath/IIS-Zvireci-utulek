@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block title %} Procházky {% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/walks.css') }}" />
-<script type="text/javascript" src="{{ url_for('static', filename='js/walks.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/my_walks.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/my_walks.js') }}"></script>
 {% endblock %}
 
 {% block body %}
 <!-- Showcase -->
 <section class="p-3 bg-dark text-white text-center text-sm-start">
     <div class="container">
-        <h1>Procházky</h1>
+        <h1>Moje procházky</h1>
     </div>
 </section>
 
@@ -27,12 +27,7 @@
                         <th scope="col">Konec</th>
                         <th scope="col">Jméno</th>
                         <th scope="col">Popis</th>
-                        {% if PERMISSION_WALKS_EDIT %}
-                        <th scope="col">Upravit</th>
-                        {% endif %}
-                        {% if PERMISSION_WALKS_DELETE %}
                         <th scope="col">Smazat</th>
-                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -47,14 +42,14 @@
                             <td>{{ future.description }}</td>
                             {% if PERMISSION_WALKS_EDIT %}
                             <td class="col text-center">
-                                <a href="walks/edit/{{future.id}}" class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editWalk" role="button"></a>
+                                <a href="my_walks/edit/{{future.id}}" class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editWalk" role="button"></a>
                             </td>
                             {% endif %}
 
                             <!-- USER DELETE -->
                             {% if PERMISSION_WALKS_DELETE %}
                             <td class="col text-center">
-                                <form method="POST" class="deleteWalk" action="{{ url_for('walks_delete') }}">
+                                <form method="POST" class="deleteWalk" action="{{ url_for('my_walks_delete') }}">
                                     <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteWalk"
                                         type="submit"></button>
                                     <input type="hidden" value="{{ future.id }}" name="id" />

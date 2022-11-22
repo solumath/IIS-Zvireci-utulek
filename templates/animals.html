@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}
-Nalezená zvířata
-{% endblock %}
+{% block title %} Nalezená zvířata {% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/animals.css') }}" />
 <script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script>
@@ -40,7 +38,7 @@ Nalezená zvířata
                                         <input type="hidden" value="{{ animal.id }}" name="id" />
                                         <input type="hidden" value="animal" name="object" />
                                         <input type="hidden" value="DELETE" name="action" />
-                                        <input type="hidden" value="{{ url_for('admin') }}" name="url" />
+                                        <input type="hidden" value="{{ url_for('animals') }}" name="url" />
                                     </form>
                                     {% endif %}
                                 </div>
