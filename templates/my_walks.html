@@ -47,14 +47,19 @@
                             {% endif %}
 
                             <!-- USER DELETE -->
-                            {% if PERMISSION_WALKS_DELETE %}
-                            <td class="col text-center">
-                                <form method="POST" class="deleteWalk" action="{{ url_for('my_walks_delete') }}">
-                                    <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteWalk"
-                                        type="submit"></button>
-                                    <input type="hidden" value="{{ future.id }}" name="id" />
-                                </form>
-                            </td>
+                            {% if PERMISSION_MY_WALKS_DELETE %}
+                                {% if future.start.date() == today %}
+                                <td class="col text-center text-danger">Procházku nelze zrušit ve stejný den.</td>
+                                {% else %}
+                                <td class="col text-center">
+                                    <form method="POST" class="deleteWalk" action="{{ url_for('my_walks_delete') }}">
+                                        <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteWalk"
+                                            type="submit"></button>
+                                        <input type="hidden" value="{{ future.start }}" name="start" />
+                                        <input type="hidden" value="{{ future.id }}" name="id" />
+                                    </form>
+                                </td>
+                                {% endif %}
                             {% endif %}
                         </tr>
                     {% endfor %}

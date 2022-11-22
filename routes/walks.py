@@ -13,17 +13,9 @@ def walks_delete():
         animal = db.get_event(flask.request.form['id'])
         db.db.session.delete(animal)
         db.db.session.commit()
-        return utility.render_with_permissions(
-            'walks.html',
-            past_events=db.get_past_events(),
-            future_events=db.get_future_events()
-        )
+        return flask.redirect(flask.url_for('walks'))
 
-    return utility.render_with_permissions(
-        'walks.html',
-        past_events=db.get_past_events(),
-        future_events=db.get_future_events()
-    )
+    return flask.redirect(flask.url_for('walks'))
 
 
 @app.route('/walks', methods=['GET', 'POST'])
