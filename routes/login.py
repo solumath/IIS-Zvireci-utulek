@@ -4,7 +4,7 @@ from app import app
 import db
 from flask_cors import cross_origin
 import response as r
-from .permissions import render_with_permissions
+import utility
 
 
 login_manager = flask_login.LoginManager()
@@ -49,7 +49,7 @@ def register_form(form):
     db.db.session.commit()
 
     flask.flash(r.REGISTER_SUCCESS, r.OK)
-    return render_with_permissions("login.html")
+    return utility.render_with_permissions("login.html")
 
 
 def login_form(form):
@@ -66,10 +66,10 @@ def login_form(form):
             flask_login.login_user(user, remember=True)
 
             flask.flash(r.LOGIN_SUCCESS, r.OK)
-            return render_with_permissions("index.html")
+            return utility.render_with_permissions("index.html")
 
     flask.flash(r.WRONG_LOGIN_OR_PASSWORD, r.ERROR)
-    return render_with_permissions("login.html")
+    return utility.render_with_permissions("login.html")
 
 
 @cross_origin
@@ -86,9 +86,9 @@ def login():
             return register_form(flask.request.form)
 
         flask.flash(r.STATUS_BAD_REQUEST, "Bez dopice")
-        return render_with_permissions("login.html")
+        return utility.render_with_permissions("login.html")
 
-    return render_with_permissions("login.html")
+    return utility.render_with_permissions("login.html")
 
 
 @cross_origin
@@ -102,4 +102,4 @@ def logout():
     db.db.session.commit()
     flask_login.logout_user()
     flask.flash(r.LOGOUT_SUCCESS, r.OK)
-    return render_with_permissions("index.html")
+    return utility.render_with_permissions("index.html")

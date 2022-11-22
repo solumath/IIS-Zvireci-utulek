@@ -47,12 +47,12 @@ def render_with_permissions(*args, **kwargs):
         db.PERMISSION_EXAMINATIONS_SHOW: "PERMISSION_EXAMINATIONS_SHOW",
     }
 
-    permissions = {x: False for x in perms_dict.values()}
+    # permissions = {x: False for x in perms_dict.values()}
+    permissions = {}
 
     if flask_login.current_user.is_authenticated:
         user_perms = flask_login.current_user.user_role.permissions
     else:
-        from data import unverified_role
         user_perms = db.db.session.query(db.UserRole).filter(
             db.UserRole.name == "unverified").first().permissions
 

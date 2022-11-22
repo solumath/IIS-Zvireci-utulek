@@ -3,7 +3,9 @@ from .animal import Animal
 from .user import User
 from .event import Event
 from .event_type import EventType
+from .user_role import UserRole
 from datetime import datetime
+import typing
 
 
 # ====================================================================================================
@@ -37,7 +39,7 @@ def get_user(id):
     return db.session.query(User).get(id)
 
 
-def get_users(login: str = None, email: str = None, name: str = None, surname: str = None):
+def get_users(login: str = None, email: str = None, name: str = None, surname: str = None, role: typing.Union[str, UserRole] = None) -> list[User]:
     """
         return array of users,
         if some of the arguments are set, filter by them
@@ -55,6 +57,12 @@ def get_users(login: str = None, email: str = None, name: str = None, surname: s
 
     if isinstance(surname, str):
         query = query.filter(User.surname == surname)
+
+    if isinstance(role, str):
+        role = db.session.query(UserRole).filter(UserRole.name == role).first()
+
+    if isinstance(role, UserRole):
+        query = query.filter(User.user_role == role)
 
     return query.all()
 

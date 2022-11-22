@@ -16,7 +16,7 @@ Nalezená zvířata
             <div style="width: 100%;">
                 <input type="text" class="input-filter" id="filtering" onkeyup="filtering()" placeholder="Hledej" />
                 {% if PERMISSION_ANIMALS_ADD %}
-                <a type="button" class="btn btn-primary btn-sm" href="{{url_for('add_get')}}">Přidat zvíře</a>
+                <a type="button" class="btn btn-primary btn-sm" href="{{url_for('animals_add')}}">Přidat zvíře</a>
                 {% endif %}
                 <div class="row" id="animals">
                     {% for animal in animal_info %}
@@ -29,9 +29,10 @@ Nalezená zvířata
                                 <p class="card-subtitle">{{animal.breed}}</p>
                                 <p>Věk: {{animal.birthday}} </p>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a type="button" href="animal/{{animal.id}}" class="btn btn-outline-info"><i
+                                    <a type="button" href="animals/{{animal.id}}" class="btn btn-outline-info"><i
                                             class="bi bi-info-square"></i> Více
                                         informací</a>
+                                    {% if PERMISSION_ANIMALS_DELETE %}
                                     <form method="POST" class="deleteAnimal">
                                         <button
                                             class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteAnimal"
@@ -41,6 +42,7 @@ Nalezená zvířata
                                         <input type="hidden" value="DELETE" name="action" />
                                         <input type="hidden" value="{{ url_for('admin') }}" name="url" />
                                     </form>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,10 @@
 import flask_sqlalchemy
+import sqlalchemy_imageattach.stores.fs
+
+store = sqlalchemy_imageattach.stores.fs.HttpExposedFileSystemStore(
+    path='images'
+)
+
 
 STRING_LEN = 128
 
@@ -27,8 +33,8 @@ PERMISSION_EVENTS_ADD = 24
 # WALKS
 PERMISSION_WALKS_SHOW = 31
 PERMISSION_WALKS_ADD = 32
-PERMISSION_WALKS_DELETE = 32
-PERMISSION_WALKS_CONFIRM = 33
+PERMISSION_WALKS_DELETE = 33
+PERMISSION_WALKS_CONFIRM = 34
 
 # EXAMINATIOS
 PERMISSION_EXAMINATIONS_SHOW = 41

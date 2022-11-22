@@ -36,7 +36,7 @@
                             <td>{{ future.start }}</td>
                             <td>{{ future.end }}</td>
                             <td>
-                                <a type="button" href="animal/{{future.animal.id}}" class="btn btn-primary">{{ future.animal.name }}</a>
+                                <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}" class="btn btn-primary">{{ future.animal.name }}</a>
                             </td>
                             <td>{{ future.description }}</td>
                             <td class="col text-center">
@@ -78,7 +78,7 @@
                             <td>{{ past.start }}</td>
                             <td>{{ past.end }}</td>
                             <td>
-                                <a type="button" href="animal/{{past.animal.id}}" class="btn btn-primary">{{ past.animal.name }}</a>
+                                <a type="button" href="{{url_for('animals_detail', id=past.animal.id)}}" class="btn btn-primary">{{ past.animal.name }}</a>
                             </td>
                             <td>{{ past.description }}</td>
                         </tr>

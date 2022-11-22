@@ -63,13 +63,19 @@
         <div class="describe">
             {{animal.description}}<br>
             <!-- TODO zobrazeni podle role -->
-            {% if current_user.is_authenticated %}
+            {% if PERMISSION_WALKS_ADD %}
             <a type="button" href="{{url_for('walks') }}" class="btn btn-success btn-sm">Vyvenčit</a>
-            <!-- <a type="button" class="btn btn-secondary btn-sm">Historie</a> -->
-            <a type="button" class="btn btn-primary btn-sm">Zdravotní záznam</a>
-            <a type="button" class="btn btn-warning btn-sm" href="/animals/edit/{{animal.id}}">Upravit zvíře</a>
-
             {%endif%}
+            <!-- <a type="button" class="btn btn-secondary btn-sm">Historie</a> -->
+
+            {% if PERMISSION_EXAMINATIONS_SHOW %}
+            <a type="button" class="btn btn-primary btn-sm">Zdravotní záznam</a>
+            {% endif %}
+
+            {% if PERMISSION_ANIMALS_EDIT %}
+            <a type="button" class="btn btn-warning btn-sm" href="/animals/edit/{{animal.id}}">Upravit zvíře</a>
+            {%endif%}
+
         </div>
 
     </div>

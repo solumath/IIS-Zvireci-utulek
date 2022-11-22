@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<!-- Showcase -->
+<section class="p-3 bg-dark text-white text-center text-sm-start">
+    <div class="container">
+        <h1>Administrace</h1>
+    </div>
+</section>
+
+<section class="bg-light p-5 p-lg-0 pt-lg-3 text-center text-sm-start" id="sectionBody">
+    <div class="container">
+        <div class="mb-5 mt-2 usersTable">
+            {% if PERMISSION_USERS_ADD %}
+            <a class="btn btn-primary my-2" role="button">Přidat uživatele</a>
+            {% endif %}
+            {% if PERMISSION_USERS_SHOW %}
+            <table class="table table-striped table-bordered align-middle" id="usersTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="h3" scope="col" colspan="10">Uživatelé</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Login</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Jméno</th>
+                        <th scope="col">Bydliště</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Telefon</th>
+                        <th scope="col">Hodnocení</th>
+                        {% if PERMISSION_USERS_VERIFY %}
+                        <th scope="col">Ověření</th>
+                        {% endif %}
+                        {% if PERMISSION_USERS_EDIT %}
+                        <th scope="col">Edit</th>
+                        {% endif %}
+                        {% if PERMISSION_USERS_DELETE %}
+                        <th scope="col">Smazat</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.login }}</td>
+                        <td>{{ user.user_role }}</td>
+                        <td>{{ user.name + " " + user.surname }}</td>
+                        <td>{{ user.address }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.tel_number }}</td>
+                        <td>{{ user.rating }}</td>
+
+                        <!-- USER VERIFY -->
+                        {% if PERMISSION_USERS_VERIFY %}
+                            {% if user.verified %}
+                            <td class="col text-center"><i class="bi-check" style="font-size: 2rem; color: #198754;"></i>
+                            </td>
+                            {% else %}
+                            <td class="col text-center"><i class="bi-x" style="font-size: 2rem; color: #dc3545;"></i></td>
+                            {% endif %}
+                        {% endif %}
+
+                        <!-- USER EDIT -->
+                        {% if PERMISSION_USERS_EDIT %}
+                        <td class="col text-center">
+                            <form method="POST" class="editUser">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editUser"
+                                type="submit"></button>
+                                <input type="hidden" value="{{ user.id }}" name="id" />
+                                <input type="hidden" value="user" name="object" />
+                                <input type="hidden" value="VERIFY" name="action" />
+                                <input type="hidden" value="{{ url_for('admin') }}" name="url" />
+                            </form>
+                        </td>
+                        {% endif %}
+
+                        <!-- USER DELETE -->
+                        {% if PERMISSION_USERS_DELETE %}
+                        <td class="col text-center">
+                            <form method="POST" class="deleteUser">
+                                <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteUser"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ user.id }}" name="id" />
+                                <input type="hidden" value="user" name="object" />
+                                <input type="hidden" value="DELETE" name="action" />
+                                <input type="hidden" value="{{ url_for('admin') }}" name="url" />
+                            </form>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %} <!-- users show -->
+        </div>
+    </div>
+</section>
+
+{% endblock %}

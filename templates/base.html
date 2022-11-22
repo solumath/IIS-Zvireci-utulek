@@ -10,8 +10,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
     <script src="{{ url_for('static', filename='js/base.js') }}"></script>
     <link rel="icon" href="{{ url_for('static', filename='assets/pets_blue.ico') }}">
@@ -21,79 +23,78 @@
 </head>
 
 <body class="bg-light">
-
-    {% if not current_user.is_authenticated %}
-    <!-- Navbar Not Logged in -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top" role="navigation">
         <div class="container">
             <a href="{{ url_for('index') }}" class="navbar-brand"><img class="pets-image"
                     src="{{ url_for('static', filename='assets/pets_blue.png') }}" />Pes gang</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNotLogged"
-                aria-controls="navbarNotLogged" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarNotLogged">
+            <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="{{ url_for('animals') }}" class="nav-link">Nalezená zvířátka</a>
-                    </li>
+                    <!-- ABOUT US -->
                     <li class="nav-item">
                         <a href="{{ url_for('about') }}" class="nav-link">O nás</a>
                     </li>
-                    <li class="nav-item-login">
-                        <a href="{{ url_for('login') }}" class="btn btn-primary" role="button">Přihlásit</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    {% else %}
-    <!-- navbar when logged in -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top" role="navigation">
-        <div class="container">
-            <a href="{{ url_for('index') }}" class="navbar-brand"><img class="pets-image"
-                    src="{{ url_for('static', filename='assets/pets_blue.png') }}" />Pes gang</a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLogged"
-                aria-controls="navbarLogged" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarLogged">
-                <ul class="navbar-nav ms-auto">
+                    <!-- ANIMALS -->
+                    {% if PERMISSION_ANIMALS_SHOW %}
                     <li class="nav-item">
                         <a href="{{ url_for('animals') }}" class="nav-link">Nalezená zvířátka</a>
                     </li>
+                    {% endif %}
+
+                    <!-- MY WALKS -->
+                    {% if PERMISSION_WALKS_SHOW %}      
                     <li class="nav-item">
-                        <a href="{{ url_for('about') }}" class="nav-link">O nás</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{url_for('walks') }}" class="nav-link">Procházky</a>
-                    </li>
-                    {% if current_user.rating > 9 %}
-                    <li class="nav-item">
-                        <a href="{{url_for('examinations') }}" class="nav-link">Prohlídky</a>
+                        <a href="{{ url_for('my_walks') }}" class="nav-link">Moje Procházky</a>
                     </li>
                     {% endif %}
-                    {% if current_user.rating > 10 %}
-                    <li class="nav-item">
-                        <a href="{{ url_for('admin') }}" class="nav-link">Administrace</a>
-                    </li>
+
+                    <!-- ADMINISTRATION -->
+                    {% if PERMISSION_USERS_SHOW or PERMISSION_WALKS_SHOW %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Administrace</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <!-- USERS -->
+                            {% if PERMISSION_USERS_SHOW %}
+                            <li class="dropdown-item"><a href="{{ url_for('users') }}" class="nav-link">Uživatelé</a></li>
+                            {% endif %}
+                            
+                            <!-- WALKS -->
+                            {% if PERMISSION_WALKS_SHOW %}
+                            <li class="dropdown-item"><a href="{{ url_for('walks') }}" class="nav-link">Procházky</a></li>
+                            {% endif %}
+                            
+                            <!-- EXAMINATIONS -->
+                            {% if PERMISSION_EXAMINATIONS_SHOW %}
+                            <li class="dropdown-item"><a href="{{ url_for('examinations') }}" class="nav-link">Prohlidky</a></li>
+                            {% endif %}
+
+                          </ul>
+                      </li>
                     {% endif %}
+
+                    <!-- PROFILE, LOGOUT | LOGIN -->
+                    {% if current_user.is_authenticated %}
                     <li class="nav-item">
                         <a href="{{ url_for('profile') }}" class="nav-link">Profil</a>
                     </li>
                     <li class="nav-item-logout">
                         <a href="{{ url_for('logout') }}" class="btn btn-primary" role="button">Odhlásit</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item-login">
+                        <a href="{{ url_for('login') }}" class="btn btn-primary" role="button">Přihlásit</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
-    {% endif %}
 
     {% block body %}
     {% endblock %}

@@ -3,12 +3,10 @@ import flask
 from app import app
 import db
 import response as r
-import datetime
-from .permissions import render_with_permissions, role_required
-
+import utility
 
 def render():
-    return render_with_permissions(
+    return utility.render_with_permissions(
         'admin.html',
         users=db.get_users(),
         animals=db.get_animals(),
@@ -62,7 +60,7 @@ def edit_event(form):
 
 @app.route('/admin', methods=['GET', 'POST'])
 @flask_login.login_required
-@role_required(['administrator'])
+@utility.role_required(['administrator'])
 def admin():
     if flask.request.method == 'POST':
         if 'EDIT' in flask.request.form['action']:
