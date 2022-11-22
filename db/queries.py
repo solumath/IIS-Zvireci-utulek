@@ -66,10 +66,22 @@ def get_users(login: str = None, email: str = None, name: str = None, surname: s
 
     return query.all()
 
-def get_user_role(name:str):
-    return db.db.session.query(UserRole).filter(UserRole.name==name).first()
+
+# ====================================================================================================
+# URES ROLES
+
+
+def get_user_role(name: str):
+    return db.session.query(UserRole).filter(UserRole.name == name).first()
+
+
+def get_user_roles():
+    return db.session.query(UserRole).all()
+
+
 # ====================================================================================================
 # EVENTS
+
 
 def get_event(id):
     """

@@ -1,25 +1,25 @@
 from datetime import date, datetime
 import db
 
-admin_role = db.UserRole(name="administrator", description="""
+admin_role = db.UserRole(name="administrator", czech_name="administrator", description="""
             - has highest permissions""")
 
-caretaker_role = db.UserRole(name="caretaker", description="""
+caretaker_role = db.UserRole(name="caretaker",czech_name="pecovatel", description="""
             - manages animals
             - creates walking timetables
             - verifies volunteers
             - approves animal bookings
             - creates veterinarian requests""")
 
-vet_role = db.UserRole(name="veterinarian", description="""
+vet_role = db.UserRole(name="veterinarian",czech_name="veterinar", description="""
             - has access to medical records, 
             - performs medical procedures""")
 
-volunteer_role = db.UserRole(name="volunteer", description="""
+volunteer_role = db.UserRole(name="volunteer",czech_name="dobrovolnik", description="""
             - can book animal for a walk 
             - can see his history""")
 
-unverified_role = db.UserRole(name="unverified", description="""
+unverified_role = db.UserRole(name="unverified",czech_name="neovereny uzivatel", description="""
             - unverified volunteer
             - awaits verification""")
 

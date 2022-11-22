@@ -5,6 +5,7 @@ import db
 import utility
 import response as r
 
+
 def delete_user(form):
     if int(form['id']) == flask_login.current_user.id:
         flask.flash(r.DELETE_YOURSELF_FAILED, r.ERROR)
@@ -54,7 +55,11 @@ def users_edit(id):
 
         db.db.session.commit()
         return flask.redirect(flask.url_for('users'))
-    return utility.render_with_permissions('edit_user.html', user=db.get_user(id))
+
+    return utility.render_with_permissions('edit_user.html',
+                                           user=db.get_user(id),
+                                           user_roles=db.get_user_roles())
+
 
 @app.route('/users', methods=['GET'])
 @flask_login.login_required

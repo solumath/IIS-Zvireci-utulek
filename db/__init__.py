@@ -22,7 +22,8 @@ from .queries import \
     get_future_events, \
     get_user, \
     get_users, \
-    get_user_role
+    get_user_role, \
+    get_user_roles
 
 
 from .constants import \
