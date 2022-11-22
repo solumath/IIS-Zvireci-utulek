@@ -31,14 +31,11 @@
                                             class="bi bi-info-square"></i> Více
                                         informací</a>
                                     {% if PERMISSION_ANIMALS_DELETE %}
-                                    <form method="POST" class="deleteAnimal">
+                                    <form method="POST" class="deleteAnimal" action="{{ url_for('animals_delete') }}">
                                         <button
                                             class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteAnimal"
                                             type="submit"></button>
                                         <input type="hidden" value="{{ animal.id }}" name="id" />
-                                        <input type="hidden" value="animal" name="object" />
-                                        <input type="hidden" value="DELETE" name="action" />
-                                        <input type="hidden" value="{{ url_for('animals') }}" name="url" />
                                     </form>
                                     {% endif %}
                                 </div>

@@ -12,21 +12,20 @@ def delete_animal(form):
 
     db.db.session.delete(animal)
     db.db.session.commit()
-    return utility.render_with_permissions(
-        'admin.html',
-        users=db.get_users(),
-        animals=db.get_animals(),
-        events=db.get_events_query()
-    )
+
+@app.route('/animals/delete', methods=['GET', 'POST'])
+@flask_login.login_required
+@utility.role_required(['administrator', 'caretaker'])
+def animals_delete():
+    if flask.request.method == 'POST':
+        delete_animal(flask.request.form)
+        return flask.redirect(flask.url_for('animals'))
+    return flask.redirect(flask.url_for('animals'))
+
 
 @app.route('/animals', methods=['GET', 'POST'])
 def animals():
-    if flask.request.method == "POST":
-        if 'DELETE' in flask.request.form['action']:
-            if flask.request.form['object'] == 'animal':
-                return delete_animal(flask.request.form)
-    if flask.request.method == "GET":
-        return utility.render_with_permissions('animals.html',  animal_info=db.get_animals())
+    return utility.render_with_permissions('animals.html',  animal_info=db.get_animals())
 
 
 @app.route('/animals/<id>')
