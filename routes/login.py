@@ -30,7 +30,7 @@ def register_form(form):
     for field in needed_fields:
         if field not in form:
             flask.flash(r.MISSING_FIELD, r.ERROR)
-            return r.generate_response(r.STATUS_BAD_REQUEST, r.MISSING_FIELD)
+            return utility.render_with_permissions("login.html")
         data[field] = form[field]
 
     # user lookup

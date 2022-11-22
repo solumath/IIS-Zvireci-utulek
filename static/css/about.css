@@ -1,8 +1,3 @@
-/* body::before {
-    display: block;
-    content: '';
-    height: 60px;
-} */
 .containerik {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;

@@ -1,45 +1,46 @@
 {% extends 'base.html' %}
-{% block title %} Upravit zvíře {% endblock %}
+{% block title %} Přidat zvíře {% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/add_animal.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animal_add.css') }}" />
 <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script> -->
 {% endblock %}
 
 {% block body %}
 <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start"></section>
 <div class="containerik">
-    <h2>Upravit zvíře:</h2>
+    <h2>Vytvořit zvíře:</h2>
     <form method='POST'>
         <div class=" row">
             <div class="col">
                 <label for="name">Jméno:</label>
-                <input type="text" class="form-control" name="name" value="{{ animal.name }}" required>
+                <input type="text" class="form-control" name="name" placeholder="zadejte jméno" required>
             </div>
             <div class="col">
                 <label for="sex">Pohlaví:</label>
-                <select class="form-control" name="sex" value="{{ animal.sex }}" required>
+                <select class="form-control" name="sex" required>
                     <option>Samec</option>
                     <option>Samice</option>
                 </select>
             </div>
             <div class="col">
                 <label for="color">Barva:</label>
-                <input type="text" class="form-control" name="color" value="{{ animal.color }}" required>
+                <input type="text" class="form-control" name="color" placeholder="zadejte barvu" required>
             </div>
 
             <div class="form-group col">
                 <label for="weight"> Váha [kg]:</label>
-                <input type="number" class="form-control" name="weight" value="{{ animal.weight }}" required>
+                <input type="number" class="form-control" name="weight" placeholder="zadejte váhu" required>
             </div>
             <div class="form-group col">
                 <label for="height"> Výška [cm]:</label>
-                <input type="number" class="form-control" name="height" value="{{ animal.height }}" required>
+                <input type="number" class="form-control" name="height" placeholder="zadejte výšku" required>
             </div>
             <div class="form-group col">
                 <label for=" kind">Druh zvířete:</label>
-                <select class="form-control" name="kind" value="{{ animal.kind }}" required>
+                <select class="form-control" name="kind" required>
                     <option>Pes</option>
                     <option>Kočka</option>
+                    <option>Králík</option>
                     <option>Hlodavec</option>
                     <option>Ryba</option>
                     <option>Jiné</option>
@@ -51,37 +52,35 @@
 
             <div class="form-group col">
                 <label for=" breed"> Plemeno:</label>
-                <input type="text" class="form-control" name="breed" value="{{ animal.breed }}" required>
+                <input type="text" class="form-control" name="breed" placeholder="zadejte plemeno" required>
                 <small class="form-text text-muted">V případě nejistoty zadejte
                     "Kříženec"</small>
             </div>
             <div class="form-group col">
                 <label for="chip"> Číslo čipu:</label>
-                <input type="number" class="form-control" name="chip_id" value="{{ animal.chip_id }}">
+                <input type="number" class="form-control" name="chip_id" placeholder="zadejte číslo čipu" required>
             </div>
 
             <div class="form-group col">
                 <label for="birthday"> (Odhadované) datum narození:</label>
-                <input type="date" class="form-control" name="birthday" value="{{ animal.birthday }}" required>
+                <input type="date" class="form-control" name="birthday" required>
             </div>
             <div class="form-group col">
                 <label for="discovery_day"> Datum nalezení/přijetí:</label>
-                <input type="date" class="form-control" name="discovery_day" value="{{ animal.discovery_day }}"
-                    required>
+                <input type="date" class="form-control" name="discovery_day" required>
             </div>
         </div>
         <br>
         <div class="row">
             <div class="form-group col">
                 <label for="place"> Místo nalezení/přijetí:</label>
-                <input type="text" class="form-control" name="discovery_place" value="{{ animal.discovery_place }}"
-                    required>
+                <input type="text" class="form-control" name="discovery_place" required>
                 <small class="form-text text-muted">V případě přijetí zvířete zde v útulku
                     zadejte Božetěchova 2</small>
             </div>
             <div class="form-group col-4">
                 <label for="description"> Popis:</label>
-                <input type="text-area" class="form-control" name="description" value="{{ animal.description }}"
+                <input type="text-area" class="form-control" name="description" placeholder="zadejte popis zvířete"
                     required>
             </div>
             <div class="form-group col">
@@ -91,15 +90,13 @@
 
         </div>
         <div class="text-center">
-            <button type="submit" style="text-align: center;" class="btn btn-primary "><i
-                    class="bi bi-pencil-square"></i>Upravit</button>
+            <button type="submit" style="text-align: center;" class="btn btn-primary "><i class="bi bi-plus"></i>
+                Přidat</button>
         </div>
-
-
         <br>
 
     </form>
 </div>
 </section>
 
-{% endblock%}
+{% endblock %}

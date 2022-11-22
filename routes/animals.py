@@ -39,7 +39,7 @@ def animals_detail(id):
 def animals_add():
 
     if flask.request.method == "GET":
-        return utility.render_with_permissions('add_animal.html')
+        return utility.render_with_permissions('animal_add.html')
 
     name = flask.request.form.get("name")
     sex = flask.request.form.get("sex")
@@ -107,4 +107,4 @@ def animals_edit(id):
         animal.description = flask.request.form.get('description')
         db.db.session.commit()
         return flask.redirect(flask.url_for('animals_detail', id=str(id)))
-    return utility.render_with_permissions('edit_animal.html', animal=db.get_animal(id))
+    return utility.render_with_permissions('animal_edit.html', animal=db.get_animal(id))

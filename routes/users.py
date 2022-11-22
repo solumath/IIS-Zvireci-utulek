@@ -51,7 +51,7 @@ def users_edit(id):
         db.db.session.commit()
         return flask.redirect(flask.url_for('users'))
 
-    return utility.render_with_permissions('edit_user.html',
+    return utility.render_with_permissions('user_edit.html',
                                            user=db.get_user(id),
                                            user_roles=db.get_user_roles())
 
