@@ -39,7 +39,7 @@ python3 main.py
     - [x] vidí historii svých venčení
 
 5. neregistrovaný uživatel
-    - [ ] prochází informace o útulku a zvířatech
+    - [x] prochází informace o útulku a zvířatech
 
 ---
 
