@@ -46,6 +46,7 @@ def register_form(form):
     # create user and insert to db
     new_user = db.User(**data)
     db.db.session.add(new_user)
+    new_user.user_role = db.get_user_role("unverified")
     db.db.session.commit()
 
     flask.flash(r.REGISTER_SUCCESS, r.OK)

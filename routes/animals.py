@@ -29,22 +29,22 @@ def animals_add():
     color = flask.request.form.get("color")
     weight = flask.request.form.get("weight")
     if (int(weight) < 0):
-        flask.flash('Váha nesmí být záporná.', r.Error)
+        flask.flash('Váha nesmí být záporná.', r.ERROR)
         return flask.redirect(flask.url_for('animals_add', id=str(id)))
     height = flask.request.form.get("height")
     if (int(height) < 0):
-        flask.flash('Výška nesmí být záporná.', r.Error)
+        flask.flash('Výška nesmí být záporná.', r.ERROR)
         return flask.redirect(flask.url_for('animals_add', id=str(id)))
     kind = flask.request.form.get("kind")
     breed = flask.request.form.get("breed")
     chip_id = flask.request.form.get("chip_id")
     if (int(chip_id) < 0):
-        flask.flash('Číslo čipu nesmí být záporné.', r.Error)
+        flask.flash('Číslo čipu nesmí být záporné.', r.ERROR)
         return flask.redirect(flask.url_for('animals_add', id=str(id)))
     birthday = utility.parse_date(flask.request.form.get("birthday"))
     discovery_day = utility.parse_date(flask.request.form.get("discovery_day"))
     if (discovery_day < birthday):
-        flask.flash('Špatné datum přijetí nebo narození.', r.Error)
+        flask.flash('Špatné datum přijetí nebo narození.', r.ERROR)
         return flask.redirect(flask.url_for('animals_add', id=str(id)))
     discovery_place = flask.request.form.get("discovery_place")
     description = flask.request.form.get("description")
@@ -68,23 +68,23 @@ def animals_edit(id):
         animal.color = flask.request.form.get('color')
         animal.weight = flask.request.form.get('weight')
         if (int(animal.weight) < 0):
-            flask.flash('Váha nesmí být záporná.', r.Error)
+            flask.flash('Váha nesmí být záporná.', r.ERROR)
             return flask.redirect(flask.url_for('animals_edit', id=str(id)))
         animal.height = flask.request.form.get('height')
         if (int(animal.height) < 0):
-            flask.flash('Výška nesmí být záporná.', r.Error)
+            flask.flash('Výška nesmí být záporná.', r.ERROR)
             return flask.redirect(flask.url_for('animals_edit', id=str(id)))
         animal.kind = flask.request.form.get('kind')
         animal.breed = flask.request.form.get('breed')
         animal.chip_id = flask.request.form.get('chip_id')
         if (int(animal.chip_id) < 0):
-            flask.flash('Číslo čipu nesmí být záporné.', r.Error)
+            flask.flash('Číslo čipu nesmí být záporné.', r.ERROR)
             return flask.redirect(flask.url_for('animals_edit', id=str(id)))
         animal.birthday = utility.parse_date(flask.request.form.get('birthday'))
         animal.discovery_day = utility.parse_date(
             flask.request.form.get('discovery_day'))
         if (animal.discovery_day < animal.birthday):
-            flask.flash('Špatné datum přijetí nebo narození.', r.Error)
+            flask.flash('Špatné datum přijetí nebo narození.', r.ERROR)
             return flask.redirect(flask.url_for('animals_edit', id=str(id)))
         animal.discovery_place = flask.request.form.get('discovery_place')
         animal.description = flask.request.form.get('description')
