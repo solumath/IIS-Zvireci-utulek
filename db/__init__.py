@@ -21,7 +21,8 @@ from .queries import \
     get_past_events, \
     get_future_events, \
     get_user, \
-    get_users
+    get_users, \
+    get_user_role
 
 
 from .constants import \

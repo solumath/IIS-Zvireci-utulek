@@ -56,25 +56,27 @@
 
                         <!-- USER VERIFY -->
                         {% if PERMISSION_USERS_VERIFY %}
-                            {% if user.verified %}
-                            <td class="col text-center"><i class="bi-check" style="font-size: 2rem; color: #198754;"></i>
-                            </td>
-                            {% else %}
-                            <td class="col text-center"><i class="bi-x" style="font-size: 2rem; color: #dc3545;"></i></td>
-                            {% endif %}
+                        {% if user.verified %}
+                        <td class="col text-center"><i class="bi-check" style="font-size: 2rem; color: #198754;"></i>
+                        </td>
+                        {% else %}
+                        <td class="col text-center"><i class="bi-x" style="font-size: 2rem; color: #dc3545;"></i></td>
+                        {% endif %}
                         {% endif %}
 
                         <!-- USER EDIT -->
                         {% if PERMISSION_USERS_EDIT %}
                         <td class="col text-center">
-                            <form method="POST" class="editUser">
-                                <button class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editUser"
-                                type="submit"></button>
-                                <input type="hidden" value="{{ user.id }}" name="id" />
-                                <input type="hidden" value="user" name="object" />
-                                <input type="hidden" value="VERIFY" name="action" />
-                                <input type="hidden" value="{{ url_for('admin') }}" name="url" />
-                            </form>
+                            <!-- <form method="GET" class="editUser"> -->
+                            <!-- <button class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editUser" -->
+                            <!-- type="submit" href="/users/edit/{{user.id}}"></button> -->
+                            <!-- <input type="hidden" value="{{ user.id }}" name="id" />
+                            <input type="hidden" value="user" name="object" />
+                            <input type="hidden" value="VERIFY" name="action" />
+                            <input type="hidden" value="{{ url_for('admin') }}" name="url" /> -->
+                            <!-- </form> -->
+                            <a type="button" class="btn btn-primary text-uppercase fw-bold bi-pencil-fill "
+                                href="/users/edit/{{user.id}}"></button>
                         </td>
                         {% endif %}
 
@@ -95,7 +97,8 @@
                     {% endfor %}
                 </tbody>
             </table>
-            {% endif %} <!-- users show -->
+            {% endif %}
+            <!-- users show -->
         </div>
     </div>
 </section>
