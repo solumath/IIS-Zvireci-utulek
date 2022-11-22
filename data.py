@@ -46,6 +46,11 @@ admin_permissions = [
     db.PERMISSION_WALKS_DELETE,
     db.PERMISSION_WALKS_CONFIRM,
 
+    db.PERMISSION_MY_WALKS_SHOW,
+    db.PERMISSION_MY_WALKS_ADD,
+    db.PERMISSION_MY_WALKS_DELETE,
+    db.PERMISSION_MY_WALKS_CONFIRM,
+
     db.PERMISSION_EXAMINATIONS_SHOW,
 ]
 
@@ -68,15 +73,20 @@ caretaker_permissions = [
     db.PERMISSION_WALKS_DELETE,
     db.PERMISSION_WALKS_CONFIRM,
 
+    db.PERMISSION_MY_WALKS_SHOW,
+    db.PERMISSION_MY_WALKS_ADD,
+    db.PERMISSION_MY_WALKS_DELETE,
+    db.PERMISSION_MY_WALKS_CONFIRM,
+
     db.PERMISSION_EXAMINATIONS_SHOW
 ]
 
 volunteer_permissions = [
     db.PERMISSION_ANIMALS_SHOW,
 
-    db.PERMISSION_WALKS_SHOW,
-    db.PERMISSION_WALKS_ADD,
-    db.PERMISSION_WALKS_DELETE,
+    db.PERMISSION_MY_WALKS_SHOW,
+    db.PERMISSION_MY_WALKS_ADD,
+    db.PERMISSION_MY_WALKS_DELETE,
 ]
 
 vet_permissions = [
@@ -190,7 +200,6 @@ def add_data():
 
     unverified_user.user_role = unverified_role
     db.db.session.add(unverified_user)
-
 
     for animal in animals:
         db.db.session.add(animal)
