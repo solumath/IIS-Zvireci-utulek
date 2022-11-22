@@ -62,7 +62,7 @@ class User(db.Model, UserMixin):
             "Email": self.email,
             "Telefon": self.tel_number,
             "Hodnocení": self.rating,
-            "Ověřen": "Ano" if self.authenticated else "Ne"
+            "Ověřen": "Ano" if not self.user_role.name == "unverified" else "Ne"
         }
 
     def get_id(self):

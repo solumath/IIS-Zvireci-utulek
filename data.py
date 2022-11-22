@@ -188,6 +188,10 @@ def add_data():
     volunteer_user.user_role = volunteer_role
     db.db.session.add(volunteer_user)
 
+    unverified_user.user_role = unverified_role
+    db.db.session.add(unverified_user)
+
+
     for animal in animals:
         db.db.session.add(animal)
 
