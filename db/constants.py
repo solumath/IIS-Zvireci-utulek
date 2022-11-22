@@ -1,9 +1,9 @@
 import flask_sqlalchemy
-import sqlalchemy_imageattach.stores.fs
+# import sqlalchemy_imageattach.stores.fs
 
-store = sqlalchemy_imageattach.stores.fs.HttpExposedFileSystemStore(
-    path='images'
-)
+# store = sqlalchemy_imageattach.stores.fs.HttpExposedFileSystemStore(
+#     path='images'
+# )
 
 
 STRING_LEN = 128
