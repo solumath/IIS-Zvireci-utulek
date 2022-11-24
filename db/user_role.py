@@ -17,6 +17,7 @@ class UserRole(db.Model):
 
     def __init__(self, name: str, czech_name: str, description: str = ""):
         self.name = name
+        self.czech_name = czech_name
         self.description = description
 
     def __repr__(self):
