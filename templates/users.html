@@ -48,6 +48,7 @@
                 </thead>
                 <tbody>
                     {% for user in users %}
+                    {% if not current_user.id == user.id %}
                     <tr>
                         <td>{{ user.login }}</td>
                         <td>{{ user.user_role.czech_name }}</td>
@@ -59,10 +60,6 @@
 
                         <!-- USER VERIFY -->
                         {% if PERMISSION_USERS_VERIFY %}
-                            {% if current_user.id == user.id %}
-                            <td></td>
-                            {% else %}
-                                
                             {% if not user.verified %}
                             <!-- UNVERIFIED -->
                             <td class="col text-center"><a href="{{ url_for('users_verify', id=user.id) }}" class="btn btn-danger bi-x-lg" role="button"></a></td>
@@ -72,7 +69,6 @@
                             {% else %}
                             <!-- VERIFIED OTHER ROLES -->
                             <td class="col text-center"><i class="bi-check" style="font-size: 2rem; color: #198754;"></i></td>
-                            {% endif %}
                             {% endif %}
                         {% endif %}
 
@@ -95,6 +91,7 @@
                         </td>
                         {% endif %}
                     </tr>
+                    {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
