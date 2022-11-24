@@ -69,8 +69,10 @@
             {% if PERMISSION_EXAMINATIONS_SHOW %}
             <a type="button" class="btn btn-primary btn-sm">Zdravotní záznam</a>
             {% endif %}
-
+            
+            {% if PERMISSION_EXAMINATIONS_ADD %}
             <a type="button" class="btn btn-danger btn-sm">Poslat k veterináři</a>
+            {% endif %}
 
             {% if PERMISSION_ANIMALS_EDIT %}
             <a type="button" class="btn btn-warning btn-sm" href="/animals/edit/{{animal.id}}">Upravit zvíře</a>
