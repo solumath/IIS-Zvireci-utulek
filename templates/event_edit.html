@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %} Upravit událost {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animal_add.css') }}" />
+<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script> -->
+{% endblock %}
+
+{% block body %}
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start"></section>
+<div class="containerik">
+    <h2>Upravit událost:</h2>
+    <form method='POST'>
+        <div class=" row">
+            <div class="form-group col">
+                <label for="start"> Typ události:</label>
+                <select class="form-control" name="event_type">
+                    {% for event in events %}
+                    <option value="{{ event.event_type.name }}">{{ event.event_type.name }}</option>
+                    {% endfor %}
+                </select>
+                <small class="form-text text-muted">Čeká na novou fci od Edka na event_types .</small>
+
+            </div>
+            <div class="form-group col">
+                <label for="start"> Zvolené zvíře:</label>
+                <input type="text" class="form-control" name="start" value="{{ event.animal.name }}" readonly>
+                <small class="form-text text-muted">Vybrané zvíře nelze změnit.</small>
+            </div>
+        </div>
+        <div class=" row">
+
+            <div class="form-group col">
+                <label for="start"> Začátek:</label>
+                <input type="datetime-local" class="form-control" name="start" value="{{ event.start }}">
+            </div>
+            <div class="form-group col">
+                <label for="end"> Konec:</label>
+                <input type="datetime-local" class="form-control" name="end" value="{{ event.end }}">
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="description"> Popis:</label>
+            <textarea type="text-area" class="form-control" rows="2" name="description"
+                required> {{event.description}}</textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" style="text-align: center;" class="btn btn-primary "><i
+                    class="bi bi-pencil-square"></i>Upravit</button>
+        </div>
+
+
+        <br>
+
+    </form>
+</div>
+</section>
+
+{% endblock %}

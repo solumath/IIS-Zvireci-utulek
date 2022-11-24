@@ -25,3 +25,16 @@ def events_delete():
 @utility.role_required(['administrator', 'caretaker'])
 def events():
     return utility.render_with_permissions('events.html', events=db.get_events_query())
+
+@app.route('/events/edit/<id>', methods=['GET', 'POST'])
+@flask_login.login_required
+# @utility.role_required([]) TODO
+def events_edit(id):
+    return utility.render_with_permissions('event_edit.html', event=db.get_event(id), events=db.get_events_query())
+
+
+@app.route('/events/add', methods=['GET', 'POST'])
+@flask_login.login_required
+# @utility.role_required([]) TODO
+def events_add():
+    return utility.render_with_permissions('event_add.html', events=db.get_events_query(), animals=db.get_animals())

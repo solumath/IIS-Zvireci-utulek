@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %} Přidat událost {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animal_add.css') }}" />
+<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script> -->
+{% endblock %}
+
+{% block body %}
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start"></section>
+<div class="containerik">
+    <h2>Přidat událost:</h2>
+    <form method='POST'>
+        <div class=" row">
+            <div class="form-group col">
+                <label for="start"> Typ události:</label>
+                <select class="form-control" name="event_type">
+                    {% for event in events %}
+                    <option value="{{ event.event_type.name }}">{{ event.event_type.name }}</option>
+                    {% endfor %}
+                </select>
+                <small class="form-text text-muted">Čeká na novou fci od Edka na event_types .</small>
+
+            </div>
+            <div class="form-group col">
+                <label for="start"> Zvolené zvíře:</label>
+                <select class="form-control" name="animal.name">
+                    {% for animal in animals %}
+                    <option> {{animal.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class=" row">
+
+            <div class="form-group col">
+                <label for="start"> Začátek:</label>
+                <input type="datetime-local" class="form-control" name="start">
+            </div>
+            <div class="form-group col">
+                <label for="end"> Konec:</label>
+                <input type="datetime-local" class="form-control" name="end">
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="description"> Popis:</label>
+            <textarea type="text-area" class="form-control" rows="2" name="description"
+                placeholder="Stručně popište událost." required></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" style="text-align: center;" class="btn btn-primary "><i
+                    class="bi bi-pencil-square"></i>Upravit</button>
+        </div>
+
+
+        <br>
+
+    </form>
+</div>
+</section>
+
+{% endblock %}
