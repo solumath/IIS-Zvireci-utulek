@@ -41,6 +41,10 @@ class User(db.Model, UserMixin):
     @property
     def verified(self):
         return self.user_role.name != "unverified"
+    
+    @property
+    def volunteer(self):
+        return self.user_role.name == "volunteer"
 
     def __init__(self, login, password, name, surname, address, email, tel_number, rating=0):
         self.login = login

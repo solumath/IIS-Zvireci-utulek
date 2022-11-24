@@ -62,7 +62,8 @@ def users_edit(id):
 def user_add():
     if flask.request.method == "POST":
         login = flask.request.form.get("login")
-        user_login = db.db.session.query(db.User).filter(db.User.login == login).first()
+        user_login = db.db.session.query(db.User).filter(
+            db.User.login == login).first()
         # login conflict
         if user_login is not None:
             flask.flash(r.NOT_UNIQUE_LOGIN, r.ERROR)
@@ -70,7 +71,8 @@ def user_add():
 
         password = flask.request.form.get("password")
         email = flask.request.form.get("email")
-        user_email = db.db.session.query(db.User).filter(db.User.email == email).first()
+        user_email = db.db.session.query(db.User).filter(
+            db.User.email == email).first()
         # email conflict
         if user_email is not None:
             flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
@@ -85,22 +87,12 @@ def user_add():
             flask.flash(r.NEGATIVE_USER_RATING, r.ERROR)
             return flask.redirect(flask.url_for('users_edit', id=str(id)))
 
-        new_user = db.User(login,password,  name, surname, address, email, tel_number, rating)
+        role_name = flask.request.form.get("user_role")
+
+        new_user = db.User(login, password,  name, surname,
+                           address, email, tel_number, rating)
         db.db.session.add(new_user)
-        db.db.session.commit()
-        new_user.user_role = db.get_user_role(flask.request.form.get("user_role"))
-        if new_user.user_role == None:
-            new_user.user_role = db.get_user_role('unverified')
-        if new_user.user_role == 'administrator':
-             new_user.role_id = 1
-        elif new_user.user_role == 'caretaker':
-             new_user.role_id = 2
-        elif new_user.user_role == 'veteranian':
-            new_user.role_id = 3
-        elif new_user.user_role == 'volunteer':
-             new_user.role_id = 4
-        else:
-            new_user.role_id = 5
+        new_user.user_role = db.get_user_role(role_name)
         db.db.session.commit()
         return flask.redirect(flask.url_for('users'))
     return utility.render_with_permissions('add_user.html', roles=db.get_user_roles())
@@ -111,7 +103,7 @@ def user_add():
 @utility.role_required(['administrator', 'caretaker'])
 def users_verify(id):
     user = db.get_user(id)
-    user.user_role=db.get_user_role("volunteer")
+    user.user_role = db.get_user_role("volunteer")
     db.db.session.add(user)
     db.db.session.commit()
     return flask.redirect(flask.url_for('users'))
@@ -122,7 +114,7 @@ def users_verify(id):
 @utility.role_required(['administrator', 'caretaker'])
 def users_unverify(id):
     user = db.get_user(id)
-    user.user_role=db.get_user_role("unverified")
+    user.user_role = db.get_user_role("unverified")
     db.db.session.add(user)
     db.db.session.commit()
     return flask.redirect(flask.url_for('users'))

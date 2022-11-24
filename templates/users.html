@@ -62,11 +62,17 @@
                             {% if current_user.id == user.id %}
                             <td></td>
                             {% else %}
-                                {% if user.verified %}
-                                <td class="col text-center"><a href="{{ url_for('users_unverify', id=user.id) }}" class="btn btn-success bi-check-lg" role="button"></a></td>
-                                {% else %}
-                                <td class="col text-center"><a href="{{ url_for('users_verify', id=user.id) }}" class="btn btn-danger bi-x-lg" role="button"></a></td>
-                                {% endif %}
+                                
+                            {% if not user.verified %}
+                            <!-- UNVERIFIED -->
+                            <td class="col text-center"><a href="{{ url_for('users_verify', id=user.id) }}" class="btn btn-danger bi-x-lg" role="button"></a></td>
+                            {% elif user.volunteer %}
+                            <!-- VERIFIED VOLUNETEER -->
+                            <td class="col text-center"><a href="{{ url_for('users_unverify', id=user.id) }}" class="btn btn-success bi-check-lg" role="button"></a></td>
+                            {% else %}
+                            <!-- VERIFIED OTHER ROLES -->
+                            <td class="col text-center"><i class="bi-check" style="font-size: 2rem; color: #198754;"></i></td>
+                            {% endif %}
                             {% endif %}
                         {% endif %}
 
