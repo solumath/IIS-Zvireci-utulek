@@ -4,22 +4,22 @@ import db
 admin_role = db.UserRole(name="administrator", czech_name="administrátor", description="""
             - has highest permissions""")
 
-caretaker_role = db.UserRole(name="caretaker",czech_name="pečovatel", description="""
+caretaker_role = db.UserRole(name="caretaker", czech_name="pečovatel", description="""
             - manages animals
             - creates walking timetables
             - verifies volunteers
             - approves animal bookings
             - creates veterinarian requests""")
 
-vet_role = db.UserRole(name="veterinarian",czech_name="veterinář", description="""
+vet_role = db.UserRole(name="veterinarian", czech_name="veterinář", description="""
             - has access to medical records, 
             - performs medical procedures""")
 
-volunteer_role = db.UserRole(name="volunteer",czech_name="dobrovolník", description="""
+volunteer_role = db.UserRole(name="volunteer", czech_name="dobrovolník", description="""
             - can book animal for a walk 
             - can see his history""")
 
-unverified_role = db.UserRole(name="unverified",czech_name="neověřený uživatel", description="""
+unverified_role = db.UserRole(name="unverified", czech_name="neověřený uživatel", description="""
             - unverified volunteer
             - awaits verification""")
 
