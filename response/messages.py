@@ -17,8 +17,10 @@ WRONG_DISCOVERY_DATE = "Špatné datum přijetí nebo narození"
 NEGATIVE_CHIP_ID = "Číslo čipu nesmí být záporné."
 NEGATIVE_HEIGHT = "Výška nesmí být záporná"
 NEGATIVE_WEIGHT = "Váha nesmí být záporná."
-NEGATIVE_USER_RATING = 'Hodnocení uživatele nesmí být záporné.'
+NEGATIVE_USER_ = 'Hodnocení uživatele nesmí být záporné.'
 
 MISSING_ROLE = "Vyplňte prosím roli uživatele."
 NOT_UNIQUE_LOGIN = "Tento login je již zabraný."
 NOT_UNIQUE_EMAIL = "Účet s tímto emailem již existuje, kontaktujte správce."
+
+USER_NOT_FOUND = "Uživatel nenalezen."

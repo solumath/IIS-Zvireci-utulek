@@ -135,19 +135,19 @@ animals = [
 ]
 
 admin_user = db.User("admin", "tryhards",  "Martin", "Kneslik", "Berkova 54",
-                     "m.kneslik@utulek.cz", "+420603334197", 11)
+                     "m.kneslik@utulek.cz", "+420603334197")
 
 vet_user = db.User("vet", "treehards",  "Martin", "Kneslík", "Berkova 54",
-                   "asdds@utulek.cz", "+420603334197", 10)
+                   "asdds@utulek.cz", "+420603334197")
 
 caretaker_user = db.User("caretaker", "1234",  "Ahmed", "Prdík", "Revoluční 1820",
-                         "ahm.prd@utulek.cz", "+420721059221", 10)
+                         "ahm.prd@utulek.cz", "+420721059221")
 
 volunteer_user = db.User("volunteer", "abcd",  "Jolanda", "Veliká", "Breberkova 1420",
-                         "jolis.velis@utulek.cz", "+420603674100", 9)
+                         "jolis.velis@utulek.cz", "+420603674100")
 
 unverified_user = db.User("unverified", "poop",  "Juraj", "Prdelkový", "Vysoké Tatry 4",
-                          "jurik.prdelka@utulek.cz", "+421913677100", 8)
+                          "jurik.prdelka@utulek.cz", "+421913677100")
 
 event_types = [
     db.EventType(

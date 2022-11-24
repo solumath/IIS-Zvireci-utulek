@@ -29,8 +29,7 @@
             <div class="col">
                 <label for="tel_number">Telefonní číslo:</label>
                 <input type="text" class="form-control"
-                    pattern="(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}" name="tel_number"
-                    value="{{ user.tel_number }}" required>
+                    pattern="[\+\(\s.\/\d\)]{9,16}" name="tel_number" value="{{ user.tel_number }}" required>
             </div>
         </div>
         <div class=" row">
@@ -42,10 +41,6 @@
 
         </div>
         <div class=" row">
-            <div class="col">
-                <label for="rating">Hodnocení:</label>
-                <input type="number" class="form-control" name="rating" value="{{ user.rating }}" required>
-            </div>
             {% if not ((current_user.user_role.name == "administrator") and (current_user.id == user.id)) %}
             <div class="col">
                 <label for="user_role">Role:</label>

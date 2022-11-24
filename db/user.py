@@ -18,8 +18,6 @@ class User(db.Model, UserMixin):
     address = db.Column(db.String(STRING_LEN))
     tel_number = db.Column(db.String(STRING_LEN))
 
-    rating = db.Column(db.Integer)
-
     role_id = db.Column(db.Integer, db.ForeignKey("user_role.id"))
 
     user_role = relation("UserRole", back_populates="users")
@@ -46,7 +44,7 @@ class User(db.Model, UserMixin):
     def volunteer(self):
         return self.user_role.name == "volunteer"
 
-    def __init__(self, login, password, name, surname, address, email, tel_number, rating=0):
+    def __init__(self, login, password, name, surname, address, email, tel_number):
         self.login = login
         self.password = password
         self.name = name
@@ -54,7 +52,6 @@ class User(db.Model, UserMixin):
         self.address = address
         self.email = email
         self.tel_number = tel_number
-        self.rating = rating
 
     def __repr__(self) -> str:
         return f"login: {self.login}, role {self.user_role}"
@@ -65,7 +62,6 @@ class User(db.Model, UserMixin):
             "Bydliště": self.address,
             "Email": self.email,
             "Telefon": self.tel_number,
-            "Hodnocení": self.rating,
             "Ověřen": "Ano" if not self.user_role.name == "unverified" else "Ne",
             "Role": self.user_role.czech_name
         }
