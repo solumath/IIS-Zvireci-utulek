@@ -11,16 +11,26 @@ import utility
 @flask_login.login_required
 def my_walks_delete():
     if flask.request.method == 'POST':
+
+        # check if walk is not todas (not permitted to cancel walk on "last minute")
         if utility.date_from_datetime(flask.request.form['start']) == datetime.datetime.today().date():
             flask.flash(r.DELETE_PRESENT_WALK, r.ERROR)
             return flask.redirect(flask.url_for('my_walks'))
 
-        animal = db.get_event(flask.request.form['id'])
-        db.db.session.delete(animal)
+        walk = db.get_event(flask.request.form['id'])
+
+        # check if user owns this walk
+        if walk.user != flask_login.current_user:
+            flask.flash(r.UNSUFFICIENT_PERMISSION, r.ERROR)
+            return flask.redirect(flask.url_for('my_walks'))
+
+        #  deleting walk
+        db.db.session.delete(walk)
         db.db.session.commit()
         return flask.redirect(flask.url_for('my_walks'))
 
     return flask.redirect(flask.url_for('my_walks'))
+
 
 @app.route('/my_walks', methods=['GET', 'POST'])
 @flask_login.login_required
