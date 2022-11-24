@@ -61,7 +61,7 @@
         <div class="describe">
             {{animal.description}}<br>
             <!-- TODO zobrazeni podle role -->
-            {% if PERMISSION_WALKS_ADD %}
+            {% if PERMISSION_MY_WALKS_ADD %}
             <a type="button" href="{{url_for('walks') }}" class="btn btn-success btn-sm">Vyvenčit</a>
             {%endif%}
             <!-- <a type="button" class="btn btn-secondary btn-sm">Historie</a> -->

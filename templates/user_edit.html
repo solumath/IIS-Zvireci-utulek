@@ -50,9 +50,11 @@
             <div class="col">
                 <label for="user_role">Role:</label>
                 <select class="form-control" name="user_role" value="{{ user.user_role }}" required>
-                    <option selected>{{user.user_role.czech_name}}</option>
+                    <option selected value="{{user.user_role.name}}">{{user.user_role.czech_name}}</option>
                     {% for role in user_roles %}
+                    {% if role != user.user_role %}
                     <option value="{{role.name}}">{{role.czech_name}}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>

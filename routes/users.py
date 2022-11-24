@@ -47,7 +47,10 @@ def users_edit(id):
             flask.flash(r.NEGATIVE_USER_RATING, r.ERROR)
             return flask.redirect(flask.url_for('users_edit', id=str(id)))
 
-        user.user_role = db.get_user_role(flask.request.form.get('user_role'))
+        role_name = flask.request.form.get('user_role')
+
+        user.user_role = db.get_user_role(role_name)
+        db.db.session.add(user)
         db.db.session.commit()
         return flask.redirect(flask.url_for('users'))
 
