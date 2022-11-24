@@ -56,27 +56,7 @@ def users_edit(id):
                                            user_roles=db.get_user_roles())
 
 
-@app.route('/users', methods=['GET'])
-@flask_login.login_required
-@utility.role_required(['administrator', 'caretaker'])
-def users():
-
-    if flask_login.current_user.user_role.name == "administrator":
-        return utility.render_with_permissions(
-            'users.html',
-            users=db.get_users()
-        )
-
-    if flask_login.current_user.user_role.name == "caretaker":
-        users = db.get_users(role="unverified")
-        users.extend(db.get_users(role="volunteer"))
-
-        return utility.render_with_permissions(
-            'users.html',
-            users=users
-        )
-
-@app.route('/user/add', methods=['POST', 'GET'])
+@app.route('/users/add', methods=['POST', 'GET'])
 @flask_login.login_required
 @utility.role_required(['administrator'])
 def user_add():
@@ -122,6 +102,48 @@ def user_add():
         else:
             new_user.role_id = 5
         db.db.session.commit()
-        print(db.get_user(new_user.id))
         return flask.redirect(flask.url_for('users'))
     return utility.render_with_permissions('add_user.html', roles=db.get_user_roles())
+
+
+@app.route('/users/verify/<id>', methods=['POST', 'GET'])
+@flask_login.login_required
+@utility.role_required(['administrator', 'caretaker'])
+def users_verify(id):
+    user = db.get_user(id)
+    user.user_role=db.get_user_role("volunteer")
+    db.db.session.add(user)
+    db.db.session.commit()
+    return flask.redirect(flask.url_for('users'))
+
+
+@app.route('/users/unverify/<id>', methods=['POST', 'GET'])
+@flask_login.login_required
+@utility.role_required(['administrator', 'caretaker'])
+def users_unverify(id):
+    user = db.get_user(id)
+    user.user_role=db.get_user_role("unverified")
+    db.db.session.add(user)
+    db.db.session.commit()
+    return flask.redirect(flask.url_for('users'))
+
+
+@app.route('/users', methods=['GET'])
+@flask_login.login_required
+@utility.role_required(['administrator', 'caretaker'])
+def users():
+
+    if flask_login.current_user.user_role.name == "administrator":
+        return utility.render_with_permissions(
+            'users.html',
+            users=db.get_users()
+        )
+
+    if flask_login.current_user.user_role.name == "caretaker":
+        users = db.get_users(role="unverified")
+        users.extend(db.get_users(role="volunteer"))
+
+        return utility.render_with_permissions(
+            'users.html',
+            users=users
+        )
