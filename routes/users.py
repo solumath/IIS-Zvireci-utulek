@@ -37,10 +37,20 @@ def users_edit(id):
         user = db.get_user(id)
         if user is None:
             flask.flash(r.USER_NOT_FOUND, r.ERROR)
-            return utility.render_with_permissions(flask.url_for('users'))
+            return utility.render_with_permissions('/users')
+        conflict_email = db.db.session.query(db.User.id).filter(db.User.email == flask.request.form.get('email')).all()
+        for email in conflict_email:
+            if int(email[0]) != user.id:
+                flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
+            return utility.render_with_permissions(
+                'user_edit.html',
+                user=db.get_user(id),
+                user_roles=db.get_user_roles()
+            )
 
         id = user.id
         user.name = flask.request.form.get('name')
+        user.email = flask.request.form.get('email')
         user.surname = flask.request.form.get('surname')
         user.address = flask.request.form.get('address')
         user.tel_number = flask.request.form.get('tel_number')
@@ -74,6 +84,7 @@ def user_add():
         email = flask.request.form.get("email")
         user_email = db.db.session.query(db.User).filter(
             db.User.email == email).first()
+        
         # email conflict
         if user_email is not None:
             flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
@@ -82,7 +93,6 @@ def user_add():
         surname = flask.request.form.get("surname")
         address = flask.request.form.get("address")
         tel_number = flask.request.form.get("tel_number")
-        # TODO check tel. number
 
         role_name = flask.request.form.get("user_role")
 
@@ -95,25 +105,33 @@ def user_add():
     return utility.render_with_permissions('user_add.html', roles=db.get_user_roles())
 
 
-@app.route('/users/verify/<id>', methods=['POST', 'GET'])
+@app.route('/users/verify', methods=['POST', 'GET'])
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker'])
-def users_verify(id):
-    user = db.get_user(id)
-    user.user_role = db.get_user_role("volunteer")
-    db.db.session.add(user)
-    db.db.session.commit()
+def users_verify():
+    if flask.request.method == 'POST':
+        user = db.get_user(flask.request.form.get('id'))
+        if user is None:
+            flask.flash(r.USER_NOT_FOUND, r.ERROR)
+            return utility.render_with_permissions('/users')
+        user.user_role = db.get_user_role("volunteer")
+        db.db.session.add(user)
+        db.db.session.commit()
     return flask.redirect(flask.url_for('users'))
 
 
-@app.route('/users/unverify/<id>', methods=['POST', 'GET'])
+@app.route('/users/unverify', methods=['POST', 'GET'])
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker'])
-def users_unverify(id):
-    user = db.get_user(id)
-    user.user_role = db.get_user_role("unverified")
-    db.db.session.add(user)
-    db.db.session.commit()
+def users_unverify():
+    if flask.request.method == 'POST':
+        user = db.get_user(flask.request.form.get('id'))
+        if user is None:
+            flask.flash(r.USER_NOT_FOUND, r.ERROR)
+            return utility.render_with_permissions('/users')
+        user.user_role = db.get_user_role("unverified")
+        db.db.session.add(user)
+        db.db.session.commit()
     return flask.redirect(flask.url_for('users'))
 
 
@@ -121,7 +139,7 @@ def users_unverify(id):
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker'])
 def users():
-
+    print(len(db.db.session.query(db.User).filter(db.User.email == flask_login.current_user.email).all()))
     if flask_login.current_user.user_role.name == "administrator":
         return utility.render_with_permissions(
             'users.html',

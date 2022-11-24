@@ -60,10 +60,20 @@
                         {% if PERMISSION_USERS_VERIFY %}
                             {% if not user.verified %}
                             <!-- UNVERIFIED -->
-                            <td class="col text-center"><a href="{{ url_for('users_verify', id=user.id) }}" class="btn btn-danger bi-x-lg" role="button"></a></td>
+                            <td class="col text-center">
+                                <form method="POST" class="deleteUser" action="{{ url_for('users_verify', id=user.id) }}">
+                                    <button class="btn btn-danger bi-x-lg" type="submit"></button>
+                                    <input type="hidden" value="{{ user.id }}" name="id" />
+                                </form>
+                            </td>
                             {% elif user.volunteer %}
                             <!-- VERIFIED VOLUNETEER -->
-                            <td class="col text-center"><a href="{{ url_for('users_unverify', id=user.id) }}" class="btn btn-success bi-check-lg" role="button"></a></td>
+                            <td class="col text-center">
+                                <form method="POST" class="deleteUser" action="{{ url_for('users_unverify', id=user.id) }}">
+                                    <button class="btn btn-success bi-check-lg" type="submit"></button>
+                                    <input type="hidden" value="{{ user.id }}" name="id" />
+                                </form>
+                            </td>
                             {% else %}
                             <!-- VERIFIED OTHER ROLES -->
                             <td class="col text-center"><i class="bi-check" style="font-size: 2rem; color: #198754;"></i></td>
@@ -84,7 +94,6 @@
                                 <button class="btn btn-danger text-uppercase fw-bold bi-trash-fill deleteUser"
                                     type="submit"></button>
                                 <input type="hidden" value="{{ user.id }}" name="id" />
-                                <input type="hidden" value="{{ url_for('users_delete') }}" name="url" />
                             </form>
                         </td>
                         {% endif %}

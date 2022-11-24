@@ -23,8 +23,7 @@
         <div class="row">
             <div class="col">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" name="email" value="{{ user.email }}" readonly>
-                <small class="form-text text-muted">Emailovou adresu nelze měnit.</small>
+                <input type="email" class="form-control" name="email" value="{{ user.email }}" required>
             </div>
             <div class="col">
                 <label for="tel_number">Telefonní číslo:</label>
