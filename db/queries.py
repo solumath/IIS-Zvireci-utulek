@@ -4,6 +4,10 @@ from .user import User
 from .event import Event
 from .record_type import RecordType
 from .user_role import UserRole
+from .walk import Walk
+from .medical import MedicalRecord
+
+import flask_login
 from datetime import datetime
 import typing
 
@@ -36,6 +40,9 @@ def get_user(id):
     """
         returns user with id, or None if not found
     """
+# ====================================================================================================
+# EVENTS
+
     return db.session.query(User).get(id)
 
 
@@ -90,7 +97,7 @@ def get_event(id):
     return db.session.query(Event).get(id)
 
 
-def get_events_query(user=None, animal=None, event_type=None):
+def get_events_query(user=None, animal=None):
     """
         returns query for events
     """
@@ -107,31 +114,86 @@ def get_events_query(user=None, animal=None, event_type=None):
     if isinstance(animal, Animal):
         query = query.filter(Event.animal == animal)
 
-    if isinstance(event_type, int):
-        event_type = db.session.query(RecordType).get(event_type)
-    if isinstance(event_type, Animal):
-        query = query.filter(Event.animal == event_type)
-
     return query
 
 
-def get_past_events(user=None, animal=None, event_type=None):
+def get_past_events(user=None, animal=None):
     """
         returns serialized array of events that will end in future,
         default returns all,
         if any of arguments is set (user, animal, event_type), filter events by them
     """
 
-    query = get_events_query(user, animal, event_type)
+    query = get_events_query(user, animal)
     return query.filter(Event.end < datetime.now()).all()
 
 
-def get_future_events(user=None, animal=None, event_type=None):
+def get_future_events(user=None, animal=None):
     """
         returns serialized array of events that already ended,
         default returns all,
         if any of arguments is set (user, animal, event_type), filter events by them
     """
 
-    query = get_events_query(user, animal, event_type)
+    query = get_events_query(user, animal)
     return query.filter(Event.end > datetime.now()).all()
+
+
+# ====================================================================================================
+# WALKS
+
+
+def get_walks_query(user=None, animal=None):
+    """
+        returns query for events
+    """
+
+    query = db.session.query(Walk)
+
+    if isinstance(user, int):
+        user = db.session.query(User).get(user)
+    if isinstance(user, User):
+        query = query.filter(Walk.user == user)
+
+    if isinstance(animal, int):
+        animal = db.session.query(Animal).get(animal)
+    if isinstance(animal, Animal):
+        query = query.filter(Walk.animal == animal)
+
+    if isinstance(event_type, int):
+        event_type = db.session.query(RecordType).get(event_type)
+    if isinstance(event_type, Animal):
+        query = query.filter(Walk.animal == event_type)
+
+    return query
+
+
+def get_walks(user=None, animal=None):
+    query = get_walks_query(user, animal)
+    return query.all()
+
+
+def get_future_walks(user=None, animal=None):
+    query = get_walks_query(user, animal)
+    return query.filter(Walk.end > datetime.now()).all()
+
+
+def get_past_walks(user=None, animal=None):
+    query = get_walks_query(user, animal)
+    return query.filter(Walk.end < datetime.now()).all()
+
+
+# ====================================================================================================
+# MY WALKS
+
+
+def get_my_walks(animal=None):
+    return get_walks(flask_login.current_user, animal)
+
+
+def get_future_my_walks(animal=None):
+    return get_future_walks(flask_login.current_user, animal)
+
+
+def get_past_my_walks(animal=None):
+    return get_past_walks(flask_login.current_user, animal)
