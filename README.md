@@ -21,12 +21,12 @@ python3 main.py
 ## Uživatelé
 
 1. administrátor:
-    - [ ] spravuje uživatele, jako jediný vytváří pečovatele a veterináře
+    - [x] spravuje uživatele, jako jediný vytváří pečovatele a veterináře
 
 2. pečovatel:
     - [ ] spravuje zvířata, vede jejich evidenci
     - [ ] vytváří rozvrhy pro venčení
-    - [ ] ověřuje dobrovolníky
+    - [x] ověřuje dobrovolníky
     - [ ] schvaluje rezervace zvířat na venčení, eviduje zapůjčení a vrácení
     - [ ] vytváří požadavky na veterináře
 
