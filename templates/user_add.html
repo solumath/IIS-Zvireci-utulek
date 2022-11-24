@@ -17,30 +17,30 @@
             </div>
             <div class="col">
                 <label for="surname">Přijmení:</label>
-                <input type="text" class="form-control" name="surname" value="{{ request.form['surname'] }}"  required>
+                <input type="text" class="form-control" name="surname" value="{{ request.form['surname'] }}" required>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" name="email" value="{{ request.form['email'] }}"  required>
+                <input type="email" class="form-control" name="email" value="{{ request.form['email'] }}" required>
             </div>
             <div class="col">
                 <label for="tel_number">Telefonní číslo:</label>
-                <input type="text" class="form-control"
-                    pattern="[\+\(\s.\/\d\)]{9,16}" name="tel_number" value="{{ request.form['tel_number'] }}"  required>
+                <input type="text" class="form-control" pattern="[\+\(\s.\/\d\)]{9,16}" name="tel_number"
+                    value="{{ request.form['tel_number'] }}" required>
             </div>
         </div>
         <div class=" row">
             <div class="col">
                 <label for="address">Adresa:</label>
-                <input type="text" class="form-control" name="address" value="{{ request.form['address'] }}"  required>
+                <input type="text" class="form-control" name="address" value="{{ request.form['address'] }}" required>
             </div>
         </div>
         <div class=" row">
             <div class="col">
                 <label for="login">Login:</label>
-                <input type="text" class="form-control" name="login" value="{{ request.form['login'] }}"  required>
+                <input type="text" class="form-control" name="login" value="{{ request.form['login'] }}" required>
             </div>
             <div class="col">
                 <label for="password">Heslo:</label>
@@ -51,7 +51,7 @@
                 <select class="form-control" name="user_role" required>
                     <option value="{{ request.form['user_role'] }}" selected>Zvolte roli</option>
                     {% for role in roles %}
-                    <option value="{{role.name}}">{{role.name}}</option>
+                    <option value="{{role.name}}">{{role.czech_name}}</option>
                     {% endfor %}
                 </select>
             </div>
