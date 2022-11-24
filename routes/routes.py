@@ -14,13 +14,6 @@ def about():
     return utility.render_with_permissions('about.html')
 
 
-@app.route('/examinations')
-@flask_login.login_required
-@utility.role_required(['administrator', 'vet'])
-def examinations():
-    return utility.render_with_permissions('examinations.html')
-
-
 @app.route('/profile')
 @flask_login.login_required
 def profile():

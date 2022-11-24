@@ -20,7 +20,7 @@ def walks_delete():
 
 @app.route('/walks', methods=['GET', 'POST'])
 @flask_login.login_required
-@utility.role_required(['administrator', 'vet'])
+@utility.role_required(['administrator', 'caretaker'])
 def walks():
     return utility.render_with_permissions(
         'walks.html',

@@ -22,6 +22,6 @@ def events_delete():
 
 @app.route('/events', methods=['GET', 'POST'])
 @flask_login.login_required
-@utility.role_required(['administrator'])
+@utility.role_required(['administrator', 'caretaker'])
 def events():
     return utility.render_with_permissions('events.html', events=db.get_events_query())
