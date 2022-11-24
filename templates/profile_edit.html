@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %} Upravit profil {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/profile.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start"></section>
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <h2>Upravit profil</h2>
+                <form method="POST" id="editProfile">
+
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="registerEmail" placeholder="Email"
+                    name="email" value="{{ user.email }}" required>
+                    <label for="email">Email*</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="registerFirstname" placeholder="Jméno"
+                    name="name" value="{{ user.name }}" required>
+                    <label for="name">Jméno*</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="registerSurname" placeholder="Příjmení"
+                    name="surname" value="{{ user.surname }}" required>
+                    <label for="surname">Příjmení*</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="tel" class="form-control" id="registerTel" placeholder="Telefon"
+                    name="tel_number" value="{{ user.tel_number }}"
+                    pattern="^[\+\(\s.\/\d\)]{9,16}$" 
+                    required>
+                    <label for="tel">Telefon*</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="registerAddress" placeholder="Bydliště"
+                    value="{{ user.address }}" name="address" required>
+                    <label for="address">Bydliště*</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="registerPassword"
+                    placeholder="Password" name="password" required>
+                    <label for="password">Heslo*</label>
+                </div>
+
+                <div class="d-grid">
+                    <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
+                    name="registerSubmit">Potvrdit</button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock%}

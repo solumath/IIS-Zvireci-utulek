@@ -7,6 +7,9 @@ REGISTER_SUCCESS = "Byl jsi úspěšně zaregistrován."
 
 MISSING_LOGIN_OR_PASSWORD = "Uživatelské jméno nebo heslo je prázdné."
 WRONG_LOGIN_OR_PASSWORD = "Uživatelské jméno nebo heslo je špatné."
+WRONG_PASSWORD = "Zadali jste špatné heslo."
+PASSWORD_CHANGED = "Heslo úspěšně změněno."
+PROFILE_EDITED = "Profil úspěšně upraven."
 AUTHENTICATION_FAILED = "Ověření selhalo."
 MISSING_FIELD = "Chybějící pole ve formuláři."
 USER_ALREADY_EXISTS = "Uživatel s těmito přihlašovacími údaji již existuje."
@@ -21,6 +24,7 @@ NEGATIVE_USER_ = 'Hodnocení uživatele nesmí být záporné.'
 
 MISSING_ROLE = "Vyplňte prosím roli uživatele."
 NOT_UNIQUE_LOGIN = "Tento login je již zabraný."
-NOT_UNIQUE_EMAIL = "Účet s tímto emailem již existuje, kontaktujte správce."
+NOT_UNIQUE_EMAIL = "Účet s tímto emailem již existuje, nelze jej použít."
 
 USER_NOT_FOUND = "Uživatel nenalezen."
+ANIMAL_NOT_FOUND = "Zvíře nenalezeno."

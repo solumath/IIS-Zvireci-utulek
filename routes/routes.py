@@ -1,6 +1,4 @@
-import flask_login
 from app import app
-import db
 import utility
 
 
@@ -12,12 +10,6 @@ def index():
 @app.route('/about')
 def about():
     return utility.render_with_permissions('about.html')
-
-
-@app.route('/profile')
-@flask_login.login_required
-def profile():
-    return utility.render_with_permissions('profile.html', user_info=flask_login.current_user.get_info())
 
 
 @app.errorhandler(401)
