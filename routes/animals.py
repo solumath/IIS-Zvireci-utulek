@@ -5,21 +5,21 @@ import db
 import utility
 import response as r
 
-def delete_animal(form):
-    animal = db.get_animal(form['id'])
-    for event in animal.events:
-        db.db.session.delete(event)
-
-    db.db.session.delete(animal)
-    db.db.session.commit()
 
 @app.route('/animals/delete', methods=['GET', 'POST'])
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker'])
 def animals_delete():
     if flask.request.method == 'POST':
-        delete_animal(flask.request.form)
-        return flask.redirect(flask.url_for('animals'))
+        animal = db.get_animal(flask.request.form['id'])
+        if animal is None:
+            flask.flash(r.ANIMAL_NOT_FOUND, r.ERROR)
+            return utility.render_with_permissions(flask.url_for('animals'))
+        for event in animal.events:
+            db.db.session.delete(event)
+
+        db.db.session.delete(animal)
+        db.db.session.commit()
     return flask.redirect(flask.url_for('animals'))
 
 
@@ -47,22 +47,22 @@ def animals_add():
     weight = flask.request.form.get("weight")
     if (int(weight) < 0):
         flask.flash(r.NEGATIVE_WEIGHT, r.ERROR)
-        return flask.redirect(flask.url_for('animals_add', id=str(id)))
+        return utility.render_with_permissions('animal_add.html', id=str(id))
     height = flask.request.form.get("height")
     if (int(height) < 0):
         flask.flash(r.NEGATIVE_HEIGHT, r.ERROR)
-        return flask.redirect(flask.url_for('animals_add', id=str(id)))
+        return utility.render_with_permissions('animal_add.html', id=str(id))
     kind = flask.request.form.get("kind")
     breed = flask.request.form.get("breed")
     chip_id = flask.request.form.get("chip_id")
     if (int(chip_id) < 0):
         flask.flash(r.NEGATIVE_CHIP_ID, r.ERROR)
-        return flask.redirect(flask.url_for('animals_add', id=str(id)))
+        return utility.render_with_permissions('animal_add.html', id=str(id))
     birthday = utility.parse_date(flask.request.form.get("birthday"))
     discovery_day = utility.parse_date(flask.request.form.get("discovery_day"))
     if (discovery_day < birthday):
         flask.flash(r.WRONG_DISCOVERY_DATE, r.ERROR)
-        return flask.redirect(flask.url_for('animals_add', id=str(id)))
+        return utility.render_with_permissions('animal_add.html', id=str(id))
     discovery_place = flask.request.form.get("discovery_place")
     description = flask.request.form.get("description")
 
@@ -86,25 +86,26 @@ def animals_edit(id):
         animal.weight = flask.request.form.get('weight')
         if (int(animal.weight) < 0):
             flask.flash(r.NEGATIVE_WEIGHT, r.ERROR)
-            return flask.redirect(flask.url_for('animals_edit', id=str(id)))
+            return utility.render_with_permissions('animal_edit.html', id=str(id))
         animal.height = flask.request.form.get('height')
         if (int(animal.height) < 0):
             flask.flash(r.NEGATIVE_HEIGHT, r.ERROR)
-            return flask.redirect(flask.url_for('animals_edit', id=str(id)))
+            return utility.render_with_permissions('animal_edit.html', id=str(id))
         animal.kind = flask.request.form.get('kind')
         animal.breed = flask.request.form.get('breed')
         animal.chip_id = flask.request.form.get('chip_id')
         if (int(animal.chip_id) < 0):
             flask.flash(r.NEGATIVE_CHIP_ID, r.ERROR)
-            return flask.redirect(flask.url_for('animals_edit', id=str(id)))
+            return utility.render_with_permissions('animal_edit.html', id=str(id))
         animal.birthday = utility.parse_date(flask.request.form.get('birthday'))
         animal.discovery_day = utility.parse_date(
             flask.request.form.get('discovery_day'))
         if (animal.discovery_day < animal.birthday):
             flask.flash(r.WRONG_DISCOVERY_DATE, r.ERROR)
-            return flask.redirect(flask.url_for('animals_edit', id=str(id)))
+            return utility.render_with_permissions('animals_edit.html', id=str(id))
         animal.discovery_place = flask.request.form.get('discovery_place')
         animal.description = flask.request.form.get('description')
         db.db.session.commit()
-        return flask.redirect(flask.url_for('animals_detail', id=str(id)))
+        return flask.redirect(flask.url_for('animal_detail', id=str(id)))
+    
     return utility.render_with_permissions('animal_edit.html', animal=db.get_animal(id))
