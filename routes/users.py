@@ -42,11 +42,11 @@ def users_edit(id):
         for email in conflict_email:
             if int(email[0]) != user.id:
                 flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
-            return utility.render_with_permissions(
-                'user_edit.html',
-                user=db.get_user(id),
-                user_roles=db.get_user_roles()
-            )
+                return utility.render_with_permissions(
+                    'user_edit.html',
+                    user=db.get_user(id),
+                    user_roles=db.get_user_roles()
+                )
 
         id = user.id
         user.name = flask.request.form.get('name')
