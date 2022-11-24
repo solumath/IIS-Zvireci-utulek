@@ -150,24 +150,18 @@ unverified_user = db.User("unverified", "poop",  "Juraj", "Prdelkový", "Vysoké
                           "jurik.prdelka@utulek.cz", "+421913677100")
 
 event_types = [
-    db.EventType(
-        "procházka", 1, "Vzití zviřete mimo útulek s povinnosti navrácení v předem určený čas."),
-    db.EventType("vyšetření", 9,
-                 "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
-    db.EventType(
+    db.RecordType("vyšetření", 9,
+                  "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
+    db.RecordType(
         "salón", 5, "Návštěva psího salónu s cílem vylepšení vzhledu zvířete (koupel, stříhání srsti, stříhání drápků).")
 ]
 
 events = [
 
-    db.Event(datetime(2025, 1, 1), datetime(2025, 1, 1, 23),
-             "Future is close :D"),
-    db.Event(datetime(2020, 1, 1), datetime(2020, 1, 1, 23),
-             "Let the past be."),
-    db.Event(datetime(2022, 11, 21, 15), datetime(2022, 11, 21, 17),
-             "Procházka po lese."),
-    db.Event(datetime(2022, 11, 20, 15), datetime(2022, 11, 21, 17),
-             "Procházka po lese."),
+    db.Walk(datetime(2025, 1, 1), datetime(2025, 1, 1, 23)),
+    db.Walk(datetime(2020, 1, 1), datetime(2020, 1, 1, 23)),
+    db.Walk(datetime(2022, 11, 21, 15), datetime(2022, 11, 21, 17)),
+    db.Walk(datetime(2022, 11, 20, 15), datetime(2022, 11, 21, 17)),
 ]
 
 

@@ -2,7 +2,7 @@ from .constants import db
 from .animal import Animal
 from .user import User
 from .event import Event
-from .event_type import EventType
+from .record_type import RecordType
 from .user_role import UserRole
 from datetime import datetime
 import typing
@@ -108,7 +108,7 @@ def get_events_query(user=None, animal=None, event_type=None):
         query = query.filter(Event.animal == animal)
 
     if isinstance(event_type, int):
-        event_type = db.session.query(EventType).get(event_type)
+        event_type = db.session.query(RecordType).get(event_type)
     if isinstance(event_type, Animal):
         query = query.filter(Event.animal == event_type)
 
