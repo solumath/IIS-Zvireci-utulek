@@ -41,16 +41,9 @@ def users_edit(id):
             flask.flash(r.USER_NOT_FOUND, r.ERROR)
             return utility.render_with_permissions('/users')
         
-        # check conflict with email
+        # check conflict with email, if empty list, no conflict
         conflict_users = db.get_users(email=flask.request.form.get('email'))
-        if len(conflict_users) > 1:
-            flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
-            return utility.render_with_permissions(
-                'user_edit.html',
-                user=user_form,
-                user_roles=db.get_user_roles()
-            )
-        if len(conflict_users) == 1 and conflict_users[0] != user:
+        if conflict_users and conflict_users[0] != user:
             flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
             return utility.render_with_permissions(
                 'user_edit.html',
