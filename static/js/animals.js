@@ -14,7 +14,17 @@ function filtering() {
     }
 }
 
-$( document ).ready(function(e) {
-    console.log( "ready!" );
+$(document).ready(function (e) {
+    console.log("ready!");
 
 });
+
+// https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
+function showAndHide() {
+    var x = document.getElementById("walks_detail");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}

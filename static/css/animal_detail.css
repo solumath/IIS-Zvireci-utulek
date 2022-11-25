@@ -1,7 +1,7 @@
 .containerik {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1.7fr 1fr;
+    grid-template-rows: 1.7fr 0.2fr;
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
@@ -34,13 +34,13 @@ img {
 
 }
 
-tr {
+.containerik tr {
     line-height: 45.5px;
     border-bottom: 0.5pt solid grey;
     color: gray;
 }
 
-td {
+.containerik td {
     padding: 0 15px;
 }
 
@@ -54,10 +54,10 @@ td {
 
 }
 
-table {
+.containerik table {
     border-collapse: collapse;
 }
 
-element {
+.containerik element {
     padding: 10px;
 }
