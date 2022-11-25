@@ -40,11 +40,11 @@
                                 <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}" class="btn btn-primary">{{ future.animal.name }}</a>
                             </td>
                             {% if future.confirmed %}
-                            <td class="col text-center">
+                            <td data-order="1" class="col text-center">
                                 <i class="bi-check-lg align-content-center" style="font-size: 2rem; color: #198754;"></i>
                             </td>
                             {% else %}
-                            <td class="col text-center">
+                            <td data-order="2" class="col text-center">
                                 <i class="bi-x-lg align-content-center" style="font-size: 2rem; color: #c71717;"></i>
                             </td>
                             {% endif %}

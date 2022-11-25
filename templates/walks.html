@@ -15,17 +15,19 @@
 
 <section class="bg-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start" id="sectionBody">
     <div class="container">
-        <div class="mb-5 mt-2 futureTable">
-            <table class="table table-striped table-bordered align-middle" id="futureTable">
+        <div class="mb-5 mt-2">
+            <table class="table table-striped table-bordered align-middle futureTable" id="futureTable">
                 <thead class="table-dark">
                     <tr>
-                        <th class="h3" scope="col" colspan="7">Plánované procházky</th>
+                        <th class="h3" scope="col" colspan="8">Plánované procházky</th>
                     </tr>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Jméno</th>
+                        <th scope="col">Email</th>
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
-                        <th scope="col">Jméno</th>
+                        <th scope="col">Jméno zvířete</th>
                         {% if PERMISSION_WALKS_CONFIRM %}
                         <th scope="col">Potvrdit</th>
                         {% endif %}
@@ -38,42 +40,45 @@
                     {% for future in future_events %}
                         <tr>
                             <th scope="row">{{ loop.index }}</th>
+                            <td>{{ future.user.name + " " + future.user.surname }}</td>
+                            <td>{{ future.user.email}}</td>
                             <td>{{ future.start }}</td>
                             <td>{{ future.end }}</td>
                             <td>
                                 <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}" class="btn btn-primary">{{ future.animal.name }}</a>
                             </td>
+
                             {% if PERMISSION_WALKS_CONFIRM %}
-                            {% if not future.confirmed %}
-                            <!-- UNCONFIRMED WALKS -->
-                            <td class="col text-center">
-                                <form method="POST" action="{{ url_for('walks_confirm') }}">
-                                    <button class="btn btn-danger bi-x-lg" type="submit"></button>
-                                    <input type="hidden" value="{{ future.id }}" name="id" />
-                                </form>
-                            </td>
-                            {% elif future.confirmed %}
+                            {% if future.confirmed %}
                             <!-- CONFIRMED WALKS -->
-                            <td class="col text-center">
+                            <td data-order="1" class="col text-center">
                                 <form method="POST" action="{{ url_for('walks_unconfirm') }}">
                                     <button class="btn btn-success bi-check-lg" type="submit"></button>
                                     <input type="hidden" value="{{ future.id }}" name="id" />
                                 </form>
                             </td>
+                            {% else %}
+                            <!-- UNCONFIRMED WALKS -->
+                            <td data-order="2" class="col text-center">
+                                <form method="POST" action="{{ url_for('walks_confirm') }}">
+                                    <button class="btn btn-danger bi-x-lg" type="submit"></button>
+                                    <input type="hidden" value="{{ future.id }}" name="id" />
+                                </form>
+                            </td>
                             {% endif %}
-                            {% endif %}
-
-                        <!-- USER DELETE -->
-                        {% if PERMISSION_WALKS_DELETE %}
-                        <td class="col text-center">
-                            <form method="POST" class="deleteWalk" action="{{ url_for('walks_delete') }}">
-                                <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteWalk"
+                            
+                            <!-- WALK DELETE -->
+                            {% if PERMISSION_WALKS_DELETE %}
+                            <td class="col text-center">
+                                <form method="POST" class="deleteWalk" action="{{ url_for('walks_delete') }}">
+                                    <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteWalk"
                                     type="submit"></button>
-                                <input type="hidden" value="{{ future.id }}" name="id" />
-                            </form>
-                        </td>
+                                    <input type="hidden" value="{{ future.id }}" name="id" />
+                                </form>
+                            </td>
+                            {% endif %}
+                        </tr>
                         {% endif %}
-                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -81,14 +86,16 @@
 
         <hr />
 
-        <div class="my-5 historyTable">
-            <table class="table table-striped table-bordered align-middle" id="historyTable">
+        <div class="my-5">
+            <table class="table table-striped table-bordered align-middle historyTable" id="historyTable">
                 <thead class="table-dark">
                     <tr>
                         <th class="h3" scope="col" colspan="6">Historie</th>
                     </tr>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Jméno</th>
+                        <th scope="col">Email</th>
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
                         <th scope="col">Jméno zvířete</th>
@@ -98,6 +105,8 @@
                     {% for past in past_events %}
                     <tr>
                         <th scope="row">{{ loop.index }}</th>
+                        <td>{{ past.user.name + " " + past.user.surname }}</td>
+                        <td>{{ past.user.email }}</td>
                         <td>{{ past.start }}</td>
                         <td>{{ past.end }}</td>
                         <td>
