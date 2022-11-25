@@ -26,7 +26,6 @@
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
                         <th scope="col">Jméno</th>
-                        <th scope="col">Popis</th>
                         <th scope="col">Smazat</th>
                     </tr>
                 </thead>
@@ -39,7 +38,6 @@
                             <td>
                                 <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}" class="btn btn-primary">{{ future.animal.name }}</a>
                             </td>
-                            <td>{{ future.description }}</td>
                             {% if PERMISSION_WALKS_EDIT %}
                             <td class="col text-center">
                                 <a href="my_walks/edit/{{future.id}}" class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editWalk" role="button"></a>
@@ -80,7 +78,6 @@
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
                         <th scope="col">Jméno</th>
-                        <th scope="col">Popis</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,7 +89,6 @@
                             <td>
                                 <a type="button" href="{{url_for('animals_detail', id=past.animal.id)}}" class="btn btn-primary">{{ past.animal.name }}</a>
                             </td>
-                            <td>{{ past.description }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
