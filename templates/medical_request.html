@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %} Požadavek na veterináře {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animal_add.css') }}" />
+<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script> -->
+{% endblock %}
+
+{% block body %}
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start"></section>
+<div class="containerik">
+    <h2>Zadat požadavek:</h2>
+    <form method='POST'>
+        <div class="row">
+            <div class="form-group col">
+                <label for="start"> Typ prohlídky:</label>
+                <input type="text" class="form-control" value="vyžádané vyšetření" readonly>
+                <small class="form-text text-muted">Nelze změnit.</small>
+            </div>
+
+            <div class="form-group col">
+                <label for="start"> Jméno zvoleného zvíře:</label>
+                <input type="text" class="form-control" name="animal.name" value="{{animal.name}}" readonly>
+                <small class="form-text text-muted">Nelze změnit.</small>
+
+            </div>
+            <div class=" row">
+                <div class="form-group col-5">
+                    <label for="start"> Vyžadovaný den vyšetření:</label>
+                    <input type="date" class="form-control" name="start" value="2022-12-05">
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="description"> Popis:</label>
+                <textarea type="text-area" class="form-control" rows="4" name="description"
+                    placeholder="Stručně popište důvod žádosti: např. levá zadní tlapka má v sobě zanícený trn."
+                    required></textarea>
+            </div>
+            <div class="text-center">
+                <br>
+                <button type="submit" style="text-align: center;" class="btn btn-primary "><i class="bi bi-plus"></i>
+                    Zažádat o vyšetření</button>
+            </div>
+            <br>
+    </form>
+</div>
+</section>
+
+{% endblock %}
