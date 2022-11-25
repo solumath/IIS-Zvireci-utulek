@@ -1,9 +1,0 @@
-body::before {
-    display: block;
-    content: '';
-    height: 130px;
-}
-
-#body {
-    margin-bottom: 30px;
-}

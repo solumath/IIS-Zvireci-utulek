@@ -20,3 +20,8 @@ def not_enough_perms(e):
 @app.errorhandler(404)
 def page_not_found(e):
     return utility.render_with_permissions('404.html')
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return utility.render_with_permissions('500.html')

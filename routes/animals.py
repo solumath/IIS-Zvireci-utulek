@@ -86,11 +86,12 @@ def animals_add():
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker'])
 def animals_edit(id):
+    animal = db.get_animal(id)
+    if animal is None:
+        flask.flash(r.ANIMAL_NOT_FOUND, r.ERROR)
+        return utility.render_with_permissions(flask.url_for('animals'))
+
     if flask.request.method == 'POST':
-        animal = db.get_animal(id)
-        if animal is None:
-            flask.flash(r.ANIMAL_NOT_FOUND, r.ERROR)
-            return utility.render_with_permissions(flask.url_for('animals'))
         animal_form = DefaultMunch.fromDict(flask.request.form)
 
         animal.name = flask.request.form.get('name')
