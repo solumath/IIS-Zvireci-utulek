@@ -161,10 +161,12 @@ unverified_user = db.User("unverified", "poop",  "Juraj", "Prdelkový", "Vysoké
                           "jurik.prdelka@utulek.cz", "+421913677100")
 
 event_types = [
-    db.RecordType("vyšetření", 9,
+    db.RecordType("examination", "vyšetření", 9,
                   "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
-    db.RecordType(
-        "salón", 5, "Návštěva psího salónu s cílem vylepšení vzhledu zvířete (koupel, stříhání srsti, stříhání drápků).")
+    db.RecordType("booster_shot", "ockovani", 9,
+                  "Ockovanie."),
+    db.RecordType("medicine", "predpisany liek", 9,
+                  "Predpis lieku predpisany odborným pracovníkem (veterinářem)."),
 ]
 
 events = [

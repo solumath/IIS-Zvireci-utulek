@@ -14,7 +14,8 @@ class RecordType(db.Model):
 
     records = relation("MedicalRecord", back_populates="record_type")
 
-    def __init__(self, name: str, priority: int = 0, description: str = ""):
+    def __init__(self, name: str, czech_name: str, priority: int = 0, description: str = ""):
         self.name = name
+        self.czech_name = czech_name
         self.priority = priority
         self.description = description
