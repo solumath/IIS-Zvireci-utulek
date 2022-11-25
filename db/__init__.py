@@ -35,7 +35,8 @@ from .queries import \
     get_walks_query, \
     get_medical_records, \
     get_record_type, \
-    get_record_types
+    get_record_types, \
+    get_medical_record
 
 
 from .constants import \

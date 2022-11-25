@@ -15,3 +15,6 @@ def datetime_from_date(date: str, time: typing.Union[datetime.time, str] = datet
         time = time.strftime('%H:%M:%S')
     date = f"{date} {time}"
     return datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+
+def parse_datetime(date:str):
+    return datetime.datetime.strptime(date,"%Y-%m-%dT%H:%M")

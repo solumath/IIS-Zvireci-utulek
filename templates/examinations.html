@@ -36,26 +36,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for record in records %}
+                    {% for request in requests %}
                     <tr>
-                        {% if record.record_type.czech_name == "vyžádané vyšetření" %}
-                        <td>{{ record.record_type.czech_name.title() }}</td>
-                        {% if record.user %}
-                        <td>{{ record.user.name + " " + record.user.surname }}</td>
+                        <td>{{ request.record_type.czech_name.title() }}</td>
+                        {% if request.user %}
+                        <td>{{ request.user.name + " " + request.user.surname }}</td>
                         {% else %}
                         <td>Deleted User</td>
                         {% endif %}
-                        <td>{{ record.user.email }}</td>
-                        <td>{{ record.start }}</td>
-                        <td>{{ record.end }}</td>
+                        <td>{{ request.user.email }}</td>
+                        <td>{{ request.start }}</td>
+                        <td>{{ request.end }}</td>
                         <td>
-                            <a type="button" href="{{url_for('animals_detail', id=record.animal.id)}}" class="btn">{{
-                                record.animal.name }}</a>
+                            <a type="button" href="{{url_for('animals_detail', id=request.animal.id)}}" class="btn">
+                                {{ request.animal.name }}</a>
                         </td>
-                        <td>{{ record.description }}</td>
+                        <td>{{ request.description }}</td>
                         {% if PERMISSION_EVENTS_EDIT %}
                         <td class="col text-center">
-                            <a href="examinations/edit/{{record.id}}"
+                            <a href="examinations/edit/{{request.id}}"
                                 class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent"
                                 role="button"></a>
                         </td>
@@ -66,12 +65,10 @@
                                 <button
                                     class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteEvent"
                                     type="submit"></button>
-                                <input type="hidden" value="{{ record.id }}" name="id" />
+                                <input type="hidden" value="{{ request.id }}" name="id" />
                             </form>
                         </td>
                         {% endif %}
-                        {% endif%}
-
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -97,25 +94,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for record in records %}
+                    {% for examination in examinations %}
                     <tr>
-                        <td>{{ record.record_type.czech_name.title() }}</td>
-                        {% if record.user %}
-                        <td>{{ record.user.name + " " + record.user.surname }}</td>
+                        <td>{{ examination.record_type.czech_name.title() }}</td>
+                        {% if examination.user %}
+                        <td>{{ examination.user.name + " " + examination.user.surname }}</td>
                         {% else %}
                         <td>Deleted User</td>
                         {% endif %}
-                        <td>{{ record.user.email }}</td>
-                        <td>{{ record.start }}</td>
-                        <td>{{ record.end }}</td>
+                        <td>{{ examination.user.email }}</td>
+                        <td>{{ examination.start }}</td>
+                        <td>{{ examination.end }}</td>
                         <td>
-                            <a type="button" href="{{url_for('animals_detail', id=record.animal.id)}}" class="btn">{{
-                                record.animal.name }}</a>
+                            <a type="button" href="{{url_for('animals_detail', id=examination.animal.id)}}" class="btn">{{
+                                examination.animal.name }}</a>
                         </td>
-                        <td>{{ record.description }}</td>
+                        <td>{{ examination.description }}</td>
                         {% if PERMISSION_EVENTS_EDIT %}
                         <td class="col text-center">
-                            <a href="examinations/edit/{{record.id}}"
+                            <a href="examinations/edit/{{examination.id}}"
                                 class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent"
                                 role="button"></a>
                         </td>
@@ -126,7 +123,7 @@
                                 <button
                                     class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteEvent"
                                     type="submit"></button>
-                                <input type="hidden" value="{{ record.id }}" name="id" />
+                                <input type="hidden" value="{{ examination.id }}" name="id" />
                             </form>
                         </td>
                         {% endif %}

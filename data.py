@@ -180,7 +180,13 @@ walks = [
 
 medical_records = [
     db.MedicalRecord(datetime(2025, 1, 1), datetime(
-        2025, 1, 1, 23), "Bezna prohlidka")
+        2025, 1, 1, 23), "Bezna prohlidka"),
+    db.MedicalRecord(datetime(2025, 1, 1), datetime(
+        2025, 1, 1, 23), "request"),
+    db.MedicalRecord(datetime(2025, 1, 1), datetime(
+        2025, 1, 1, 23), "booster"),
+    db.MedicalRecord(datetime(2025, 1, 1), datetime(
+        2025, 1, 1, 23), "medicine"),
 ]
 
 
@@ -220,10 +226,10 @@ def add_data():
     for record_type in record_types:
         db.db.session.add(record_type)
 
-    for record in medical_records:
-        record.animal = animals[0]
+    for i, record in enumerate(medical_records):
+        record.animal = animals[i]
         record.user = vet_user
-        record.record_type = record_types[0]
+        record.record_type = record_types[i]
         db.db.session.add(record)
 
     for i, walk in enumerate(walks):

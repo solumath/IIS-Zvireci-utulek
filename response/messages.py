@@ -16,6 +16,7 @@ USER_ALREADY_EXISTS = "Uživatel s těmito přihlašovacími údaji již existuj
 DELETE_YOURSELF_FAILED = "Nemůžeš se vymazat Ujo."
 DELETE_PRESENT_WALK = "Nemůžeš vymazat procházky ve stejný den, ve který se konají."
 
+WRONG_DATETIME = "Špatné datum zacatku nebo konce"
 WRONG_DISCOVERY_DATE = "Špatné datum přijetí nebo narození"
 NEGATIVE_CHIP_ID = "Číslo čipu nesmí být záporné."
 NEGATIVE_HEIGHT = "Výška nesmí být záporná"
@@ -31,3 +32,5 @@ ANIMAL_NOT_FOUND = "Zvíře nenalezeno."
 WALK_NOT_FOUND = "Procházka nenalezena."
 
 UNSUFFICIENT_PERMISSION = "Na tuto operaciu nemate pravo"
+
+UNSPECIFIED_ERROR = "Neco neni v poradku"
