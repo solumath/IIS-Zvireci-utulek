@@ -20,11 +20,15 @@ def profile_edit():
             return utility.render_with_permissions('login.html')
 
         if user.password == flask.request.form['password']:
-            conflict_email = db.db.session.query(db.User.id).filter(db.User.email == flask.request.form.get('email')).all()
-            for email in conflict_email:
-                if int(email[0]) != flask_login.current_user.id:
-                    flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
-                    return utility.render_with_permissions('profile_edit.html', user=user_form)
+            # check conflict with email
+            conflict_users = db.get_users(email=flask.request.form.get('email'))
+            if len(conflict_users) > 1:
+                flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
+                return utility.render_with_permissions('profile_edit.html', user=user_form)
+
+            if len(conflict_users) == 1 and conflict_users[0] != user:
+                flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
+                return utility.render_with_permissions('profile_edit.html', user=user_form)
 
             # input to db
             user.email = user_form.email

@@ -26,8 +26,8 @@
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
                         <th scope="col">Jméno</th>
-                        {% if PERMISSION_WALKS_EDIT %}
-                        <th scope="col">Upravit</th>
+                        {% if PERMISSION_WALKS_CONFIRM %}
+                        <th scope="col">Potvrdit</th>
                         {% endif %}
                         {% if PERMISSION_WALKS_DELETE %}
                         <th scope="col">Smazat</th>
@@ -36,21 +36,32 @@
                 </thead>
                 <tbody>
                     {% for future in future_events %}
-                    <tr>
-                        <th scope="row">{{ loop.index }}</th>
-                        <td>{{ future.start }}</td>
-                        <td>{{ future.end }}</td>
-                        <td>
-                            <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}"
-                                class="btn btn-primary">{{ future.animal.name }}</a>
-                        </td>
-                        {% if PERMISSION_WALKS_EDIT %}
-                        <td class="col text-center">
-                            <a href="walks/edit/{{future.id}}"
-                                class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editWalk"
-                                role="button"></a>
-                        </td>
-                        {% endif %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{ future.start }}</td>
+                            <td>{{ future.end }}</td>
+                            <td>
+                                <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}" class="btn btn-primary">{{ future.animal.name }}</a>
+                            </td>
+                            {% if PERMISSION_WALKS_CONFIRM %}
+                            {% if not future.confirmed %}
+                            <!-- UNCONFIRMED WALKS -->
+                            <td class="col text-center">
+                                <form method="POST" action="{{ url_for('walks_confirm') }}">
+                                    <button class="btn btn-danger bi-x-lg" type="submit"></button>
+                                    <input type="hidden" value="{{ future.id }}" name="id" />
+                                </form>
+                            </td>
+                            {% elif future.confirmed %}
+                            <!-- CONFIRMED WALKS -->
+                            <td class="col text-center">
+                                <form method="POST" action="{{ url_for('walks_unconfirm') }}">
+                                    <button class="btn btn-success bi-check-lg" type="submit"></button>
+                                    <input type="hidden" value="{{ future.id }}" name="id" />
+                                </form>
+                            </td>
+                            {% endif %}
+                            {% endif %}
 
                         <!-- USER DELETE -->
                         {% if PERMISSION_WALKS_DELETE %}

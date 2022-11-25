@@ -28,5 +28,6 @@ NOT_UNIQUE_EMAIL = "Účet s tímto emailem již existuje, nelze jej použít."
 
 USER_NOT_FOUND = "Uživatel nenalezen."
 ANIMAL_NOT_FOUND = "Zvíře nenalezeno."
+WALK_NOT_FOUND = "Procházka nenalezena."
 
 UNSUFFICIENT_PERMISSION = "Na tuto operaciu nemate pravo"

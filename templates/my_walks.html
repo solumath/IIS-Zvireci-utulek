@@ -26,6 +26,7 @@
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
                         <th scope="col">Jméno</th>
+                        <th scope="col">Potvrzeno</th>
                         <th scope="col">Smazat</th>
                     </tr>
                 </thead>
@@ -38,11 +39,6 @@
                             <td>
                                 <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}" class="btn btn-primary">{{ future.animal.name }}</a>
                             </td>
-                            {% if PERMISSION_WALKS_EDIT %}
-                            <td class="col text-center">
-                                <a href="my_walks/edit/{{future.id}}" class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editWalk" role="button"></a>
-                            </td>
-                            {% endif %}
 
                             <!-- USER DELETE -->
                             {% if PERMISSION_MY_WALKS_DELETE %}

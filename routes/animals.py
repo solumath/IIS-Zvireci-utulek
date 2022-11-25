@@ -4,6 +4,7 @@ from app import app
 import db
 import utility
 import response as r
+from munch import DefaultMunch
 
 
 @app.route('/animals/delete', methods=['GET', 'POST'])
@@ -79,27 +80,33 @@ def animals_add():
 def animals_edit(id):
     if flask.request.method == 'POST':
         animal = db.get_animal(id)
+        animal_form = DefaultMunch.fromDict(flask.request.form)
+
         id = animal.id
         animal.name = flask.request.form.get('name')
         animal.sex = flask.request.form.get('sex')
         animal.color = flask.request.form.get('color')
         animal.weight = flask.request.form.get('weight')
+
         if (int(animal.weight) < 0):
             flask.flash(r.NEGATIVE_WEIGHT, r.ERROR)
             return utility.render_with_permissions('animal_edit.html', animal=db.get_animal(id))
         animal.height = flask.request.form.get('height')
+
         if (int(animal.height) < 0):
             flask.flash(r.NEGATIVE_HEIGHT, r.ERROR)
             return utility.render_with_permissions('animal_edit.html', animal=db.get_animal(id))
         animal.kind = flask.request.form.get('kind')
         animal.breed = flask.request.form.get('breed')
         animal.chip_id = flask.request.form.get('chip_id')
+
         if (int(animal.chip_id) < 0):
             flask.flash(r.NEGATIVE_CHIP_ID, r.ERROR)
             return utility.render_with_permissions('animal_edit.html', animal=db.get_animal(id))
         animal.birthday = utility.parse_date(flask.request.form.get('birthday'))
         animal.discovery_day = utility.parse_date(
             flask.request.form.get('discovery_day'))
+
         if (animal.discovery_day < animal.birthday):
             flask.flash(r.WRONG_DISCOVERY_DATE, r.ERROR)
             return utility.render_with_permissions('animal_edit.html', animal=db.get_animal(id))

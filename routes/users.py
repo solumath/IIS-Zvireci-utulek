@@ -4,6 +4,7 @@ from app import app
 import db
 import utility
 import response as r
+from munch import DefaultMunch
 
 
 @app.route('/users/delete', methods=['GET', 'POST'])
@@ -35,18 +36,27 @@ def users_delete():
 def users_edit(id):
     if flask.request.method == "POST":
         user = db.get_user(id)
+        user_form = DefaultMunch.fromDict(flask.request.form)
         if user is None:
             flask.flash(r.USER_NOT_FOUND, r.ERROR)
             return utility.render_with_permissions('/users')
-        conflict_email = db.db.session.query(db.User.id).filter(db.User.email == flask.request.form.get('email')).all()
-        for email in conflict_email:
-            if int(email[0]) != user.id:
-                flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
-                return utility.render_with_permissions(
-                    'user_edit.html',
-                    user=db.get_user(id),
-                    user_roles=db.get_user_roles()
-                )
+        
+        # check conflict with email
+        conflict_users = db.get_users(email=flask.request.form.get('email'))
+        if len(conflict_users) > 1:
+            flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
+            return utility.render_with_permissions(
+                'user_edit.html',
+                user=user_form,
+                user_roles=db.get_user_roles()
+            )
+        if len(conflict_users) == 1 and conflict_users[0] != user:
+            flask.flash(r.NOT_UNIQUE_EMAIL, r.ERROR)
+            return utility.render_with_permissions(
+                'user_edit.html',
+                user=user_form,
+                user_roles=db.get_user_roles()
+            )
 
         id = user.id
         user.name = flask.request.form.get('name')
@@ -139,7 +149,6 @@ def users_unverify():
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker'])
 def users():
-    print(len(db.db.session.query(db.User).filter(db.User.email == flask_login.current_user.email).all()))
     if flask_login.current_user.user_role.name == "administrator":
         return utility.render_with_permissions(
             'users.html',
