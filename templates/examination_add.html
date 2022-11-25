@@ -25,7 +25,15 @@
                 <label for="start"> Zvolené zvíře:</label>
                 <select class="form-control" name="animal.name">
                     {% for animal in animals %}
-                    <option> {{animal.name}}</option>
+                    <option value="{{ animal.id }}" > {{animal.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="start"> Doktor:</label>
+                <select class="form-control" name="veterinarian">
+                    {% for user in users %}
+                    <option value="{{ user.id }}" > {{user.name + " " + user.surname}}</option>
                     {% endfor %}
                 </select>
             </div>

@@ -34,7 +34,7 @@ from .queries import \
     get_walks, \
     get_walks_query, \
     get_medical_records, \
-    get_record_tpye, \
+    get_record_type, \
     get_record_types
 
 

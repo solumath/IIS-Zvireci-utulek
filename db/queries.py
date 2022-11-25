@@ -139,6 +139,14 @@ def get_future_events(user=None, animal=None):
     return query.filter(Event.end > datetime.now()).all()
 
 
+def animal_has_free_time(animal: typing.Union[int, Animal], begin: datetime, end: datetime) -> bool:
+    query = get_events_query(animal)
+    query = query.filter(Event.end <= end)
+    query = query.filter(Event.start >= begin)
+
+    return query.first() == None
+
+
 # ====================================================================================================
 # WALKS
 
@@ -202,14 +210,15 @@ def get_record_types():
     return db.session.query(RecordType).all()
 
 
-def get_record_tpye(id: typing.Union[int, str]):
+def get_record_type(id: typing.Union[int, str]):
     if isinstance(id, int):
         return db.session.query(RecordType).get(id)
     if isinstance(id, str):
-        return db.session.query(RecordType).filter(RecordType.name == id)
+        return db.session.query(RecordType).filter(RecordType.name == id).first()
 
-    # ====================================================================================================
-    # MEDICAL RECORDS
+
+# ====================================================================================================
+# MEDICAL RECORDS
 
 
 def get_medical_records(user=None, animal=None, record_type=None):
@@ -226,7 +235,7 @@ def get_medical_records(user=None, animal=None, record_type=None):
         query = query.filter(MedicalRecord.animal == animal)
 
     if isinstance(record_type, int) or isinstance(record_type, str):
-        record_type = get_record_tpye(record_type)
+        record_type = get_record_type(record_type)
     if isinstance(record_type, RecordType):
         query = query.filter(MedicalRecord.record_type == record_type)
 
