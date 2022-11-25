@@ -1,20 +1,77 @@
 {% extends 'base.html' %}
 {% block title %} Prohlídky {% endblock %}
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/examinations.css') }}" />
-    <script type="text/javascript" src="{{ url_for('static', filename='js/examinations.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/events.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/events.js') }}"></script>
 {% endblock %}
 
 {% block body %}
 <!-- Showcase -->
-<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+<section class="p-3 bg-dark text-white text-center text-sm-start">
     <div class="container">
-        <div class="d-sm-flex align-items-center justify-content-between">
-            <div>
-                <h1>
-                    Prohlídky
-                </h1>
-            </div>
+        <h1>Prohlídky</h1>
+    </div>
+</section>
+
+<section class="bg-light p-5 p-lg-0 pt-lg-3 text-center text-sm-start" id="sectionBody">
+    <div class="container">
+        <div class="mb-5 mt-2 eventsTable">
+            <a href="examinations/add" class="btn btn-primary my-2" role="button">Naplánovat prohlídku</a>
+            <table class="table table-striped table-bordered align-middle" id="eventsTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="h3" scope="col" colspan="11">Události</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Druh</th>
+                        <th scope="col">Jméno lékaře</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Začátek</th>
+                        <th scope="col">Konec</th>
+                        <th scope="col">Jméno zvířete</th>
+                        <th scope="col">Popis</th>
+                        <th scope="col">Upravit</th>
+                        <th scope="col">Smazat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ record.record_type.czech_name.title() }}</td>
+                        {% if record.user %}
+                        <td>{{ record.user.name + " " + record.user.surname }}</td>
+                        {% else %}
+                        <td>Deleted User</td>
+                        {% endif %}
+                        <td>{{ record.user.email }}</td>
+                        <td>{{ record.start }}</td>
+                        <td>{{ record.end }}</td>
+                        <td>
+                            <a type="button" href="{{url_for('animals_detail', id=record.animal.id)}}" class="btn">{{
+                                record.animal.name }}</a>
+                        </td>
+                        <td>{{ record.description }}</td>
+                        {% if PERMISSION_EVENTS_EDIT %}
+                        <td class="col text-center">
+                            <a href="examinations/edit/{{record.id}}"
+                                class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent"
+                                role="button"></a>
+                        </td>
+                        {% endif %}
+                        {% if PERMISSION_EVENTS_DELETE %}
+                        <td class="col text-center">
+                            <form method="POST" class="deleteEvent" action="{{ url_for('examinations_delete') }}">
+                                <button
+                                    class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteEvent"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ record.id }}" name="id" />
+                            </form>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

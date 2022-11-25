@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Přidat událost {% endblock %}
+{% block title %} Naplánovat prohlídku {% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/animal_add.css') }}" />
 <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script> -->
@@ -8,11 +8,11 @@
 {% block body %}
 <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start"></section>
 <div class="containerik">
-    <h2>Přidat událost:</h2>
+    <h2>Naplánovat prohlídku:</h2>
     <form method='POST'>
         <div class=" row">
             <div class="form-group col">
-                <label for="start"> Typ události:</label>
+                <label for="start"> Typ prohlídky:</label>
                 <select class="form-control" name="record_type">
                     {% for type in record_types %}
                     <option value="{{ type.name }}">{{ type.czech_name }}</option>
