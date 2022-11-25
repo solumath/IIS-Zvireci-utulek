@@ -86,26 +86,33 @@ def animals_edit(id):
         animal.weight = flask.request.form.get('weight')
         if (int(animal.weight) < 0):
             flask.flash(r.NEGATIVE_WEIGHT, r.ERROR)
-            return utility.render_with_permissions('animal_edit.html', id=str(id))
+            return utility.render_with_permissions('animal_edit.html', animal=db.get_animal(id))
         animal.height = flask.request.form.get('height')
         if (int(animal.height) < 0):
             flask.flash(r.NEGATIVE_HEIGHT, r.ERROR)
-            return utility.render_with_permissions('animal_edit.html', id=str(id))
+            return utility.render_with_permissions('animal_edit.html', animal=db.get_animal(id))
         animal.kind = flask.request.form.get('kind')
         animal.breed = flask.request.form.get('breed')
         animal.chip_id = flask.request.form.get('chip_id')
         if (int(animal.chip_id) < 0):
             flask.flash(r.NEGATIVE_CHIP_ID, r.ERROR)
-            return utility.render_with_permissions('animal_edit.html', id=str(id))
+            return utility.render_with_permissions('animal_edit.html', animal=db.get_animal(id))
         animal.birthday = utility.parse_date(flask.request.form.get('birthday'))
         animal.discovery_day = utility.parse_date(
             flask.request.form.get('discovery_day'))
         if (animal.discovery_day < animal.birthday):
             flask.flash(r.WRONG_DISCOVERY_DATE, r.ERROR)
-            return utility.render_with_permissions('animals_edit.html', id=str(id))
+            return utility.render_with_permissions('animal_edit.html', animal=db.get_animal(id))
         animal.discovery_place = flask.request.form.get('discovery_place')
         animal.description = flask.request.form.get('description')
         db.db.session.commit()
-        return flask.redirect(flask.url_for('animal_detail', id=str(id)))
+        return flask.redirect(flask.url_for('animals_detail', id=str(id)))
     
     return utility.render_with_permissions('animal_edit.html', animal=db.get_animal(id))
+
+
+@app.route('/animals/request/<id>', methods=['GET', 'POST'])
+@flask_login.login_required
+@utility.role_required(['administrator', 'caretaker'])
+def medical_request(id):
+    return utility.render_with_permissions('medical_request.html', animal=db.get_animal(id))
