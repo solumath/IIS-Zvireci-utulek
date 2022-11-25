@@ -36,9 +36,18 @@
                             <th scope="row">{{ loop.index }}</th>
                             <td>{{ future.start }}</td>
                             <td>{{ future.end }}</td>
-                            <td>
+                            <td class="col text-center">
                                 <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}" class="btn btn-primary">{{ future.animal.name }}</a>
                             </td>
+                            {% if future.confirmed %}
+                            <td class="col text-center">
+                                <i class="bi-check-lg align-content-center" style="font-size: 2rem; color: #198754;"></i>
+                            </td>
+                            {% else %}
+                            <td class="col text-center">
+                                <i class="bi-x-lg align-content-center" style="font-size: 2rem; color: #c71717;"></i>
+                            </td>
+                            {% endif %}
 
                             <!-- USER DELETE -->
                             {% if PERMISSION_MY_WALKS_DELETE %}
@@ -82,7 +91,7 @@
                             <th scope="row">{{ loop.index }}</th>
                             <td>{{ past.start }}</td>
                             <td>{{ past.end }}</td>
-                            <td>
+                            <td class="col text-center">
                                 <a type="button" href="{{url_for('animals_detail', id=past.animal.id)}}" class="btn btn-primary">{{ past.animal.name }}</a>
                             </td>
                         </tr>
