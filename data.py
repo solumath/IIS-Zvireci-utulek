@@ -163,10 +163,12 @@ unverified_user = db.User("unverified", "poop",  "Juraj", "Prdelkový", "Vysoké
 record_types = [
     db.RecordType("examination", "vyšetření", 9,
                   "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
-    db.RecordType("booster_shot", "ockovani", 9,
-                  "Ockovanie."),
-    db.RecordType("medicine", "predpisany liek", 9,
-                  "Predpis lieku predpisany odborným pracovníkem (veterinářem)."),
+    db.RecordType("requested examination", "vyžádané vyšetření", 9,
+                  "Vyšetření zvířete odborným pracovníkem (veterinářem) na žádost pečovatele."),
+    db.RecordType("booster_shot", "očkování", 9,
+                  "Očkování."),
+    db.RecordType("medicine", "předepsaný lék", 9,
+                  "Předpis léku předepsaný odborným pracovníkem (veterinářem)."),
 ]
 
 events = [
