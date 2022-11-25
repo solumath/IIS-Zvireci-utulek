@@ -171,7 +171,7 @@ record_types = [
                   "Předpis léku předepsaný odborným pracovníkem (veterinářem)."),
 ]
 
-events = [
+walks = [
     db.Walk(datetime(2025, 1, 1), datetime(2025, 1, 1, 23)),
     db.Walk(datetime(2020, 1, 1), datetime(2020, 1, 1, 23)),
     db.Walk(datetime(2022, 11, 21, 15), datetime(2022, 11, 21, 17)),
@@ -226,11 +226,10 @@ def add_data():
         record.record_type = record_types[0]
         db.db.session.add(record)
 
-    for event in events:
-        event.animal = animals[0]
-        event.user = volunteer_user
-        event.event_type = record_types[0]
-        db.db.session.add(event)
+    for i, walk in enumerate(walks):
+        walk.animal = animals[i]
+        walk.user = volunteer_user
+        db.db.session.add(walk)
 
     # TODO add event types to db
     # TODO add events to db (event.event_type = event_type)
