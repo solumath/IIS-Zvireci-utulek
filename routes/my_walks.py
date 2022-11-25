@@ -37,7 +37,7 @@ def my_walks_delete():
 def my_walks():
     return utility.render_with_permissions(
         'my_walks.html',
-        past_events=db.get_past_events(user=flask_login.current_user.id),
-        future_events=db.get_future_events(user=flask_login.current_user.id),
+        past_events=db.get_past_my_walks(),
+        future_events=db.get_future_my_walks(),
         today=datetime.datetime.today().date()
     )

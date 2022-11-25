@@ -24,6 +24,6 @@ def walks_delete():
 def walks():
     return utility.render_with_permissions(
         'walks.html',
-        past_events=db.get_past_events(),
-        future_events=db.get_future_events()
+        past_events=db.get_past_walks(),
+        future_events=db.get_future_walks()
     )

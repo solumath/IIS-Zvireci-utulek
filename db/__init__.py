@@ -25,7 +25,14 @@ from .queries import \
     get_user, \
     get_users, \
     get_user_role, \
-    get_user_roles
+    get_user_roles, \
+    get_future_my_walks, \
+    get_future_walks, \
+    get_my_walks, \
+    get_past_my_walks, \
+    get_past_walks, \
+    get_walks, \
+    get_walks_query
 
 
 from .constants import \

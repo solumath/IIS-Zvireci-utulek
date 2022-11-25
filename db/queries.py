@@ -160,11 +160,6 @@ def get_walks_query(user=None, animal=None):
     if isinstance(animal, Animal):
         query = query.filter(Walk.animal == animal)
 
-    if isinstance(event_type, int):
-        event_type = db.session.query(RecordType).get(event_type)
-    if isinstance(event_type, Animal):
-        query = query.filter(Walk.animal == event_type)
-
     return query
 
 
