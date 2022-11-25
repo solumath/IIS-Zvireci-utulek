@@ -75,7 +75,7 @@ def get_users(login: str = None, email: str = None, name: str = None, surname: s
 
 
 # ====================================================================================================
-# URES ROLES
+# USERS ROLES
 
 
 def get_user_role(name: str):
