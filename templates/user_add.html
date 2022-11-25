@@ -29,6 +29,7 @@
                 <label for="tel_number">Telefonní číslo:</label>
                 <input type="text" class="form-control" pattern="[\+\(\s.\/\d\)]{9,16}" name="tel_number"
                     value="{{ request.form['tel_number'] }}" required>
+                <small class="form-text text-muted">Př.: +420722659426</small>
             </div>
         </div>
         <div class=" row">

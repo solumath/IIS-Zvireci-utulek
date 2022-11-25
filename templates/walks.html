@@ -36,37 +36,40 @@
                 </thead>
                 <tbody>
                     {% for future in future_events %}
-                        <tr>
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ future.start }}</td>
-                            <td>{{ future.end }}</td>
-                            <td>
-                                <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}" class="btn btn-primary">{{ future.animal.name }}</a>
-                            </td>
-                            {% if PERMISSION_WALKS_EDIT %}
-                            <td class="col text-center">
-                                <a href="walks/edit/{{future.id}}" class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editWalk" role="button"></a>
-                            </td>
-                            {% endif %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ future.start }}</td>
+                        <td>{{ future.end }}</td>
+                        <td>
+                            <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}"
+                                class="btn btn-primary">{{ future.animal.name }}</a>
+                        </td>
+                        {% if PERMISSION_WALKS_EDIT %}
+                        <td class="col text-center">
+                            <a href="walks/edit/{{future.id}}"
+                                class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editWalk"
+                                role="button"></a>
+                        </td>
+                        {% endif %}
 
-                            <!-- USER DELETE -->
-                            {% if PERMISSION_WALKS_DELETE %}
-                            <td class="col text-center">
-                                <form method="POST" class="deleteWalk" action="{{ url_for('walks_delete') }}">
-                                    <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteWalk"
-                                        type="submit"></button>
-                                    <input type="hidden" value="{{ future.id }}" name="id" />
-                                </form>
-                            </td>
-                            {% endif %}
-                        </tr>
+                        <!-- USER DELETE -->
+                        {% if PERMISSION_WALKS_DELETE %}
+                        <td class="col text-center">
+                            <form method="POST" class="deleteWalk" action="{{ url_for('walks_delete') }}">
+                                <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteWalk"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ future.id }}" name="id" />
+                            </form>
+                        </td>
+                        {% endif %}
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        
-        <hr/>
-        
+
+        <hr />
+
         <div class="my-5 historyTable">
             <table class="table table-striped table-bordered align-middle" id="historyTable">
                 <thead class="table-dark">
@@ -77,19 +80,20 @@
                         <th scope="col">#</th>
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
-                        <th scope="col">Jméno</th>
+                        <th scope="col">Jméno zvířete</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for past in past_events %}
-                        <tr>
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ past.start }}</td>
-                            <td>{{ past.end }}</td>
-                            <td>
-                                <a type="button" href="{{url_for('animals_detail', id=past.animal.id)}}" class="btn btn-primary">{{ past.animal.name }}</a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ past.start }}</td>
+                        <td>{{ past.end }}</td>
+                        <td>
+                            <a type="button" href="{{url_for('animals_detail', id=past.animal.id)}}"
+                                class="btn btn-primary">{{ past.animal.name }}</a>
+                        </td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
