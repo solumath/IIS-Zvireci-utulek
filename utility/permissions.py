@@ -69,8 +69,6 @@ def render_with_permissions(*args, **kwargs):
             raise ValueError("Unexpected permission value")
         permissions[perm_name] = True
 
-    print(permissions)
-
     kwargs.update(permissions)
 
     return flask.render_template(*args, **kwargs)

@@ -221,6 +221,10 @@ def get_record_type(id: typing.Union[int, str]):
 # MEDICAL RECORDS
 
 
+def get_medical_record(id: int):
+    return db.session.query(MedicalRecord).get(id)
+
+
 def get_medical_records(user=None, animal=None, record_type=None):
     query = db.session.query(MedicalRecord)
 
@@ -238,5 +242,7 @@ def get_medical_records(user=None, animal=None, record_type=None):
         record_type = get_record_type(record_type)
     if isinstance(record_type, RecordType):
         query = query.filter(MedicalRecord.record_type == record_type)
+
+    print(record_type, query.all())
 
     return query.all()
