@@ -160,7 +160,7 @@ volunteer_user = db.User("volunteer", "abcd",  "Jolanda", "Veliká", "Breberkova
 unverified_user = db.User("unverified", "poop",  "Juraj", "Prdelkový", "Vysoké Tatry 4",
                           "jurik.prdelka@utulek.cz", "+421913677100")
 
-event_types = [
+record_types = [
     db.RecordType("examination", "vyšetření", 9,
                   "Vyšetrení zvířete odborným pracovníkem (veterinářem)."),
     db.RecordType("booster_shot", "ockovani", 9,
@@ -170,11 +170,15 @@ event_types = [
 ]
 
 events = [
-
     db.Walk(datetime(2025, 1, 1), datetime(2025, 1, 1, 23)),
     db.Walk(datetime(2020, 1, 1), datetime(2020, 1, 1, 23)),
     db.Walk(datetime(2022, 11, 21, 15), datetime(2022, 11, 21, 17)),
     db.Walk(datetime(2022, 11, 20, 15), datetime(2022, 11, 21, 17)),
+]
+
+medical_records = [
+    db.MedicalRecord(datetime(2025, 1, 1), datetime(
+        2025, 1, 1, 23), "Bezna prohlidka")
 ]
 
 
@@ -211,13 +215,19 @@ def add_data():
     for animal in animals:
         db.db.session.add(animal)
 
-    for event_type in event_types:
-        db.db.session.add(event_type)
+    for record_type in record_types:
+        db.db.session.add(record_type)
+
+    for record in medical_records:
+        record.animal = animals[0]
+        record.user = vet_user
+        record.record_type = record_types[0]
+        db.db.session.add(record)
 
     for event in events:
         event.animal = animals[0]
         event.user = volunteer_user
-        event.event_type = event_types[0]
+        event.event_type = record_types[0]
         db.db.session.add(event)
 
     # TODO add event types to db

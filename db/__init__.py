@@ -32,7 +32,10 @@ from .queries import \
     get_past_my_walks, \
     get_past_walks, \
     get_walks, \
-    get_walks_query
+    get_walks_query, \
+    get_medical_records, \
+    get_record_tpye, \
+    get_record_types
 
 
 from .constants import \

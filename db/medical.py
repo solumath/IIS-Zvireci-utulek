@@ -1,8 +1,8 @@
 from .event import Event
 from sqlalchemy.orm import relation
-from .constants import db
+from .constants import STRING_LEN, db
 
-from .constants import STRING_LEN
+from datetime import datetime
 
 
 class MedicalRecord(Event):
@@ -18,3 +18,7 @@ class MedicalRecord(Event):
     __mapper_args__ = {
         'polymorphic_identity': 'MedicalRecord'
     }
+
+    def __init__(self, start: datetime, end: datetime, description: str = ""):
+        super().__init__(start, end)
+        self.description = description

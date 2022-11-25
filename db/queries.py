@@ -192,3 +192,42 @@ def get_future_my_walks(animal=None):
 
 def get_past_my_walks(animal=None):
     return get_past_walks(flask_login.current_user, animal)
+
+
+# ====================================================================================================
+# RECORD TYPES
+
+
+def get_record_types():
+    return db.session.query(RecordType).all()
+
+
+def get_record_tpye(id: typing.Union[int, str]):
+    if isinstance(id, int):
+        return db.session.query(RecordType).get(id)
+    if isinstance(id, str):
+        return db.session.query(RecordType).filter(RecordType.name == id)
+
+    # ====================================================================================================
+    # MEDICAL RECORDS
+
+
+def get_medical_records(user=None, animal=None, record_type=None):
+    query = db.session.query(MedicalRecord)
+
+    if isinstance(user, int):
+        user = db.session.query(User).get(user)
+    if isinstance(user, User):
+        query = query.filter(MedicalRecord.user == user)
+
+    if isinstance(animal, int):
+        animal = db.session.query(Animal).get(animal)
+    if isinstance(animal, Animal):
+        query = query.filter(MedicalRecord.animal == animal)
+
+    if isinstance(record_type, int) or isinstance(record_type, str):
+        record_type = get_record_tpye(record_type)
+    if isinstance(record_type, RecordType):
+        query = query.filter(MedicalRecord.record_type == record_type)
+
+    return query.all()

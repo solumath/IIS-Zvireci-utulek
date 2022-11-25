@@ -4,6 +4,7 @@ import flask_login
 from app import app
 import utility
 
+
 @app.route('/examinations/add', methods=['GET', 'POST'])
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker', 'vet'])
@@ -29,4 +30,4 @@ def examinations_delete():
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker', 'vet'])
 def examinations():
-    return utility.render_with_permissions('examinations.html')
+    return utility.render_with_permissions('events.html', records=db.get_medical_records())

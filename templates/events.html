@@ -24,7 +24,7 @@
                     </tr>
                     <tr>
                         <th scope="col">Druh</th>
-                        <th scope="col">Jméno osoby</th>
+                        <th scope="col">Jméno lékaře</th>
                         <th scope="col">Email</th>
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
@@ -35,25 +35,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for event in events %}
+                    {% for record in records %}
                     <tr>
-                        <td>{{ event.event_type.name.title() }}</td>
-                        {% if event.user %}
-                        <td>{{ event.user.name + " " + event.user.surname }}</td>
+                        <td>{{ record.record_type.name.title() }}</td>
+                        {% if record.user %}
+                        <td>{{ record.user.name + " " + record.user.surname }}</td>
                         {% else %}
                         <td>Deleted User</td>
                         {% endif %}
-                        <td>{{ event.user.email }}</td>
-                        <td>{{ event.start }}</td>
-                        <td>{{ event.end }}</td>
+                        <td>{{ record.user.email }}</td>
+                        <td>{{ record.start }}</td>
+                        <td>{{ record.end }}</td>
                         <td>
-                            <a type="button" href="{{url_for('animals_detail', id=event.animal.id)}}" class="btn">{{
-                                event.animal.name }}</a>
+                            <a type="button" href="{{url_for('animals_detail', id=record.animal.id)}}" class="btn">{{
+                                record.animal.name }}</a>
                         </td>
-                        <td>{{ event.description }}</td>
+                        <td>{{ record.description }}</td>
                         {% if PERMISSION_EVENTS_EDIT %}
                         <td class="col text-center">
-                            <a href="events/edit/{{event.id}}"
+                            <a href="events/edit/{{record.id}}"
                                 class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent"
                                 role="button"></a>
                         </td>
@@ -64,7 +64,7 @@
                                 <button
                                     class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteEvent"
                                     type="submit"></button>
-                                <input type="hidden" value="{{ event.id }}" name="id" />
+                                <input type="hidden" value="{{ record.id }}" name="id" />
                             </form>
                         </td>
                         {% endif %}
