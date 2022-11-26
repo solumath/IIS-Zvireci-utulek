@@ -9,13 +9,15 @@
 <!-- Showcase -->
 <section class="bg-dark text-light p-5 pt-lg-5">
     <div class="container" style="padding-top: 40px;">
-        <h1 style="text-align:middle">Adoptujte si <span style="color: #D9514E;">nového člena</span> rodiny</h1>
+        <h1 style="text-align:middle">Užijte si den našimi <span style="color: #D9514E;">mazlíčky</span></h1>
         <div class="d-sm-flex align-items-center justify-content-between">
             <div style="width: 100%;">
-                <input type="text" class="input-filter" id="filtering" onkeyup="filtering()" placeholder="Hledej" />
-                {% if PERMISSION_ANIMALS_ADD %}
-                <a type="button" class="btn btn-primary btn-sm" href="{{url_for('animals_add')}}">Přidat zvíře</a>
-                {% endif %}
+                <div class="my-3">
+                    <input type="text" class="input-filter" id="filtering" onkeyup="filtering()" placeholder="Hledat" />
+                    {% if PERMISSION_ANIMALS_ADD %}
+                    <a type="button" class="btn btn-primary btn-sm" href="{{url_for('animals_add')}}">Přidat zvíře</a>
+                    {% endif %}
+                </div>
                 <div class="row" id="animals">
                     {% for animal in animal_info %}
                     <div class="column">
@@ -27,7 +29,7 @@
                                 <p class="card-subtitle">{{animal.breed}}</p>
                                 <p>Věk: {{animal.birthday}} </p>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a type="button" href="animals/{{animal.id}}" class="btn btn-outline-info"><i
+                                    <a type="button" href="animals/{{animal.id}}" class="btn btn-info"><i
                                             class="bi bi-info-square"></i> Více
                                         informací</a>
                                     {% if PERMISSION_ANIMALS_DELETE %}

@@ -2,7 +2,7 @@
 {% block title %} {{animal.name}} {% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/animal_detail.css') }}" />
-<script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/animal_detail.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -66,9 +66,21 @@
         {% if PERMISSION_MY_WALKS_ADD %}
         <button class="btn btn-success btn-sm" onclick="showAndHide()"><i class="bi bi-plus"></i></i>Termíny k
             venčení </button>
+        {%endif%}
+        {% if PERMISSION_EXAMINATIONS_SHOW %}
+        <a type="button" href="{{url_for('animals_medical_record', id=animal.id)}}"
+            class="btn btn-primary btn-sm">Zdravotní záznam</a>
+
+        <a type="button" href="{{url_for('medical_request', id=animal.id)}}" class="btn btn-danger btn-sm">Poslat k
+            veterináři</a>
+        {% endif %}
+        {% if PERMISSION_ANIMALS_EDIT %}
+        <a type="button" class="btn btn-warning btn-sm" href="/animals/edit/{{animal.id}}">Upravit zvíře</a>
+        {%endif%}
+        {% if PERMISSION_MY_WALKS_ADD %}
         <div style="display: none;" id="walks_detail">
             <div class="container">
-                <table class="table table-dark table-striped table-bordered align-middle">
+                <table class="table table-dark table-striped table-bordered align-middle walksTable">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">Zacatek</th>
@@ -97,16 +109,6 @@
                 </table>
             </div>
         </div>
-        {%endif%}
-        {% if PERMISSION_EXAMINATIONS_SHOW %}
-        <a type="button" href="{{url_for('animals_medical_record', id=animal.id)}}"
-            class="btn btn-primary btn-sm">Zdravotní záznam</a>
-
-        <a type="button" href="{{url_for('medical_request', id=animal.id)}}" class="btn btn-danger btn-sm">Poslat k
-            veterináři</a>
-        {% endif %}
-        {% if PERMISSION_ANIMALS_EDIT %}
-        <a type="button" class="btn btn-warning btn-sm" href="/animals/edit/{{animal.id}}">Upravit zvíře</a>
         {%endif%}
     </div>
 </section>

@@ -43,5 +43,9 @@ img {
 }
 
 .card-subtitle {
-    color: grey;
+    color: #ffffff;
+}
+
+.card {
+    background-color: #6d6d6d
 }
