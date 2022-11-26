@@ -19,7 +19,7 @@
             <table class="table table-striped table-bordered align-middle futureTable" id="futureTable">
                 <thead class="table-dark">
                     <tr>
-                        <th class="h3" scope="col" colspan="8">Plánované procházky</th>
+                        <th class="h3" scope="col" colspan="9">Plánované procházky</th>
                     </tr>
                     <tr>
                         <th scope="col">#</th>
@@ -30,6 +30,7 @@
                         <th scope="col">Jméno zvířete</th>
                         {% if PERMISSION_WALKS_CONFIRM %}
                         <th scope="col">Potvrdit</th>
+                        <th scope="col">Vráceno</th>
                         {% endif %}
                         {% if PERMISSION_WALKS_DELETE %}
                         <th scope="col">Smazat</th>
@@ -66,6 +67,24 @@
                                 </form>
                             </td>
                             {% endif %}
+
+                            {% if future.returned %}
+                            <!-- RETURNED WALKS -->
+                            <td data-order="1" class="col text-center">
+                                <form method="POST" action="{{ url_for('walks_unreturned') }}">
+                                    <button class="btn btn-success bi-check-lg" type="submit"></button>
+                                    <input type="hidden" value="{{ future.id }}" name="id" />
+                                </form>
+                            </td>
+                            {% else %}
+                            <!-- UNRETURNED WALKS -->
+                            <td data-order="2" class="col text-center">
+                                <form method="POST" action="{{ url_for('walks_returned') }}">
+                                    <button class="btn btn-danger bi-x-lg" type="submit"></button>
+                                    <input type="hidden" value="{{ future.id }}" name="id" />
+                                </form>
+                            </td>
+                            {% endif %}
                             
                             <!-- WALK DELETE -->
                             {% if PERMISSION_WALKS_DELETE %}
@@ -90,7 +109,7 @@
             <table class="table table-striped table-bordered align-middle historyTable" id="historyTable">
                 <thead class="table-dark">
                     <tr>
-                        <th class="h3" scope="col" colspan="6">Historie</th>
+                        <th class="h3" scope="col" colspan="7">Historie</th>
                     </tr>
                     <tr>
                         <th scope="col">#</th>
@@ -99,6 +118,7 @@
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
                         <th scope="col">Jméno zvířete</th>
+                        <th scope="col">Vráceno</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -113,6 +133,24 @@
                             <a type="button" href="{{url_for('animals_detail', id=past.animal.id)}}"
                                 class="btn btn-primary">{{ past.animal.name }}</a>
                         </td>
+                        {% if past.returned %}
+                            <!-- RETURNED WALKS -->
+                            <td data-order="1" class="col text-center">
+                                <form method="POST" action="{{ url_for('walks_unreturned') }}">
+                                    <button class="btn btn-success bi-check-lg" type="submit"></button>
+                                    <input type="hidden" value="{{ past.id }}" name="id" />
+                                </form>
+                            </td>
+                            {% else %}
+                            <!-- UNRETURNED WALKS -->
+                            <td data-order="2" class="col text-center">
+                                <form method="POST" action="{{ url_for('walks_returned') }}">
+                                    <button class="btn btn-danger bi-x-lg" type="submit"></button>
+                                    <input type="hidden" value="{{ past.id }}" name="id" />
+                                </form>
+                            </td>
+                            {% endif %}
+                            
                     </tr>
                     {% endfor %}
                 </tbody>

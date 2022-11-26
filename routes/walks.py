@@ -32,6 +32,45 @@ def walks_unconfirm():
             flask.flash(r.WALK_NOT_FOUND, r.ERROR)
             return flask.redirect(flask.url_for('walks'))
         walk.confirmed = False
+        walk.returned = False
+        db.db.session.commit()
+        return flask.redirect(flask.url_for('walks'))
+
+    return flask.redirect(flask.url_for('walks'))
+
+
+@app.route('/walks/returned', methods=['GET', 'POST'])
+@flask_login.login_required
+@utility.role_required(['administrator', 'caretaker'])
+def walks_returned():
+    if flask.request.method == 'POST':
+        walk = db.get_event(flask.request.form.get('id'))
+        if walk is None:
+            flask.flash(r.WALK_NOT_FOUND, r.ERROR)
+            return flask.redirect(flask.url_for('walks'))
+        if not walk.confirmed:
+            flask.flash(r.RETURNED_WALK_ERROR, r.ERROR)
+            return flask.redirect(flask.url_for('walks'))
+        walk.returned = True
+        db.db.session.commit()
+        return flask.redirect(flask.url_for('walks'))
+
+    return flask.redirect(flask.url_for('walks'))
+
+
+@app.route('/walks/unreturned', methods=['GET', 'POST'])
+@flask_login.login_required
+@utility.role_required(['administrator', 'caretaker'])
+def walks_unreturned():
+    if flask.request.method == 'POST':
+        walk = db.get_event(flask.request.form.get('id'))
+        if walk is None:
+            flask.flash(r.WALK_NOT_FOUND, r.ERROR)
+            return flask.redirect(flask.url_for('walks'))
+        if not walk.confirmed:
+            flask.flash(r.RETURNED_WALK_ERROR, r.ERROR)
+            return flask.redirect(flask.url_for('walks'))
+        walk.returned = False
         db.db.session.commit()
         return flask.redirect(flask.url_for('walks'))
 

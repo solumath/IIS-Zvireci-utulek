@@ -49,9 +49,7 @@
                     <tbody>
                         {% for user in users %}
                         {% if not current_user.id == user.id %}
-                        {% if not user.user_role.czech_name == "veterinář" and not user.user_role.czech_name ==
-                        "pečovatel" and not user.user_role.czech_name == "administrátor" %}
-                        
+                        {% if user.user_role.name == "unverified" or user.user_role.name == "volunteer" %}
                         <tr>
                             <td>{{ user.login }}</td>
                             <td>{{ user.user_role.czech_name }}</td>
@@ -146,8 +144,9 @@
                     <tbody>
                         {% for user in users %}
                         {% if not current_user.id == user.id %}
-                        {% if not user.user_role.czech_name == "dobrovolník" and not user.user_role.czech_name ==
-                        "neověřený uživatel" %}
+                        {% if user.user_role.name == "administrator" or 
+                        user.user_role.name == "caretaker" or 
+                        user.user_role.name == "veterinarian" %}
                         <tr>
                             <td>{{ user.login }}</td>
                             <td>{{ user.user_role.czech_name }}</td>
