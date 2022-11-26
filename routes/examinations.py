@@ -112,6 +112,12 @@ def examinations_delete():
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker', 'veterinarian'])
 def examinations():
+    if flask_login.current_user.user_role == db.get_user_role("veterinarian"):
+        return utility.render_with_permissions(
+            'examinations.html',
+            requests=db.get_medical_records(
+                user=flask_login.current_user, record_type="requested examination"),
+            examinations=db.get_medical_records(user=flask_login.current_user))
 
     return utility.render_with_permissions(
         'examinations.html', requests=db.get_medical_records(record_type="requested examination"), examinations=db.get_medical_records())

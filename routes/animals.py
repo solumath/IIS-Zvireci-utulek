@@ -213,6 +213,7 @@ def medical_request(id):
 
 @app.route("/animal/walk_request/<id>", methods=["POST"])
 @flask_login.login_required
+@utility.role_required(['administrator', 'caretaker', 'veterinarian', 'volunteer'])
 def request_walk(id):
     form = flask.request.form
     try:
