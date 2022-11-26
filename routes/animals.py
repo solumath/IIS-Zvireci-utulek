@@ -66,6 +66,21 @@ def animals_detail(id):
     return utility.render_with_permissions('animal_detail.html', animal=animal, intervals=intervals)
 
 
+@app.route('/animals/medical_records/delete', methods=['POST'])
+@flask_login.login_required
+@utility.role_required(['administrator', 'caretaker', 'veterinarian'])
+def animals_medical_records_delete():
+    try:
+        medical_record = db.get_event(flask.request.form['id'])
+        animal = medical_record.animal
+        db.db.session.delete(medical_record)
+        db.db.session.commit()
+    except:
+        flask.flash(r.UNSPECIFIED_ERROR, r.ERROR)
+        return flask.redirect('/')
+    return flask.redirect(flask.url_for("animals_medical_record", id=animal.id))
+
+
 @app.route('/animals/medical_records/<id>')
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker', 'veterinarian'])
@@ -77,9 +92,8 @@ def animals_medical_record(id):
     return utility.render_with_permissions(
         'animal_medical_records.html',
         animal=animal,
-        future_examinations=db.get_future_medical_records(
-            animal=animal, record_type="requested examination"),
-        history_examinations=db.get_past_medical_records(animal=animal)
+        requests=db.get_examination_requests(animal=animal),
+        records=db.get_medical_records(animal=animal)
     )
 
 
@@ -185,7 +199,7 @@ def animals_edit(id):
 
 @app.route('/animals/request/<id>', methods=['GET', 'POST'])
 @flask_login.login_required
-@utility.role_required(['administrator', 'caretaker'])
+@utility.role_required(['administrator', 'caretaker', 'veterinarian'])
 def medical_request(id):
     veterinarians = db.get_users(role="veterinarian")
     animal = db.get_animal(id)
@@ -195,28 +209,26 @@ def medical_request(id):
     request_form = DefaultMunch.fromDict(flask.request.form)
     if flask.request.method == 'POST':
         date = flask.request.form.get("date")
-        start = utility.datetime_from_date(date)
-        end = utility.datetime_from_date(date, "12:00:00")
+        start = utility.datetime_from_date(date, "08:00")
+        end = utility.datetime_from_date(date, "18:00")
         if start <= datetime.datetime.now():
             flask.flash(r.PLANNING_HISTORY, r.ERROR)
-            return utility.render_with_permissions('medical_request.html', animal=request_form)
+            return utility.render_with_permissions('examination_request_add.html', animal=request_form)
         description = flask.request.form.get("description")
 
         user_id = flask.request.form.get("veterinarian")
         print(user_id)
         animal_id = animal.id
 
-        new_request = db.MedicalRecord(start, end, description)
+        new_request = db.ExaminationRequest(start, end, description)
         new_request.user = db.get_user(user_id)
         new_request.animal = db.get_animal(animal_id)
-        new_request.record_type = db.get_record_type("requested examination")
         db.db.session.add(new_request)
         db.db.session.commit()
         flask.flash(r.REQUEST_SUCCEED, r.OK)
         return flask.redirect(flask.url_for('animals_detail', id=animal.id))
 
-    return utility.render_with_permissions('medical_request.html', animal=animal, users=veterinarians)
-    return utility.render_with_permissions('medical_request.html', animal=animal)
+    return utility.render_with_permissions('examination_request_add.html', animal=animal, users=veterinarians)
 
 
 @app.route("/animal/walk_request/<id>", methods=["POST"])

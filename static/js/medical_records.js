@@ -1,6 +1,6 @@
 $( document ).ready(function() {
     console.log( "ready!" );
 
-    $('.plannedExaminations').DataTable();
+    $('.medicalRecords').DataTable();
     $('.requestExaminations').DataTable();
 });

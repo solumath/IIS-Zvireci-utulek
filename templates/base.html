@@ -53,6 +53,12 @@
                         <a href="{{ url_for('my_walks') }}" class="nav-link">Moje Procházky</a>
                     </li>
                     {% endif %}
+                    
+                    {% if PERMISSION_MY_EXAMINATIONS_SHOW %}
+                    <li class="nav-item">
+                        <a href="{{ url_for('examination_requests') }}" class="nav-link">Prohlidky</a>
+                    </li>
+                    {% endif %}
 
                     <!-- ADMINISTRATION -->
                     {% if PERMISSION_USERS_SHOW or PERMISSION_WALKS_SHOW or PERMISSION_EXAMINATIONS_SHOW %}
@@ -71,7 +77,7 @@
                             
                             <!-- EXAMINATIONS -->
                             {% if PERMISSION_EXAMINATIONS_SHOW %}
-                            <li class="dropdown-item"><a href="{{ url_for('examinations') }}" class="nav-link">Prohlídky</a></li>
+                            <li class="dropdown-item"><a href="{{ url_for('medical_records') }}" class="nav-link">Zdravotni zaznamy</a></li>
                             {% endif %}
 
                           </ul>

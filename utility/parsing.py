@@ -10,11 +10,13 @@ def date_from_datetime(date: str) -> datetime.datetime:
     return datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S").date()
 
 
-def datetime_from_date(date: str, time: typing.Union[datetime.time, str] = datetime.time(0, 0, 0)):
-    if isinstance(time, datetime.time):
-        time = time.strftime('%H:%M:%S')
-    date = f"{date} {time}"
-    return datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+def datetime_from_date(date: str, time: typing.Union[datetime.time, str] = datetime.time(0, 0)):
+    date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+
+    if isinstance(time, str):
+        time = datetime.datetime.strptime(time, "%H:%M").time()
+
+    return datetime.datetime.combine(date, time)
 
 
 def parse_html_datetime(date: str):

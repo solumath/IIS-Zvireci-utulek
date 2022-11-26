@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %} Požadavek na veterináře {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animal_add.css') }}" />
+<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script> -->
+{% endblock %}
+
+{% block body %}
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start"></section>
+<div class="containerik">
+    <h2>Zadat požadavek:</h2>
+    <form method='POST'>
+        <div class="row">
+            <div class="form-group col">
+                <label for="name"> Jméno zvoleného zvíře:</label>
+                <input type="text" class="form-control" name="name" value="{{animal.name}}" readonly>
+                <small class="form-text text-muted">Nelze změnit.</small>
+
+            </div>
+
+            <div class="form-group col">
+                <label for="start"> Zacatek:</label>
+                <input type="datetime-local" class="form-control" name="start" value="{{request.start}}">
+            </div>
+
+            <div class="form-group col">
+                <label for="start"> Konec:</label>
+                <input type="datetime-local" class="form-control" name="end" value="{{request.end}}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="request"> Popis:</label>
+            <textarea type="text-area" class="form-control" rows="4" name="request"
+                required>{{request.request}}</textarea>
+        </div>
+
+        <div class="text-center">
+            <br>
+            <button type="submit" style="text-align: center;" class="btn btn-primary "><i class="bi bi-plus"></i>
+                Naplanovat vyšetření</button>
+        </div>
+        <br>
+    </form>
+</div>
+</section>
+
+{% endblock %}

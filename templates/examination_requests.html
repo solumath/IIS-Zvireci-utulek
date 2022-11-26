@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %} Prohlídky {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/medical_records.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/medical_records.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<!-- Showcase -->
+<section class="p-3 bg-dark text-white text-center text-sm-start">
+    <div class="container">
+        <h1>Prohlídky</h1>
+    </div>
+</section>
+
+<section class="bg-light p-5 p-lg-0 pt-lg-3 text-center text-sm-start" id="sectionBody">
+    <div class="container">
+        <!-- tabulka pro nepotvrzené prohlídky (zadané pečovatelem) -->
+        <div class="mb-5 mt-2">
+            <a href="{{ url_for('medical_records_add') }}" class="btn btn-primary my-2" role="button">Naplánovat
+                prohlídku</a>
+            <table class="table table-striped table-bordered align-middle requestExaminations">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="h3" scope="col" colspan="11">Žádosti o prohlídky</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Jméno zvířete</th>
+                        <th scope="col">Začátek</th>
+                        <th scope="col">Konec</th>
+                        <th scope="col">Jméno lékaře</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Popis</th>
+                        <th scope="col">Prijat</th>
+                        <th scope="col">Smazat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in requests %}
+                    <tr>
+                        <td>
+                            <a type="button" href="{{url_for('animals_detail', id=request.animal.id)}}"
+                                class="btn btn-primary">
+                                {{ request.animal.name }}</a>
+                        </td>
+                        <td>{{ request.start }}</td>
+                        <td>{{ request.end }}</td>
+                        {% if request.user %}
+                        <td>{{ request.user.name + " " + request.user.surname }}</td>
+                        {% else %}
+                        <td>Deleted User</td>
+                        {% endif %}
+                        <td>{{ request.user.email }}</td>
+                        <td>{{ request.request }}</td>
+
+                        {% if PERMISSION_EXAMINATIONS_ACCEPT %}
+                        <td class="col text-center">
+                            <a href="{{url_for('examination_requests_accept', id=request.id)}}"
+                                class="btn btn-primary text-uppercase fw-bold bi-pencil-fill editExamination"
+                                role="button"></a>
+                        </td>
+                        {% endif %}
+                        
+                        {% if PERMISSION_EXAMINATIONS_DELETE %}
+                        <td class="col text-center">
+                            <a href="{{url_for('examination_requests_decline', id=request.id)}}"
+                                class="btn btn-primary text-uppercase fw-bold bi-trash-fill deleteExamination"
+                                role="button"></a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- tabulka pro naplánované prohlídky - potvrzené -->
+        <div class="mb-5 mt-2">
+            <table class="table table-striped table-bordered align-middle medicalRecords">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="h3" scope="col" colspan="11">Naplanovane prohlidky</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Jméno zvířete</th>
+                        <th scope="col">Začátek</th>
+                        <th scope="col">Konec</th>
+                        <th scope="col">Jméno lékaře</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Popis</th>
+                        <th scope="col">Vykonat</th>
+                        <th scope="col">Smazat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in accepted %}
+                    <tr>
+                        <td>
+                            <a type="button" href="{{url_for('animals_detail', id=request.animal.id)}}"
+                                class="btn btn-primary">{{
+                                request.animal.name }}</a>
+                        </td>
+                        <td>{{ request.start }}</td>
+                        <td>{{ request.end }}</td>
+                        {% if request.user %}
+                        <td>{{ request.user.name + " " + request.user.surname }}</td>
+                        {% else %}
+                        <td>Deleted User</td>
+                        {% endif %}
+                        <td>{{ request.user.email }}</td>
+                        <td>{{ request.request }}</td>
+
+                        {% if PERMISSION_EXAMINATIONS_PERFORM %}
+                        <td>
+                            <a type="button" href="{{url_for('examination_requests_perform', id=request.id)}}"
+                                class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill">
+                            </a>
+                        </td>
+                        {% endif %}
+
+                        {% if PERMISSION_EXAMINATIONS_DELETE %}
+                        <td class="col text-center">
+                            <a href="{{url_for('examination_requests_decline', id=request.id)}}"
+                                class="btn btn-primary text-uppercase fw-bold bi-trash-fill deleteExamination"
+                                role="button"></a>
+                        </td>
+                        {% endif %}
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

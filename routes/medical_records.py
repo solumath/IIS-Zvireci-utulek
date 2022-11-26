@@ -6,10 +6,10 @@ import utility
 import response as r
 
 
-@app.route('/examinations/add', methods=['GET', 'POST'])
+@app.route('/medical_records/add', methods=['GET', 'POST'])
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker', 'veterinarian'])
-def examinations_add():
+def medical_records_add():
 
     if flask.request.method == "POST":
 
@@ -22,14 +22,14 @@ def examinations_add():
             end = utility.parse_html_datetime(form["end"])
             if start > end:
                 flask.flash(r.WRONG_DATETIME, r.ERROR)
-                flask.redirect(flask.url_for("examinations_add"))
+                flask.redirect(flask.url_for("medical_records_add"))
             desc = form["description"]
             user_id = int(form["veterinarian"])
             animal_id = int(form["animal"])
             record_type = form["record_type"]
         except:
             flask.flash(r.UNSPECIFIED_ERROR, r.ERROR)
-            flask.redirect(flask.url_for("examinations_add"))
+            return flask.redirect(flask.url_for("medical_records_add"))
 
         new_record = db.MedicalRecord(start, end, desc)
         new_record.user = db.get_user(user_id)
@@ -38,19 +38,19 @@ def examinations_add():
         db.db.session.add(new_record)
         db.db.session.commit()
 
-        return flask.redirect(flask.url_for("examinations"))
+        return flask.redirect(flask.url_for("medical_records"))
 
     # GET
 
     record_types = db.get_record_types()
     veterinarians = db.get_users(role="veterinarian")
-    return utility.render_with_permissions('examination_add.html', record_types=record_types, users=veterinarians, animals=db.get_animals())
+    return utility.render_with_permissions('medical_record_add.html', record_types=record_types, users=veterinarians, animals=db.get_animals())
 
 
-@app.route('/examinations/edit/<id>', methods=['GET', 'POST'])
+@app.route('/medical_records/edit/<id>', methods=['GET', 'POST'])
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker', 'veterinarian'])
-def examinations_edit(id):
+def medical_records_edit(id):
     # load default values from db
     record_types = db.get_record_types()
     record = db.get_medical_record(id)
@@ -76,7 +76,7 @@ def examinations_edit(id):
         except Exception as e:
             flask.flash(message, r.ERROR)
             return utility.render_with_permissions(
-                'examination_edit.html', record_type=record_type, animal_name=animal.name, start=start, end=end, description=description, record_types=record_types)
+                'medical_record_edit.html', record_type=record_type, animal_name=animal.name, start=start, end=end, description=description, record_types=record_types)
 
         # changing values in db
         record.record_type = record_type
@@ -87,37 +87,37 @@ def examinations_edit(id):
         db.db.session.commit()
 
         # if successfull redirect
-        return flask.redirect(flask.url_for("examinations"))
+        return flask.redirect(flask.url_for("medical_records"))
 
     # for GET method, just render site
     return utility.render_with_permissions(
-        'examination_edit.html', record_type=record_type, animal_name=animal.name, start=start, end=end, description=description, record_types=record_types)
+        'medical_record_edit.html', record_type=record_type, animal_name=animal.name, start=start, end=end, description=description, record_types=record_types)
 
 
-@app.route('/examinations/delete', methods=['GET', 'POST'])
+@app.route('/medical_records/delete', methods=['POST'])
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker', 'veterinarian'])
-def examinations_delete():
-    if flask.request.method == 'GET':
-        return flask.redirect('/examinations')
+def medical_records_delete():
+    try:
+        medical_record = db.get_event(flask.request.form['id'])
+        db.db.session.delete(medical_record)
+        db.db.session.commit()
+    except:
+        flask.flash(r.UNSPECIFIED_ERROR, r.ERROR)
+        
+    return flask.redirect('/medical_records')
 
-    examination = db.get_event(flask.request.form['id'])
-    db.db.session.delete(examination)
-    db.db.session.commit()
 
-    return flask.redirect('/examinations')
-
-
-@app.route('/examinations')
+@app.route('/medical_records')
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker', 'veterinarian'])
-def examinations():
+def medical_records():
     if flask_login.current_user.user_role == db.get_user_role("veterinarian"):
         return utility.render_with_permissions(
-            'examinations.html',
-            requests=db.get_medical_records(
-                user=flask_login.current_user, record_type="requested examination"),
-            examinations=db.get_medical_records(user=flask_login.current_user))
+            'medical_records.html',
+            requests=db.get_examination_requests(
+                user=flask_login.current_user),
+            medical_records=db.get_medical_records(user=flask_login.current_user))
 
     return utility.render_with_permissions(
-        'examinations.html', requests=db.get_medical_records(record_type="requested examination"), examinations=db.get_medical_records())
+        'medical_records.html', requests=db.get_examination_requests(), medical_records=db.get_medical_records())

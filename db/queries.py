@@ -5,7 +5,8 @@ from .event import Event
 from .record_type import RecordType
 from .user_role import UserRole
 from .walk import Walk
-from .medical import MedicalRecord
+from .medical_record import MedicalRecord
+from .examination_request import ExaminationRequest
 
 import flask_login
 from datetime import datetime
@@ -140,7 +141,8 @@ def get_future_events(user=None, animal=None):
 
 def animal_has_free_time(animal: typing.Union[int, Animal], begin: datetime, end: datetime) -> bool:
     query = get_events_query(animal=animal)
-    query = query.filter(db.not_(db.or_(Event.start >= end, Event.end <= begin)))
+    query = query.filter(
+        db.not_(db.or_(Event.start >= end, Event.end <= begin)))
 
     return query.first() == None
 
@@ -257,3 +259,35 @@ def get_future_medical_records(user=None, animal=None, record_type=None):
 def get_past_medical_records(user=None, animal=None, record_type=None):
     query = get_medical_records_query(user, animal, record_type)
     return query.filter(MedicalRecord.end < datetime.now()).all()
+
+
+# ====================================================================================================
+# EXAMINATION REQUEST
+
+
+def get_examination_request(id: int):
+    return db.session.query(ExaminationRequest).get(id)
+
+
+def get_examination_request_query(user=None, animal=None, accepted=None):
+    query = db.session.query(ExaminationRequest)
+
+    if isinstance(user, int):
+        user = db.session.query(User).get(user)
+    if isinstance(user, User):
+        query = query.filter(ExaminationRequest.user == user)
+
+    if isinstance(animal, int):
+        animal = db.session.query(Animal).get(animal)
+    if isinstance(animal, Animal):
+        query = query.filter(ExaminationRequest.animal == animal)
+
+    if isinstance(accepted, bool):
+        query = query.filter(ExaminationRequest.accepted == accepted)
+
+    return query
+
+
+def get_examination_requests(user=None, animal=None, accepted=None):
+    query = get_examination_request_query(user, animal, accepted)
+    return query.all()

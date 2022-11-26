@@ -12,7 +12,8 @@ from .record_type import RecordType
 from .animal import Animal
 from .session import Session
 from .walk import Walk
-from .medical import MedicalRecord
+from .medical_record import MedicalRecord
+from .examination_request import ExaminationRequest
 
 
 from .queries import \
@@ -40,7 +41,10 @@ from .queries import \
     get_medical_records_query, \
     get_future_medical_records, \
     get_past_medical_records, \
-    animal_has_free_time
+    animal_has_free_time, \
+    get_examination_request, \
+    get_examination_request_query, \
+    get_examination_requests
 
 
 from .constants import \
@@ -65,4 +69,6 @@ from .constants import \
     PERMISSION_EXAMINATIONS_EDIT, \
     PERMISSION_EXAMINATIONS_DELETE, \
     PERMISSION_EXAMINATIONS_PERFORM, \
-    PERMISSION_EXAMINATIONS_REQUEST
+    PERMISSION_EXAMINATIONS_REQUEST, \
+    PERMISSION_EXAMINATIONS_ACCEPT, \
+    PERMISSION_MY_EXAMINATIONS_SHOW

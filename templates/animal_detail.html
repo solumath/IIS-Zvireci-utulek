@@ -67,13 +67,18 @@
         <button class="btn btn-success btn-sm" onclick="showAndHide()"><i class="bi bi-plus"></i></i>Termíny k
             venčení </button>
         {%endif%}
+
         {% if PERMISSION_EXAMINATIONS_SHOW %}
         <a type="button" href="{{url_for('animals_medical_record', id=animal.id)}}"
-            class="btn btn-primary btn-sm">Zdravotní záznam</a>
-
+        class="btn btn-primary btn-sm">Zdravotní záznam</a>
+        {% endif %}
+        
+        
+        {% if PERMISSION_EXAMINATIONS_REQUEST %}
         <a type="button" href="{{url_for('medical_request', id=animal.id)}}" class="btn btn-danger btn-sm">Poslat k
             veterináři</a>
         {% endif %}
+
         {% if PERMISSION_ANIMALS_EDIT %}
         <a type="button" class="btn btn-warning btn-sm" href="/animals/edit/{{animal.id}}">Upravit zvíře</a>
         {%endif%}
