@@ -3,6 +3,27 @@ body::before {
     content: '';
     height: 90px;
 }
+
 #sectionBody {
     margin-bottom: 30px;
+}
+
+.animal-name:link {
+    color: #0dcaf0;
+    text-decoration: none;
+}
+
+.animal-name:visited {
+    color: #0dcaf0;
+    text-decoration: none;
+}
+
+.animal-name:hover {
+    color: #d9514e;
+    text-decoration: none;
+}
+
+.animal-name:active {
+    color: #d9514e;
+    text-decoration: none;
 }
