@@ -8,36 +8,6 @@ import datetime
 from munch import DefaultMunch
 
 
-# @app.route("/examinations/request", methods=["POST"])
-# @flask_login.login_required
-# def examination_requests_add():
-#     if flask.request.method == "POST":
-#         form = flask.request.form
-#         try:
-#             animal = db.get_animal(form["animal"])
-#             user = db.get_user(form["user"])
-#             date = form["date"]
-#             start = utility.datetime_from_date(date, "08:00")
-#             end = utility.datetime_from_date(date, "18:00")
-#             request = form["request"]
-#         except:
-#             flask.flash(r.UNSPECIFIEDDefaultMunch_ERROR, r.ERROR)
-#             return flask.redirect("/")
-
-#         if start < datetime.datetime.now():
-#             flask.flash(r.PLANNING_HISTORY, r.ERROR)
-#             return flask.redirect(flask.url_for("animal_detail", id=animal.id))
-
-#         new_request = db.ExaminationRequest(start, end, request)
-#         new_request.user = user
-#         new_request.animal = animal
-#         db.db.session.add(new_request)
-#         db.db.session.commit()
-
-#     flask.flash(r.REQUEST_SUCCEED, r.OK)
-#     return flask.redirect(flask.url_for("animal_detail", id=animal.id))
-
-
 @app.route("/examinations/accept/<id>", methods=["GET", "POST"])
 @flask_login.login_required
 def examination_requests_accept(id):
@@ -52,6 +22,14 @@ def examination_requests_accept(id):
             request_form = DefaultMunch.fromDict(form)
             start = utility.parse_html_datetime(form["start"])
             end = utility.parse_html_datetime(form["end"])
+            if start > end:
+                flask.flash(r.WRONG_DATETIME, r.ERROR)
+                return utility.render_with_permissions("examination_request_accept.html", request=request_form, animal=request.animal)
+
+            if start < datetime.datetime.now():
+                flask.flash(r.PLANNING_HISTORY, r.ERROR)
+                return utility.render_with_permissions("examination_request_accept.html", request=request_form, animal=request.animal)
+
             request_desc = form["request"]
         except:
             flask.flash(r.UNSPECIFIED_ERROR, r.ERROR)
