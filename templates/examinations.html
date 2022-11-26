@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block title %} Prohlídky {% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/events.css') }}" />
-<script type="text/javascript" src="{{ url_for('static', filename='js/events.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/examinations.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/examinations.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -16,9 +16,9 @@
 <section class="bg-light p-5 p-lg-0 pt-lg-3 text-center text-sm-start" id="sectionBody">
     <div class="container">
         <!-- tabulka pro nepotvrzené prohlídky (zadané pečovatelem) -->
-        <div class="mb-5 mt-2 eventsTable">
-            <a href="examinations/add" class="btn btn-primary my-2" role="button">Naplánovat prohlídku</a>
-            <table class="table table-striped table-bordered align-middle" id="eventsTable">
+        <div class="mb-5 mt-2">
+            <a href="{{ url_for('examinations_add') }}" class="btn btn-primary my-2" role="button">Naplánovat prohlídku</a>
+            <table class="table table-striped table-bordered align-middle requestExaminations">
                 <thead class="table-dark">
                     <tr>
                         <th class="h3" scope="col" colspan="11">Požadavky na prohlídky</th>
@@ -48,22 +48,22 @@
                         <td>{{ request.start }}</td>
                         <td>{{ request.end }}</td>
                         <td>
-                            <a type="button" href="{{url_for('animals_detail', id=request.animal.id)}}" class="btn">
+                            <a type="button" href="{{url_for('animals_detail', id=request.animal.id)}}" class="btn btn-primary">
                                 {{ request.animal.name }}</a>
                         </td>
                         <td>{{ request.description }}</td>
-                        {% if PERMISSION_EVENTS_EDIT %}
+                        {% if PERMISSION_EXAMINATIONS_EDIT %}
                         <td class="col text-center">
-                            <a href="examinations/edit/{{request.id}}"
-                                class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent"
+                            <a href="{{url_for('examinations_edit', id=request.id)}}"
+                                class="btn btn-primary text-uppercase fw-bold bi-pencil-fill editExamination"
                                 role="button"></a>
                         </td>
                         {% endif %}
-                        {% if PERMISSION_EVENTS_DELETE %}
+                        {% if PERMISSION_EXAMINATIONS_DELETE %}
                         <td class="col text-center">
-                            <form method="POST" class="deleteEvent" action="{{ url_for('examinations_delete') }}">
+                            <form method="POST" class="deleteExamination" action="{{ url_for('examinations_delete') }}">
                                 <button
-                                    class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteEvent"
+                                    class="btn btn-danger text-uppercase fw-bold bi-trash-fill deleteExamination"
                                     type="submit"></button>
                                 <input type="hidden" value="{{ request.id }}" name="id" />
                             </form>
@@ -75,8 +75,8 @@
             </table>
         </div>
         <!-- tabulka pro naplánované prohlídky - potvrzené -->
-        <div class="mb-5 mt-2 eventsTable">
-            <table class="table table-striped table-bordered align-middle" id="eventsTable">
+        <div class="mb-5 mt-2">
+            <table class="table table-striped table-bordered align-middle plannedExaminations">
                 <thead class="table-dark">
                     <tr>
                         <th class="h3" scope="col" colspan="11">Naplánované prohlídky</th>
@@ -108,23 +108,23 @@
                         <td>{{ examination.start }}</td>
                         <td>{{ examination.end }}</td>
                         <td>
-                            <a type="button" href="{{url_for('animals_detail', id=examination.animal.id)}}" class="btn">{{
+                            <a type="button" href="{{url_for('animals_detail', id=examination.animal.id)}}" class="btn btn-primary">{{
                                 examination.animal.name }}</a>
                         </td>
                         <td>{{ examination.description }}</td>
                         {% if not current_user.user_role.name == "caretaker"%}
-                        {% if PERMISSION_EVENTS_EDIT %}
+                        {% if PERMISSION_EXAMINATIONS_EDIT %}
                         <td class="col text-center">
-                            <a href="examinations/edit/{{examination.id}}"
-                                class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editEvent"
+                            <a href="{{url_for('examinations_edit', id=examination.id)}}"
+                                class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill editExamination"
                                 role="button"></a>
                         </td>
                         {% endif %}
-                        {% if PERMISSION_EVENTS_DELETE %}
+                        {% if PERMISSION_EXAMINATIONS_DELETE %}
                         <td class="col text-center">
-                            <form method="POST" class="deleteEvent" action="{{ url_for('examinations_delete') }}">
+                            <form method="POST" class="deleteExamination" action="{{ url_for('examinations_delete') }}">
                                 <button
-                                    class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteEvent"
+                                    class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill"
                                     type="submit"></button>
                                 <input type="hidden" value="{{ examination.id }}" name="id" />
                             </form>

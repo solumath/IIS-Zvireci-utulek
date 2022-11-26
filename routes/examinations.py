@@ -8,7 +8,7 @@ import response as r
 
 @app.route('/examinations/add', methods=['GET', 'POST'])
 @flask_login.login_required
-@utility.role_required(['administrator', 'caretaker', 'verinarian'])
+@utility.role_required(['administrator', 'caretaker', 'veterinarian'])
 def examinations_add():
 
     if flask.request.method == "GET":
