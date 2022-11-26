@@ -89,8 +89,10 @@
                         <th scope="col">Konec</th>
                         <th scope="col">Jméno zvířete</th>
                         <th scope="col">Popis</th>
+                        {% if not current_user.user_role.name == "caretaker"%}
                         <th scope="col">Upravit</th>
                         <th scope="col">Smazat</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -110,6 +112,7 @@
                                 examination.animal.name }}</a>
                         </td>
                         <td>{{ examination.description }}</td>
+                        {% if not current_user.user_role.name == "caretaker"%}
                         {% if PERMISSION_EVENTS_EDIT %}
                         <td class="col text-center">
                             <a href="examinations/edit/{{examination.id}}"
@@ -126,6 +129,7 @@
                                 <input type="hidden" value="{{ examination.id }}" name="id" />
                             </form>
                         </td>
+                        {% endif %}
                         {% endif %}
                     </tr>
                     {% endfor %}
