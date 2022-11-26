@@ -40,8 +40,6 @@ def get_user(id):
     """
         returns user with id, or None if not found
     """
-# ====================================================================================================
-# EVENTS
 
     return db.session.query(User).get(id)
 
