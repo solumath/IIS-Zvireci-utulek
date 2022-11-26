@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block title %} Zdravotní záznam {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animal_medical_records.css') }}" />
+<script type="text/javascript" src="{{ url_for('static', filename='js/animal_medical_records.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<!-- Showcase -->
+<section class="p-3 bg-dark text-white text-center text-sm-start">
+    <div class="container">
+        <h1>Zdravotní záznam <span style="color: #d9514e">{{ animal.name }}</span></h1>
+    </div>
+</section>
+
+<section class="bg-light p-5 p-lg-0 pt-lg-3 text-center text-sm-start" id="sectionBody">
+    <div class="container">
+        <div class="my-3">
+            <a href="{{url_for('examinations_add')}}" class="btn btn-primary" role="button">Naplánovat prohlídku</a>
+        </div>
+        <div class="mb-5 mt-2">
+            <table class="table table-striped table-bordered align-middle medicalRecordsTableFuture">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="h3" scope="col" colspan="9">Plánované prohlídky</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Druh</th>
+                        <th scope="col">Jméno lékaře</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Začátek</th>
+                        <th scope="col">Konec</th>
+                        <th scope="col">Jméno zvířete</th>
+                        <th scope="col">Popis</th>
+                        {% if PERMISSION_EXAMINATIONS_EDIT %}
+                        <th scope="col">Upravit</th>
+                        {% endif %}
+                        {% if PERMISSION_EXAMINATIONS_DELETE %}
+                        <th scope="col">Smazat</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for examination in future_examinations %}
+                    <tr>
+                        <td>{{ examination.record_type.czech_name.title() }}</td>
+                        {% if examination.user %}
+                        <td>{{ examination.user.name + " " + examination.user.surname }}</td>
+                        {% else %}
+                        <td>Deleted User</td>
+                        {% endif %}
+                        <td>{{ examination.user.email }}</td>
+                        <td>{{ examination.start }}</td>
+                        <td>{{ examination.end }}</td>
+                        <td>
+                            <a type="button" href="{{url_for('animals_detail', id=examination.animal.id)}}" class="btn btn-primary">{{
+                                examination.animal.name }}</a>
+                        </td>
+                        <td>{{ examination.description }}</td>
+
+                        {% if PERMISSION_EXAMINATIONS_EDIT %}
+                        <td class="col text-center">
+                            <a href="{{url_for('examinations_edit', id=examination.animal.id)}}"
+                                class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill"
+                                role="button"></a>
+                        </td>
+                        {% endif %}
+                        {% if PERMISSION_EXAMINATIONS_DELETE %}
+                        <td class="col text-center">
+                            <form method="POST" action="{{ url_for('examinations_delete') }}">
+                                <button
+                                    class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ examination.id }}" name="id" />
+                            </form>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <hr/>
+
+        <div class="mb-5 mt-2">
+            <table class="table table-striped table-bordered align-middle medicalRecordsTableHistory">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="h3" scope="col" colspan="7">Zdravotní záznam</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Druh</th>
+                        <th scope="col">Jméno lékaře</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Začátek</th>
+                        <th scope="col">Konec</th>
+                        <th scope="col">Jméno zvířete</th>
+                        <th scope="col">Popis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for examination in history_examinations %}
+                    <tr>
+                        <td>{{ examination.record_type.czech_name.title() }}</td>
+                        {% if examination.user %}
+                        <td>{{ examination.user.name + " " + examination.user.surname }}</td>
+                        {% else %}
+                        <td>Deleted User</td>
+                        {% endif %}
+                        <td>{{ examination.user.email }}</td>
+                        <td>{{ examination.start }}</td>
+                        <td>{{ examination.end }}</td>
+                        <td>
+                            <a type="button" href="{{url_for('animals_detail', id=examination.animal.id)}}" class="btn btn-primary">{{
+                                examination.animal.name }}</a>
+                        </td>
+                        <td>{{ examination.description }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

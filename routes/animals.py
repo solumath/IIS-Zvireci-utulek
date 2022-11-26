@@ -38,6 +38,22 @@ def animals_detail(id):
     return utility.render_with_permissions('animal_detail.html', animal=animal)
 
 
+@app.route('/animals/medical_records/<id>')
+@flask_login.login_required
+@utility.role_required(['administrator', 'caretaker', 'vet'])
+def animals_medical_record(id):
+    animal = db.get_animal(id)
+    if animal is None:
+        flask.flash(r.ANIMAL_NOT_FOUND, r.ERROR)
+        return flask.redirect(flask.url_for('animals'))
+    return utility.render_with_permissions(
+        'animal_medical_records.html',
+        animal=animal,
+        future_examinations=db.get_future_medical_records(animal=animal),
+        history_examinations=db.get_past_medical_records(animal=animal)
+    )
+
+
 @app.route('/animals/add', methods=['POST', 'GET'])
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker'])
