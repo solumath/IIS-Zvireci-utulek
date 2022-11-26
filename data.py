@@ -162,7 +162,7 @@ record_types = [
 ]
 
 walks = [
-    db.Walk(datetime(2025, 1, 1), datetime(2025, 1, 1, 23)),
+    db.Walk(datetime(2022, 11, 27, 9), datetime(2022, 11, 27, 11)),
     db.Walk(datetime(2020, 1, 1), datetime(2020, 1, 1, 23)),
     db.Walk(datetime(2022, 11, 21, 15), datetime(2022, 11, 21, 17)),
     db.Walk(datetime(2022, 11, 20, 15), datetime(2022, 11, 21, 17)),

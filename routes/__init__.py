@@ -1,6 +1,6 @@
 from .login import login, logout
 from .routes import about, index, not_enough_perms, page_not_found
-from .animals import animals, animals_add, animals_detail, animals_edit, animals_medical_record
+from .animals import animals, animals_add, animals_detail, animals_edit, animals_medical_record, request_walk
 from .users import users, users_edit, users_delete
 from .walks import walks, walks_delete
 from .my_walks import my_walks, my_walks_delete

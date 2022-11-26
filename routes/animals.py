@@ -1,3 +1,4 @@
+import datetime
 import flask
 import flask_login
 from app import app
@@ -5,6 +6,27 @@ import db
 import utility
 import response as r
 from munch import DefaultMunch
+from collections import namedtuple
+
+
+WalkInterval = namedtuple("WalkInterval", ["start", "end", "free"])
+walk_windows = [
+    WalkInterval(datetime.time(8, 0), datetime.time(10, 0), False),
+    WalkInterval(datetime.time(10, 0), datetime.time(12, 0), False),
+    WalkInterval(datetime.time(14, 0), datetime.time(16, 0), False),
+    WalkInterval(datetime.time(16, 0), datetime.time(18, 0), False),
+]
+
+
+def get_intervals(animal, days):
+    for day in days:
+        for window in walk_windows:
+            start = datetime.datetime.combine(day, window.start)
+            end = datetime.datetime.combine(day, window.end)
+            free = db.animal_has_free_time(animal, start, end)
+            if start < datetime.datetime.now():
+                continue
+            yield WalkInterval(start, end, free)
 
 
 @app.route('/animals/delete', methods=['GET', 'POST'])
@@ -35,7 +57,12 @@ def animals_detail(id):
     if animal is None:
         flask.flash(r.ANIMAL_NOT_FOUND, r.ERROR)
         return flask.redirect(flask.url_for('animals'))
-    return utility.render_with_permissions('animal_detail.html', animal=animal)
+
+    today = datetime.date.today()
+    intervals = [interval for interval in get_intervals(
+        animal, utility.days_iter(today, today+datetime.timedelta(7)))]
+
+    return utility.render_with_permissions('animal_detail.html', animal=animal, intervals=intervals)
 
 
 @app.route('/animals/medical_records/<id>')
@@ -49,7 +76,8 @@ def animals_medical_record(id):
     return utility.render_with_permissions(
         'animal_medical_records.html',
         animal=animal,
-        future_examinations=db.get_future_medical_records(animal=animal),
+        future_examinations=db.get_future_medical_records(
+            animal=animal, record_type="requested examination"),
         history_examinations=db.get_past_medical_records(animal=animal)
     )
 
@@ -80,7 +108,8 @@ def animals_add():
             flask.flash(r.NEGATIVE_CHIP_ID, r.ERROR)
             return utility.render_with_permissions('animal_add.html')
         birthday = utility.parse_date(flask.request.form.get("birthday"))
-        discovery_day = utility.parse_date(flask.request.form.get("discovery_day"))
+        discovery_day = utility.parse_date(
+            flask.request.form.get("discovery_day"))
 
         if (discovery_day < birthday):
             flask.flash(r.WRONG_DISCOVERY_DATE, r.ERROR)
@@ -89,13 +118,12 @@ def animals_add():
         description = flask.request.form.get("description")
 
         new_animal = db.Animal(name, sex, color, weight, height, kind, breed,
-                            chip_id, birthday, discovery_day, discovery_place, description)
+                               chip_id, birthday, discovery_day, discovery_place, description)
         db.db.session.add(new_animal)
         db.db.session.commit()
         return flask.redirect(f'{new_animal.id}')
-    
-    return utility.render_with_permissions('animal_add.html')
 
+    return utility.render_with_permissions('animal_add.html')
 
 
 @app.route('/animals/edit/<id>', methods=['GET', 'POST'])
@@ -130,7 +158,8 @@ def animals_edit(id):
         if (int(animal.chip_id) < 0):
             flask.flash(r.NEGATIVE_CHIP_ID, r.ERROR)
             return utility.render_with_permissions('animal_edit.html', animal=animal_form)
-        animal.birthday = utility.parse_date(flask.request.form.get('birthday'))
+        animal.birthday = utility.parse_date(
+            flask.request.form.get('birthday'))
         animal.discovery_day = utility.parse_date(
             flask.request.form.get('discovery_day'))
 
@@ -141,7 +170,7 @@ def animals_edit(id):
         animal.description = flask.request.form.get('description')
         db.db.session.commit()
         return flask.redirect(flask.url_for('animals_detail', id=id))
-    
+
     return utility.render_with_permissions('animal_edit.html', animal=animal)
 
 
@@ -154,3 +183,27 @@ def medical_request(id):
         flask.flash(r.ANIMAL_NOT_FOUND, r.ERROR)
         return flask.redirect(flask.url_for('animals'))
     return utility.render_with_permissions('medical_request.html', animal=animal)
+
+
+@app.route("/animal/walk_request/<id>", methods=["POST"])
+@flask_login.login_required
+def request_walk(id):
+    form = flask.request.form
+    try:
+        start = utility.parse_datetime(form["start"])
+        end = utility.parse_datetime(form["end"])
+        animal = db.get_animal(id)
+        assert animal is not None
+        assert db.animal_has_free_time(animal, start, end)
+    except:
+        flask.flash(r.UNSPECIFIED_ERROR, r.ERROR)
+        return flask.redirect(flask.url_for("animals_detial", id=id))
+
+    walk_request = db.Walk(start, end)
+    walk_request.animal = animal
+    walk_request.user = flask_login.current_user
+    db.db.session.add(walk_request)
+    db.db.session.commit()
+
+    flask.flash(r.WALK_CREATED_SUCCESSFULLY, r.OK)
+    return flask.redirect(flask.url_for("animals_detail", id=id))

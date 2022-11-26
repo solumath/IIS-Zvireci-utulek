@@ -39,7 +39,8 @@ from .queries import \
     get_medical_records, \
     get_medical_records_query, \
     get_future_medical_records, \
-    get_past_medical_records
+    get_past_medical_records, \
+    animal_has_free_time
 
 
 from .constants import \

@@ -71,23 +71,36 @@
                 <table class="table table-dark table-striped table-bordered align-middle">
                     <thead class="table-dark">
                         <tr>
-                            <th scope="col">Termíny k venčení</th>
+                            <th scope="col">Zacatek</th>
+                            <th scope="col">Konec</th>
+                            <th scope="col">Rezervovat</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for interval in intervals %}
+                        {% if interval.free %}
                         <tr>
-                            <td>TODO</td>
+                            <td>{{interval.start}}</td>
+                            <td>{{interval.end}}</td>
+                            <td>
+                                <form method="POST" class="requestWalk"
+                                    action="{{ url_for('request_walk', id=animal.id) }}">
+                                    <button class="btn btn-success bi-check-lg" type="submit"></button>
+                                    <input type="hidden" value="{{ interval.start }}" name="start" />
+                                    <input type="hidden" value="{{ interval.end }}" name="end" />
+                                </form>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>TODO</td>
-                        </tr>
+                        {% endif %}
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
         {%endif%}
         {% if PERMISSION_EXAMINATIONS_SHOW %}
-        <a type="button" href="{{url_for('animals_medical_record', id=animal.id)}}" class="btn btn-primary btn-sm">Zdravotní záznam</a>
+        <a type="button" href="{{url_for('animals_medical_record', id=animal.id)}}"
+            class="btn btn-primary btn-sm">Zdravotní záznam</a>
 
         <a type="button" href="{{url_for('medical_request', id=animal.id)}}" class="btn btn-danger btn-sm">Poslat k
             veterináři</a>

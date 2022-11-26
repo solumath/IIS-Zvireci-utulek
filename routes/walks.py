@@ -91,7 +91,6 @@ def walks_delete():
         db.db.session.commit()
         return flask.redirect(flask.url_for('walks'))
 
-
     return flask.redirect(flask.url_for('walks'))
 
 

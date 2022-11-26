@@ -10,6 +10,7 @@ from .medical import MedicalRecord
 import flask_login
 from datetime import datetime
 import typing
+import sqlalchemy
 
 
 # ====================================================================================================
@@ -139,8 +140,7 @@ def get_future_events(user=None, animal=None):
 
 def animal_has_free_time(animal: typing.Union[int, Animal], begin: datetime, end: datetime) -> bool:
     query = get_events_query(animal)
-    query = query.filter(Event.end <= end)
-    query = query.filter(Event.start >= begin)
+    query = query.filter(db.not_(db.or_(Event.start >= end, Event.end <= begin)))
 
     return query.first() == None
 
