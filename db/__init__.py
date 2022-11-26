@@ -33,10 +33,13 @@ from .queries import \
     get_past_walks, \
     get_walks, \
     get_walks_query, \
-    get_medical_records, \
     get_record_type, \
     get_record_types, \
-    get_medical_record
+    get_medical_record, \
+    get_medical_records, \
+    get_medical_records_query, \
+    get_future_medical_records, \
+    get_past_medical_records
 
 
 from .constants import \

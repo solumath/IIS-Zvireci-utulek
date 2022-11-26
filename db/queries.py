@@ -225,7 +225,7 @@ def get_medical_record(id: int):
     return db.session.query(MedicalRecord).get(id)
 
 
-def get_medical_records(user=None, animal=None, record_type=None):
+def get_medical_records_query(user=None, animal=None, record_type=None):
     query = db.session.query(MedicalRecord)
 
     if isinstance(user, int):
@@ -245,4 +245,19 @@ def get_medical_records(user=None, animal=None, record_type=None):
 
     print(record_type, query.all())
 
+    return query
+
+
+def get_medical_records(user=None, animal=None, record_type=None):
+    query = get_medical_records_query(user, animal, record_type)
     return query.all()
+
+
+def get_future_medical_records(animal=None):
+    query = get_medical_records_query(animal)
+    return query.filter(MedicalRecord.end > datetime.now()).all()
+
+
+def get_past_medical_records(animal=None):
+    query = get_medical_records_query(animal)
+    return query.filter(MedicalRecord.end < datetime.now()).all()

@@ -185,8 +185,8 @@ medical_records = [
         2025, 1, 1, 23), "request"),
     db.MedicalRecord(datetime(2025, 1, 1), datetime(
         2025, 1, 1, 23), "booster"),
-    db.MedicalRecord(datetime(2025, 1, 1), datetime(
-        2025, 1, 1, 23), "medicine"),
+    db.MedicalRecord(datetime(2021, 1, 1), datetime(
+        2021, 1, 1, 23), "medicine"),
 ]
 
 
