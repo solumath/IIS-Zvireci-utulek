@@ -35,21 +35,21 @@
         <dd>Daniel Fajmon
             <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
             <a href="mailto:xfajmo05@stud.fit.vutbr.cz">xfajmo05@stud.fit.vutbr.cz</a> -
-            popis činnosti v týmu
+            backend, frontend
         </dd>
         <dd>Eduard Frlička
             <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
             <a href="mailto:xfrlic00@stud.fit.vutbr.cz">xfrlic00@stud.fit.vutbr.cz</a> -
-            popis činnosti v týmu
+            databáze, backend
         </dd>
         <dd>Anna Krčálová
             <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
             <a href="mailto:xkrcal06@stud.fit.vutbr.cz">xkrcal06@stud.fit.vutbr.cz</a> -
-            popis činnosti v týmu
+            backend, frontend
         </dd>
         <dt>URL aplikace</dt>
-        <dd><a href="http://www.stud.fit.vutbr.cz/~xautor01/IIS">http://www.stud.fit.vutbr.cz/~xautor01/IIS</a></dd>
-        <dd>(pokud má aplikace více vstupních stránek, napište obdobně další URL)</dd>
+        <dd><a href="https://www.stud.fit.vutbr.cz/~xfajmo05/">https://www.stud.fit.vutbr.cz/~xfajmo05/</a></dd>
+        <!-- <dd>(pokud má aplikace více vstupních stránek, napište obdobně další URL)</dd> -->
     </dl>
 
     <h2>Uživatelé systému pro testování</h2>
@@ -62,18 +62,28 @@
         </tr>
         <tr>
             <td>admin</td>
-            <td>admin</td>
+            <td>tryhards</td>
             <td>Administrátor</td>
         </tr>
         <tr>
-            <td>prodavac</td>
-            <td>prodavac</td>
-            <td>Prodavač</td>
+            <td>vet</td>
+            <td>treehards</td>
+            <td>Veterinář</td>
         </tr>
         <tr>
-            <td>franta</td>
-            <td>franta</td>
-            <td>Zákazník</td>
+            <td>caretaker</td>
+            <td>1234</td>
+            <td>Pečovatel</td>
+        </tr>
+        <tr>
+            <td>volunteer</td>
+            <td>abcd</td>
+            <td>Dobrovolník</td>
+        </tr>
+        <tr>
+            <td>unverified</td>
+            <td>poop</td>
+            <td>Neověřený uživatel</td>
         </tr>
     </table>
 
@@ -86,21 +96,64 @@
         například na VUT Google Drive, kde ho bude možné přímo spustit z odkazu.</p>
 
     <h2>Implementace</h2>
-    <p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují
-        jednotlivé případy použití.</p>
+    <!-- <p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují
+        jednotlivé případy použití.</p> -->
+    <p><b>Neregistrovaný uživatel</b> může prohlížet informace o útulku (about.html), prohlížet všechna zvířata z útulku
+        a prohlížet detaily zvířete.
+        Taktéž se může registrovat.(soubor <b>login.py</b>)</p>
+    <p>Po registraci se z něho stane <b>neověřený uživatel</b>, který čeká na ověření, zároveň již může
+        prohlížet svůj profil.</p>
+    <p>Po ověření se změní na <b>dobrovolníka</b>, ten již může rezervovat jednotlivá zvířata k venčení, konkrétně na
+        detailní stránce chtěného zvířete. Může rezervovat více zvířat ve stejný čas. Přehled svých naplánovaných i
+        již proběhlých procházek najde po kliknutí na "Moje procházky" v navigační liště. Po rezervování procházky ještě
+        čeká na její schválení.</p>
+    <p><b>Veterinář</b> po rozkliknutí "Administrace/Prohlídky" zobrazuje nejprve tabulku s požadavky, které mu zaslal
+        pečovatel, následně i tabulku s již naplánovanými prohlídkami. Pro schválení požadavku od pečovatele musí
+        naplánovat vyšetření, to znamená naplánovat čas vyšetření a změnit typ prohlídky na vhodný vyšetření. Spravuje
+        vyšetření - plánuje nové, upravuje, maže. Zobrazuje si záznamy jednotlivých zvířat vždy v kartě konkrétního
+        zvířete, tyto záznamy
+        může upravovat.</p>
+    <p><b>Pečovatel</b> spravuje zvířata - přidává a maže zvířata v kartě "Nalezená zvířata", upravuje jednotlivá
+        zvířata v detailu zvířete. V kartě "Administrace/Uživatelé" schvaluje
+        dobrovolníky, v kartě "Administrace/Procházky" schvaluje rezervace jednotlivých procházek, eviduje zapůjčení a
+        vrácení zvířete. V kartě konkrétního zvířete vytváři požadavek na veterináře.</p>
+
+    <p>Rozvrhy venčení vytváří systém sám, vždy na následující týden.</p>
+
+    <p><b>Administrátor</b> provádí vše, co mohou všichni ostatní, zároveň spravuje všechny uživatele a jako jediný může
+        vytvořit
+        pečovatele, veterináře a nového administrátora. Může vytvářet i jiné role v případě, kdyby někdo fyzicky
+        dorazil na
+        místo a chtěl pomoct s registrací.</p>
+
+    <p>Celý systém je navrhnut tak, že všechny ověřené registrované osoby mají možnost si zarezervovat procházku se
+        zvířetem, tj. i zaměstnanci.</p>
+
+    <p>Veškeré stránky týkající se zvířat jsou implementované v souboru <b>animals.py</b>, tj. veškerá správa zvířat
+        (mazání, upravování, přidávání), zdravotní záznamy, detaily i požadavky na veterináře konkrétních zvířat, a
+        celkový přehled. </p>
+    <p>Správu prohlídek najdeme v souboru <b>examinations.py</b>, správu vlastních procházek v souboru
+        <b>my_walks.py</b> a správu
+        uživatelů v <b>users.py</b>.
+    </p>
+    <p>Pro schvalování rezervací procházek je soubor <b>walks.py</b>.</p>
 
     <h3>Databáze</h3>
 
     Zde vložte grafické schéma relační databáze (tabulek v databázi).
 
     <h2>Instalace</h2>
+    <code><ol>
+        <li>pip3 install -r requirements.txt</li>
+        <li>python3 main.py</li>
+    </ol></code>
 
-    Stručně popište:
+    <!-- Stručně popište:
     <ul>
         <li>postup instalace na server,</li>
         <li>softwarové požadavky (verze PHP apod.),</li>
         <li>jak rozbalit, konfigurovat, inicializovat databázi, ...</li>
-    </ul>
+    </ul> -->
 
     <h2>Známé problémy</h2>
     <p>Zde popište, které body zadání nejsou implementovány a z jakého důvodu. Např. &bdquo;Z časových důvodů nebyla
