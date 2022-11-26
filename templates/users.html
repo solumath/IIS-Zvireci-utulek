@@ -65,19 +65,19 @@
                             <td data-order="1" class="col text-center">
                                 <form method="POST" class="deleteUser"
                                 action="{{ url_for('users_verify', id=user.id) }}">
-                                <button class="btn btn-primary bi-x-lg" type="submit" data-sort="1"></button>
-                                <input type="hidden" value="{{ user.id }}" name="id" />
-                            </form>
-                        </td>
+                                    <button class="btn btn-primary bi-x-lg" type="submit"></button>
+                                    <input type="hidden" value="{{ user.id }}" name="id" />
+                                </form>
+                            </td>
                         {% elif user.volunteer %}
                         <!-- VERIFIED VOLUNETEER -->
                         <td data-order="2" class="col text-center">
                             <form method="POST" class="deleteUser"
                             action="{{ url_for('users_unverify', id=user.id) }}">
-                            <button class="btn btn-success bi-check-lg" type="submit" data-sort="2"></button>
-                            <input type="hidden" value="{{ user.id }}" name="id" />
-                        </form>
-                    </td>
+                                <button class="btn btn-success bi-check-lg" type="submit"></button>
+                                <input type="hidden" value="{{ user.id }}" name="id" />
+                            </form>
+                        </td>
                     {% else %}
                     <!-- VERIFIED OTHER ROLES -->
                     <td class="col text-center"><i class="bi-check"
@@ -88,7 +88,7 @@
                         <!-- USER EDIT -->
                         {% if PERMISSION_USERS_EDIT %}
                         <td class="col text-center">
-                            <a href="users/edit/{{user.id}}"
+                            <a href="{{ url_for('users_edit', id=user.id) }}"
                             class="btn btn-primary text-uppercase fw-bold bi-pencil-fill editUser"
                             role="button"></a>
                         </td>
@@ -112,8 +112,8 @@
             </table>
             {% endif %}
         </div>
-        
-        
+
+
         <!-- 2. tabulka - pracovníci -->
         <div class="mb-5 mt-2 usersTable">
             {% if PERMISSION_USERS_ADD %}
@@ -158,7 +158,7 @@
                             <!-- USER EDIT -->
                             {% if PERMISSION_USERS_EDIT %}
                             <td class="col text-center">
-                                <a href="users/edit/{{user.id}}"
+                                <a href="{{ url_for('users_edit', id=user.id) }}"
                                 class="btn btn-primary text-uppercase fw-bold bi-pencil-fill editUser"
                                 role="button"></a>
                             </td>
@@ -181,9 +181,8 @@
                     </tbody>
                 </table>
                 {% endif %}
-                <!-- users show -->
             </div>
         </div>
     </section>
-    
+
 {% endblock %}
