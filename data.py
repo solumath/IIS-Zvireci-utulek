@@ -72,6 +72,7 @@ caretaker_permissions = [
     db.PERMISSION_EXAMINATIONS_ADD,
     db.PERMISSION_EXAMINATIONS_EDIT,
     db.PERMISSION_EXAMINATIONS_DELETE,
+    db.PERMISSION_EXAMINATIONS_REQUEST,
 ]
 
 volunteer_permissions = [
