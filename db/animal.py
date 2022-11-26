@@ -28,12 +28,14 @@ class Animal(db.Model):
 
     description = db.Column(db.Text)
 
+    image = db.Column(db.String(STRING_LEN * 4))
+
     events = relation("Event", back_populates="animal")
 
     def __init__(self, name: str, sex: str, color: str,
                  weight: int, height: int, kind: str, breed: str,
                  chip_id: int, birthday: date, discovery_day: date,
-                 discovery_place: str, description: str):
+                 discovery_place: str, description: str, image: str = ""):
         """initializes row for table animal"""
         self.name = name
         self.sex = sex
@@ -47,3 +49,4 @@ class Animal(db.Model):
         self.discovery_day = discovery_day
         self.discovery_place = discovery_place
         self.description = description
+        self.image = image

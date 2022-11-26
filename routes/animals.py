@@ -7,7 +7,7 @@ import utility
 import response as r
 from munch import DefaultMunch
 from collections import namedtuple
-import datetime
+import os.path as path
 
 
 WalkInterval = namedtuple("WalkInterval", ["start", "end", "free"])
@@ -49,7 +49,7 @@ def animals_delete():
 
 @app.route('/animals', methods=['GET', 'POST'])
 def animals():
-    return utility.render_with_permissions('animals.html',  animal_info=db.get_animals())
+    return utility.render_with_permissions('animals.html',  animal_info=db.get_animals(), now=datetime.date.today())
 
 
 @app.route('/animals/<id>')
@@ -121,6 +121,14 @@ def animals_add():
         new_animal = db.Animal(name, sex, color, weight, height, kind, breed,
                                chip_id, birthday, discovery_day, discovery_place, description)
         db.db.session.add(new_animal)
+        db.db.session.commit()
+
+        image = flask.request.files["image"]
+        image_path = path.join(
+            "assets", f"animal-image-{new_animal.id}-{image.filename}")
+        image.save(path.join("static", image_path))
+        new_animal.image = image_path
+
         db.db.session.commit()
         return flask.redirect(f'{new_animal.id}')
 
@@ -206,7 +214,7 @@ def medical_request(id):
         db.db.session.commit()
         flask.flash(r.REQUEST_SUCCEED, r.OK)
         return flask.redirect(flask.url_for('animals_detail', id=animal.id))
-        
+
     return utility.render_with_permissions('medical_request.html', animal=animal, users=veterinarians)
     return utility.render_with_permissions('medical_request.html', animal=animal)
 

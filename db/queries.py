@@ -139,7 +139,7 @@ def get_future_events(user=None, animal=None):
 
 
 def animal_has_free_time(animal: typing.Union[int, Animal], begin: datetime, end: datetime) -> bool:
-    query = get_events_query(animal)
+    query = get_events_query(animal=animal)
     query = query.filter(db.not_(db.or_(Event.start >= end, Event.end <= begin)))
 
     return query.first() == None

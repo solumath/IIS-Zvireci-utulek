@@ -22,12 +22,12 @@
                     {% for animal in animal_info %}
                     <div class="column">
                         <div class="card w-150">
-                            <img src="{{ url_for('static', filename='assets/Alex1.jpg') }}" alt="Alex"
+                            <img src="{{ url_for('static', filename=animal.image) }}" alt="Alex"
                                 style="width:100%">
                             <div class="card-body">
                                 <h2 class="card-title">{{animal.name}}</h2>
                                 <p class="card-subtitle">{{animal.breed}}</p>
-                                <p>Věk: {{animal.birthday}} </p>
+                                <p>Věk: {{(now - animal.birthday).days // 356}} </p>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <a type="button" href="animals/{{animal.id}}" class="btn btn-info"><i
                                             class="bi bi-info-square"></i> Více

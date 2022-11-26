@@ -102,37 +102,37 @@ unverified_permissions = [
 
 animals = [
     db.Animal("Gutenberg", "samec", "hnědá", 15, 40, "pes", "Kříženec", 15000,
-              date(2015, 12, 2), date(2019, 1, 2), "Božetechova 2", "Hravý a přátelský pes nalezen uvázaný na přednášce IIS, doživotní trauma."),
+              date(2015, 12, 2), date(2019, 1, 2), "Božetechova 2", "Hravý a přátelský pes nalezen uvázaný na přednášce IIS, doživotní trauma.", "assets/Gutenberg.jpg"),
 
     db.Animal("Salátek", "samec", "černá", 40, 80, "pes", "Dobrman", 15001,
-              date(2020, 12, 6), date(2022, 1, 2), "Kolejní 2", "Velký černý pes, který má rád dlouhé procházky."),
+              date(2020, 12, 6), date(2022, 1, 2), "Kolejní 2", "Velký černý pes, který má rád dlouhé procházky.","assets/Salátek.jpg"),
 
     db.Animal("Mrkvička", "samice", "bílá", 5, 30, "kočka", "Ragdoll", 15002,
-              date(2021, 2, 2), date(2022, 1, 2), "Purkyňova 93", "Agresivní malá kočka s alergií na ryby."),
+              date(2021, 2, 2), date(2022, 1, 2), "Purkyňova 93", "Agresivní malá kočka s alergií na ryby.","assets/Mrkvička.jpg"),
 
     db.Animal("Nemo", "samec", "oranžová, bílá", 0.01, 5, "ryba", "Klaun očkatý", 15003,
-              date(2022, 2, 8), date(2022, 10, 2), "Mánesova 2524/12", "Rybka menšího vzrůstu. Hledá tátu."),
+              date(2022, 2, 8), date(2022, 10, 2), "Mánesova 2524/12", "Rybka menšího vzrůstu. Hledá tátu.","assets/Gutenberg.jpg"),
 
     db.Animal("Rozárka", "samice", "barevná", 3, 35, "kočka", "Kříženec", 15004,
-              date(2015, 12, 2), date(2019, 1, 2), "Kounicova 46/48", "Mourovaté koťátko nalezené v odpadcích."),
+              date(2015, 12, 2), date(2019, 1, 2), "Kounicova 46/48", "Mourovaté koťátko nalezené v odpadcích.","assets/Gutenberg.jpg"),
 
     db.Animal("Jurko", "samec", "růžová", 20, 65, "prase", "miniaturní prasátko", 15005,
-              date(2021, 12, 2), date(2022, 10, 2), "Božetěchova 2", "Malé smradlavé prasátko, nemá rádo koupel."),
+              date(2021, 12, 2), date(2022, 10, 2), "Božetěchova 2", "Malé smradlavé prasátko, nemá rádo koupel.","assets/Gutenberg.jpg"),
 
     db.Animal("Alex", "samec", "šedá", 50, 90, "pes", "Doga", 15006,
-              date(2020, 12, 2), date(2022, 1, 2), "Božetechova 2", "Milý pes většího vzrůstu, vhodný k dětem."),
+              date(2020, 12, 2), date(2022, 1, 2), "Božetechova 2", "Milý pes většího vzrůstu, vhodný k dětem.","assets/Gutenberg.jpg"),
 
     db.Animal("Punťa", "samec", "hnědá", 5, 20, "pes", "Čivava", 15007,
-              date(2010, 12, 2), date(2019, 1, 2), "Božetechova 2", "Psí důchodce, který by rád dožil svůj život v milující rodině."),
+              date(2010, 12, 2), date(2019, 1, 2), "Božetechova 2", "Psí důchodce, který by rád dožil svůj život v milující rodině.","assets/Gutenberg.jpg"),
 
     db.Animal("Arnik", "samec", "hnědá", 5, 20, "pes", "Srnčí ratlík", 15008,
-              date(2010, 12, 2), date(2019, 1, 2), "Sportovní 9, Ivančice", "Pejsek, kterému nedávno umřela maminka a potřeboval by se v klidu dožít někde u rodiny s velkou zahrádkou."),
+              date(2010, 12, 2), date(2019, 1, 2), "Sportovní 9, Ivančice", "Pejsek, kterému nedávno umřela maminka a potřeboval by se v klidu dožít někde u rodiny s velkou zahrádkou.","assets/Gutenberg.jpg"),
 
     db.Animal("Marlin", "samec", "oranžová, bílá", 0.01, 5, "ryba", "Klaun očkatý", 15009,
-              date(2022, 2, 8), date(2022, 10, 2), "Mánesova 2524/12", "Marlin je opuštěná rybka, která hledá svého syna Nema."),
+              date(2022, 2, 8), date(2022, 10, 2), "Mánesova 2524/12", "Marlin je opuštěná rybka, která hledá svého syna Nema.","assets/Gutenberg.jpg"),
 
     db.Animal("Rex", "samec", "zlatá", 25, 60, "pes", "Zlatý retrívr", 15010,
-              date(2022, 9, 2), date(2022, 10, 30), "Božetechova 2", "Štěně bez základního výcviku, které potřebuje pravidelný kontakt s lidmi.")
+              date(2022, 9, 2), date(2022, 10, 30), "Božetechova 2", "Štěně bez základního výcviku, které potřebuje pravidelný kontakt s lidmi.","assets/Gutenberg.jpg")
 ]
 
 admin_user = db.User("admin", "tryhards",  "Martin", "Kneslik", "Berkova 54",

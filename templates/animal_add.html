@@ -9,7 +9,7 @@
 <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start"></section>
 <div class="containerik">
     <h2>Vytvořit zvíře:</h2>
-    <form method='POST'>
+    <form method='POST' enctype="multipart/form-data">
         <div class=" row">
             <div class="col">
                 <label for="name">Jméno:</label>
@@ -87,8 +87,8 @@
                     zadejte Božetěchova 2</small>
             </div>
             <div class="form-group col">
-                <label for="pic">Přidat fotku:</label><br>
-                <input type="file" name="pic" required>
+                <label for="image">Přidat fotku:</label><br>
+                <input type="file" name="image" accept="image/*" required>
             </div>
 
         </div>
