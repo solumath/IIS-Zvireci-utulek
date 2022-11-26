@@ -34,7 +34,7 @@ def register_form(form):
         data[field] = form[field]
 
     # user lookup
-    login = form["login"]
+    login = form["login"].lower()
     user_login = db.db.session.query(db.User).filter(db.User.login == login).first()
 
     if user_login is not None:
@@ -48,6 +48,7 @@ def register_form(form):
         return utility.render_with_permissions('login.html')
 
     # create user and insert to db
+    data['login'] = data['login'].lower()
     new_user = db.User(**data)
     db.db.session.add(new_user)
     new_user.user_role = db.get_user_role("unverified")
@@ -58,7 +59,7 @@ def register_form(form):
 
 
 def login_form(form):
-    login = form['login']
+    login = form['login'].lower()
     password = form['password']
 
     user = db.db.session.query(db.User).filter(
