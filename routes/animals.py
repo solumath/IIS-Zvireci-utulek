@@ -7,6 +7,7 @@ import utility
 import response as r
 from munch import DefaultMunch
 from collections import namedtuple
+import datetime
 
 
 WalkInterval = namedtuple("WalkInterval", ["start", "end", "free"])
@@ -178,10 +179,35 @@ def animals_edit(id):
 @flask_login.login_required
 @utility.role_required(['administrator', 'caretaker'])
 def medical_request(id):
+    veterinarians = db.get_users(role="veterinarian")
     animal = db.get_animal(id)
     if animal is None:
         flask.flash(r.ANIMAL_NOT_FOUND, r.ERROR)
         return flask.redirect(flask.url_for('animals'))
+    request_form = DefaultMunch.fromDict(flask.request.form)
+    if flask.request.method == 'POST':
+        date = flask.request.form.get("date")
+        start = utility.datetime_from_date(date)
+        end = utility.datetime_from_date(date, "12:00:00")
+        if start <= datetime.datetime.now():
+            flask.flash(r.PLANNING_HISTORY, r.ERROR)
+            return utility.render_with_permissions('medical_request.html', animal=request_form)
+        description = flask.request.form.get("description")
+
+        user_id = flask.request.form.get("veterinarian")
+        print(user_id)
+        animal_id = animal.id
+
+        new_request = db.MedicalRecord(start, end, description)
+        new_request.user = db.get_user(user_id)
+        new_request.animal = db.get_animal(animal_id)
+        new_request.record_type = db.get_record_type("requested examination")
+        db.db.session.add(new_request)
+        db.db.session.commit()
+        flask.flash(r.REQUEST_SUCCEED, r.OK)
+        return flask.redirect(flask.url_for('animals_detail', id=animal.id))
+        
+    return utility.render_with_permissions('medical_request.html', animal=animal, users=veterinarians)
     return utility.render_with_permissions('medical_request.html', animal=animal)
 
 

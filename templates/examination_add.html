@@ -30,7 +30,7 @@
                 </select>
             </div>
             <div class="form-group col">
-                <label for="veterinarian"> Doktor:</label>
+                <label for="start"> Veterinář:</label>
                 <select class="form-control" name="veterinarian" required>
                     {% for user in users %}
                     <option value="{{ user.id }}"> {{user.name + " " + user.surname}}</option>
