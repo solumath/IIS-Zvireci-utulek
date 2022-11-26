@@ -87,7 +87,7 @@
         </div>
         {%endif%}
         {% if PERMISSION_EXAMINATIONS_SHOW %}
-        <a type="button" class="btn btn-primary btn-sm">Zdravotní záznam</a>
+        <a type="button" href="{{url_for('animals_medical_record', id=animal.id)}}" class="btn btn-primary btn-sm">Zdravotní záznam</a>
 
         <a type="button" href="{{url_for('medical_request', id=animal.id)}}" class="btn btn-danger btn-sm">Poslat k
             veterináři</a>

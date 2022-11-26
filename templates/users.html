@@ -67,7 +67,7 @@
                             <td data-order="1" class="col text-center">
                                 <form method="POST" class="deleteUser"
                                 action="{{ url_for('users_verify', id=user.id) }}">
-                                <button class="btn btn-danger bi-x-lg" type="submit" data-sort="1"></button>
+                                <button class="btn btn-primary bi-x-lg" type="submit" data-sort="1"></button>
                                 <input type="hidden" value="{{ user.id }}" name="id" />
                             </form>
                         </td>
@@ -187,4 +187,4 @@
         </div>
     </section>
     
-    {% endblock %}
+{% endblock %}
