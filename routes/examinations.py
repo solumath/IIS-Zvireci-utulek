@@ -8,7 +8,7 @@ import response as r
 
 @app.route('/examinations/add', methods=['GET', 'POST'])
 @flask_login.login_required
-@utility.role_required(['administrator', 'caretaker', 'vet'])
+@utility.role_required(['administrator', 'caretaker', 'verinarian'])
 def examinations_add():
 
     if flask.request.method == "GET":
@@ -46,7 +46,7 @@ def examinations_add():
 
 @app.route('/examinations/edit/<id>', methods=['GET', 'POST'])
 @flask_login.login_required
-@utility.role_required(['administrator', 'caretaker', 'vet'])
+@utility.role_required(['administrator', 'caretaker', 'veterinarian'])
 def examinations_edit(id):
     # load default values from db
     record_types = db.get_record_types()
@@ -92,7 +92,7 @@ def examinations_edit(id):
 
 @app.route('/examinations/delete', methods=['GET', 'POST'])
 @flask_login.login_required
-@utility.role_required(['administrator', 'caretaker', 'vet'])
+@utility.role_required(['administrator', 'caretaker', 'veterinarian'])
 def examinations_delete():
     if flask.request.method == 'GET':
         return flask.redirect('/examinations')
@@ -106,7 +106,7 @@ def examinations_delete():
 
 @app.route('/examinations')
 @flask_login.login_required
-@utility.role_required(['administrator', 'caretaker', 'vet'])
+@utility.role_required(['administrator', 'caretaker', 'veterinarian'])
 def examinations():
     return utility.render_with_permissions(
         'examinations.html', requests=db.get_medical_records(record_type="requested examination"), examinations=db.get_medical_records(record_type="examination")

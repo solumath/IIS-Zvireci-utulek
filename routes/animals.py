@@ -40,7 +40,7 @@ def animals_detail(id):
 
 @app.route('/animals/medical_records/<id>')
 @flask_login.login_required
-@utility.role_required(['administrator', 'caretaker', 'vet'])
+@utility.role_required(['administrator', 'caretaker', 'veterinarian'])
 def animals_medical_record(id):
     animal = db.get_animal(id)
     if animal is None:
