@@ -35,6 +35,6 @@ UNSUFFICIENT_PERMISSION = "Na tuto operaci nemáš právo."
 
 UNSPECIFIED_ERROR = "Stala se interní chyba."
 RETURNED_WALK_ERROR = "Nelze vrátit zvíře u procházky, která ještě nebyla přijata."
-WALK_CREATED_SUCCESSFULLY = "Vaše žádost o procházku byla úspěšně zpracovaná"
+WALK_CREATED_SUCCESSFULLY = "Vaše žádost o procházku byla zaslána ke zpracovaní"
 REQUEST_SUCCEED = "Žádost byla odeslána."
 PLANNING_HISTORY = "Žádosti se musí zadávat do budoucnosti."
