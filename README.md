@@ -45,8 +45,8 @@ python3 main.py
 
 ## Tasks
 
-- [ ] Dokumentace
-- [ ] Video
+- [x] Dokumentace
+- [x] Video
 
 ## Náměty na možná rozšíření
 

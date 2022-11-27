@@ -83,13 +83,13 @@ def medical_records_edit(id):
 
             if start > end:
                 flask.flash(r.WRONG_DATETIME, r.ERROR)
-                return flask.redirect(flask.url_for("medical_records_add"))
+                return flask.redirect(flask.url_for("medical_records_edit"))
             if start < datetime.datetime.now():
                 flask.flash(r.PLANNING_HISTORY, r.ERROR)
-                return flask.redirect(flask.url_for("medical_records_add"))
+                return flask.redirect(flask.url_for("medical_records_edit"))
             if not db.animal_has_free_time(animal, start, end):
                 flask.flash(r.PLANNING_COLISION, r.ERROR)
-                return flask.redirect(flask.url_for("medical_records_add"))
+                return flask.redirect(flask.url_for("medical_records_edit"))
 
             description = form["description"]
             message = r.WRONG_DATETIME
