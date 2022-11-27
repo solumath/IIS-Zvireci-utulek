@@ -38,4 +38,4 @@ RETURNED_WALK_ERROR = "Nelze vrátit zvíře u procházky, která ještě nebyla
 WALK_CREATED_SUCCESSFULLY = "Vaše žádost o procházku byla zaslána ke zpracovaní"
 REQUEST_SUCCEED = "Žádost byla odeslána."
 PLANNING_HISTORY = "Žádosti se musí zadávat do budoucnosti."
-PLANNING_COLISION = "Čas žádosti koliduje s jinou udalostí"
+PLANNING_COLISION = "Čas žádosti koliduje s jinou událostí."
