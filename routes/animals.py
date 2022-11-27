@@ -216,6 +216,11 @@ def medical_request(id):
         if start <= datetime.datetime.now():
             flask.flash(r.PLANNING_HISTORY, r.ERROR)
             return utility.render_with_permissions('examination_request_add.html', animal=request_form, users=veterinarians)
+        if not db.animal_has_free_time(animal, start, end):
+            flask.flash(r.PLANNING_COLISION, r.ERROR)
+            return utility.render_with_permissions('examination_request_add.html', animal=request_form, users=veterinarians)
+
+        
         description = flask.request.form.get("description")
 
         user_id = flask.request.form.get("veterinarian")

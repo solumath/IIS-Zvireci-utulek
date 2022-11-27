@@ -32,6 +32,10 @@ def examination_requests_accept(id):
                 flask.flash(r.PLANNING_HISTORY, r.ERROR)
                 return utility.render_with_permissions("examination_request_accept.html", request=request_form, animal=request.animal)
 
+            if not db.animal_has_free_time(request.animal, start, end):
+                flask.flash(r.PLANNING_COLISION, r.ERROR)
+                return utility.render_with_permissions("examination_request_accept.html", request=request_form, animal=request.animal)
+
             request_desc = form["request"]
         except:
             flask.flash(r.UNSPECIFIED_ERROR, r.ERROR)
