@@ -17,8 +17,10 @@
     <div class="container">
         <!-- tabulka pro nepotvrzené prohlídky (zadané pečovatelem) -->
         <div class="mb-5 mt-2">
+            {% if PERMISSION_EXAMINATIONS_ADD %}
             <a href="{{ url_for('medical_records_add') }}" class="btn btn-primary my-2" role="button">Vytvořit nový
                 záznam</a>
+            {% endif %}
             <table class="table table-striped table-bordered align-middle requestExaminations">
                 {% if PERMISSION_MY_EXAMINATIONS_SHOW %}
                 <caption>Správu jednotlivých prohlídek lze provést v <a href="{{ url_for('examination_requests') }}"
@@ -37,7 +39,9 @@
                         <th scope="col">Email</th>
                         <th scope="col">Popis</th>
                         <th scope="col">Stav</th>
+                        {% if PERMISSION_EXAMINATIONS_DELETE %}
                         <th scope="col">Smazat</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
