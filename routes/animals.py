@@ -166,12 +166,12 @@ def animals_edit(id):
         animal.color = flask.request.form.get('color')
         animal.weight = flask.request.form.get('weight')
 
-        if (int(animal.weight) < 0):
+        if (float(animal.weight) < 0):
             flask.flash(r.NEGATIVE_WEIGHT, r.ERROR)
             return utility.render_with_permissions('animal_edit.html', animal=animal_form)
         animal.height = flask.request.form.get('height')
 
-        if (int(animal.height) < 0):
+        if (float(animal.height) < 0):
             flask.flash(r.NEGATIVE_HEIGHT, r.ERROR)
             return utility.render_with_permissions('animal_edit.html', animal=animal_form)
         animal.kind = flask.request.form.get('kind')
@@ -213,7 +213,7 @@ def medical_request(id):
         end = utility.datetime_from_date(date, "18:00")
         if start <= datetime.datetime.now():
             flask.flash(r.PLANNING_HISTORY, r.ERROR)
-            return utility.render_with_permissions('examination_request_add.html', animal=request_form)
+            return utility.render_with_permissions('examination_request_add.html', animal=request_form, users=veterinarians)
         description = flask.request.form.get("description")
 
         user_id = flask.request.form.get("veterinarian")
