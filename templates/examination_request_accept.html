@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Požadavek na veterináře {% endblock %}
+{% block title %} Plánování prohlídky {% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/animal_add.css') }}" />
 <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/animals.js') }}"></script> -->
@@ -8,7 +8,7 @@
 {% block body %}
 <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start"></section>
 <div class="containerik">
-    <h2>Zadat požadavek:</h2>
+    <h2>Naplánovat prohlídku:</h2>
     <form method='POST'>
         <div class="row">
             <div class="form-group col">
@@ -38,7 +38,7 @@
         <div class="text-center">
             <br>
             <button type="submit" style="text-align: center;" class="btn btn-primary "><i class="bi bi-plus-lg"></i>
-                Naplánovat vyšetření</button>
+                Naplánovat</button>
         </div>
         <br>
     </form>
