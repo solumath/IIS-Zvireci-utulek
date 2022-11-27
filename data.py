@@ -105,7 +105,7 @@ unverified_permissions = [
 
 animals = [
     db.Animal("Gutenberg", "samec", "hnědá", 15, 40, "pes", "Kříženec", 15000,
-              date(2015, 12, 2), date(2019, 1, 2), "Božetechova 2", "Hravý a přátelský pes nalezen uvázaný na přednášce IIS, doživotní trauma.", "assets/Gutenberg.jpg"),
+              date(2015, 12, 2), date(2019, 1, 2), "Božetechova 2", "Hravý a přátelský pes nalezen uvázaný v lese, doživotní trauma.", "assets/Gutenberg.jpg"),
 
     db.Animal("Salátek", "samec", "černá", 40, 80, "pes", "Dobrman", 15001,
               date(2020, 12, 6), date(2022, 1, 2), "Kolejní 2", "Velký černý pes, který má rád dlouhé procházky.", "assets/Salátek.jpg"),
@@ -135,7 +135,7 @@ animals = [
               date(2021, 2, 8), date(2022, 10, 2), "Mánesova 2524/12", "Marlin je opuštěná rybka, která hledá svého syna Nema.","assets/Marlin.jpg"),
 
     db.Animal("Oscar", "samec", "černá", 25, 60, "pes", "Kříženec", 15010,
-              date(2021, 9, 2), date(2022, 10, 30), "Božetechova 2", "Rád se vozí autem.","assets/Oscar.jpg"),
+              date(2021, 9, 2), date(2022, 10, 30), "Božetechova 2", "Rád se vozí autem, ale pouze na přední sedačce.","assets/Oscar.jpg"),
     
     db.Animal("Rex", "samec", "zlatá", 25, 60, "pes", "Zlatý retrívr", 15011,
               date(2018, 9, 2), date(2022, 10, 30), "Božetechova 2", "Štěně bez základního výcviku, které potřebuje pravidelný kontakt s lidmi.","assets/Rex.jpg"),
@@ -150,20 +150,20 @@ animals = [
               date(2017, 9, 2), date(2022, 10, 30), "Božetechova 2", "Neumí chytat myši.","assets/Jasmína.jpg"),
 ]
 
-admin_user = db.User("admin", "tryhards",  "Martin", "Kneslik", "Berkova 54",
+admin_user = db.User("admin", "admin",  "Martin", "Kneslík", "Berkova 54",
                      "m.kneslik@utulek.cz", "+420603334197")
 
-vet_user = db.User("vet", "treehards",  "Martin", "Kneslík", "Berkova 54",
-                   "asdds@utulek.cz", "+420603334197")
+vet_user = db.User("vet", "vet",  "Peter", "Monteovský", "Rozdrobená 1980/2",
+                   "asdds@utulek.cz", "+420777334184")
 
-caretaker_user = db.User("caretaker", "1234",  "Ahmed", "Prdík", "Revoluční 1820",
+caretaker_user = db.User("caretaker", "caretaker",  "Eduard", "Veliký", "Revoluční 1820",
                          "ahm.prd@utulek.cz", "+420721059221")
 
-volunteer_user = db.User("volunteer", "abcd",  "Jolanda", "Veliká", "Breberkova 1420",
+volunteer_user = db.User("volunteer", "volunteer",  "Soti", "Pupákis", "Úzká 1420",
                          "jolis.velis@utulek.cz", "+420603674100")
 
-unverified_user = db.User("unverified", "poop",  "Juraj", "Prdelkový", "Vysoké Tatry 4",
-                          "jurik.prdelka@utulek.cz", "+421913677100")
+unverified_user = db.User("unverified", "unverified",  "Juraj", "Rebelský", "Vysoké Tatry 4",
+                          "jurik.prdelka@utulek.cz", "+421913677109")
 
 record_types = [
     db.RecordType("examination", "vyšetření", 9,
@@ -183,11 +183,11 @@ walks = [
 
 medical_records = [
     db.MedicalRecord(datetime(2025, 1, 1), datetime(
-        2025, 1, 1, 23), "Bezna prohlidka"),
+        2025, 1, 1, 23), "Běžná prohlídka"),
     db.MedicalRecord(datetime(2025, 1, 1), datetime(
-        2025, 1, 1, 23), "booster"),
+        2025, 1, 1, 23), "Očkování proti vzteklině"),
     db.MedicalRecord(datetime(2021, 1, 1), datetime(
-        2021, 1, 1, 23), "medicine"),
+        2021, 1, 1, 23), "Léky na odčervení"),
 ]
 
 
@@ -253,12 +253,8 @@ def add_data():
         examination.animal = animals[i]
         db.db.session.add(examination)
 
-    # TODO add event types to db
-    # TODO add events to db (event.event_type = event_type)
-
     # must be last, commits all changes to database
     db.db.session.commit()
-
 
 if __name__ == "__main__":
     import app
