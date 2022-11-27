@@ -6,6 +6,7 @@ import flask_login
 from app import app
 import utility
 import response as r
+import datetime
 
 
 @app.route('/medical_records/add', methods=['GET', 'POST'])
@@ -20,15 +21,23 @@ def medical_records_add():
         form = flask.request.form
 
         try:
-            start = utility.parse_html_datetime(form["start"])
-            end = utility.parse_html_datetime(form["end"])
-            if start > end:
-                flask.flash(r.WRONG_DATETIME, r.ERROR)
-                flask.redirect(flask.url_for("medical_records_add"))
             desc = form["description"]
             user_id = int(form["veterinarian"])
             animal_id = int(form["animal"])
             record_type = form["record_type"]
+
+            start = utility.parse_html_datetime(form["start"])
+            end = utility.parse_html_datetime(form["end"])
+            if start > end:
+                flask.flash(r.WRONG_DATETIME, r.ERROR)
+                return flask.redirect(flask.url_for("medical_records_add"))
+            if start < datetime.datetime.now():
+                flask.flash(r.PLANNING_HISTORY, r.ERROR)
+                return flask.redirect(flask.url_for("medical_records_add"))
+            if db.animal_has_free_time(animal_id, start, end):
+                flask.flash(r.PLANNING_COLISION, r.ERROR)
+                return flask.redirect(flask.url_for("medical_records_add"))
+
         except:
             flask.flash(r.UNSPECIFIED_ERROR, r.ERROR)
             return flask.redirect(flask.url_for("medical_records_add"))
@@ -71,8 +80,18 @@ def medical_records_edit(id):
             record_type = db.get_record_type(form["record_type"])
             start = utility.parse_html_datetime(form["start"])
             end = utility.parse_html_datetime(form["end"])
-            description = form["description"]
 
+            if start > end:
+                flask.flash(r.WRONG_DATETIME, r.ERROR)
+                return flask.redirect(flask.url_for("medical_records_add"))
+            if start < datetime.datetime.now():
+                flask.flash(r.PLANNING_HISTORY, r.ERROR)
+                return flask.redirect(flask.url_for("medical_records_add"))
+            if db.animal_has_free_time(animal, start, end):
+                flask.flash(r.PLANNING_COLISION, r.ERROR)
+                return flask.redirect(flask.url_for("medical_records_add"))
+
+            description = form["description"]
             message = r.WRONG_DATETIME
             assert start <= end
         except Exception as e:
@@ -106,7 +125,7 @@ def medical_records_delete():
         db.db.session.commit()
     except:
         flask.flash(r.UNSPECIFIED_ERROR, r.ERROR)
-        
+
     return flask.redirect('/medical_records')
 
 
