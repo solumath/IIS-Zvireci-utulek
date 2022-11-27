@@ -34,7 +34,7 @@ def medical_records_add():
             if start < datetime.datetime.now():
                 flask.flash(r.PLANNING_HISTORY, r.ERROR)
                 return flask.redirect(flask.url_for("medical_records_add"))
-            if db.animal_has_free_time(animal_id, start, end):
+            if not db.animal_has_free_time(animal_id, start, end):
                 flask.flash(r.PLANNING_COLISION, r.ERROR)
                 return flask.redirect(flask.url_for("medical_records_add"))
 
@@ -87,7 +87,7 @@ def medical_records_edit(id):
             if start < datetime.datetime.now():
                 flask.flash(r.PLANNING_HISTORY, r.ERROR)
                 return flask.redirect(flask.url_for("medical_records_add"))
-            if db.animal_has_free_time(animal, start, end):
+            if not db.animal_has_free_time(animal, start, end):
                 flask.flash(r.PLANNING_COLISION, r.ERROR)
                 return flask.redirect(flask.url_for("medical_records_add"))
 
