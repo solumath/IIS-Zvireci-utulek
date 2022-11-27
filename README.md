@@ -24,24 +24,29 @@ python3 main.py
     - [x] spravuje uživatele, jako jediný vytváří pečovatele a veterináře
 
 2. pečovatel:
-    - [ ] spravuje zvířata, vede jejich evidenci
-    - [ ] vytváří rozvrhy pro venčení
+    - [x] spravuje zvířata, vede jejich evidenci
+    - [x] vytváří rozvrhy pro venčení
     - [x] ověřuje dobrovolníky
-    - [ ] schvaluje rezervace zvířat na venčení, eviduje zapůjčení a vrácení
-    - [ ] vytváří požadavky na veterináře
+    - [x] schvaluje rezervace zvířat na venčení, eviduje zapůjčení a vrácení
+    - [x] vytváří požadavky na veterináře
 
 3. veterinář:
-    - [ ] vyřizuje požadavky od pečovatele (plánuje vyšetření zvířat dle požadavků)
-    - [ ] udržuje zdravotní záznamy zvířat
+    - [x] vyřizuje požadavky od pečovatele (plánuje vyšetření zvířat dle požadavků)
+    - [x] udržuje zdravotní záznamy zvířat
 
 4. dobrovolník:
-    - [ ] rezervuje zvířata na venčení
+    - [x] rezervuje zvířata na venčení
     - [x] vidí historii svých venčení
 
 5. neregistrovaný uživatel
     - [x] prochází informace o útulku a zvířatech
 
 ---
+
+## Tasks
+
+- [ ] Dokumentace
+- [ ] Video
 
 ## Náměty na možná rozšíření
 
