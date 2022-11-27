@@ -1,3 +1,5 @@
+# users management - edit, add, delete, verify, unverify; overview
+
 import flask
 import flask_login
 from app import app

@@ -1,3 +1,5 @@
+# management of examination requests - add, edit, accept, decline, perform
+
 import response as r
 from app import app
 import flask

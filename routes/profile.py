@@ -1,3 +1,5 @@
+# profile management - edit, password change
+
 import flask
 import flask_login
 from app import app

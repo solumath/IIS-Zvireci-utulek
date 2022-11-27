@@ -1,3 +1,5 @@
+# walks management, overview
+
 import db
 import flask
 import flask_login

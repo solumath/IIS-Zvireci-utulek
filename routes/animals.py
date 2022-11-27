@@ -1,3 +1,5 @@
+# animals management, overview, walks schedule
+
 import datetime
 import flask
 import flask_login
