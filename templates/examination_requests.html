@@ -31,7 +31,7 @@
                         <th scope="col">Jméno lékaře</th>
                         <th scope="col">Email</th>
                         <th scope="col">Popis</th>
-                        <th scope="col">Prijat</th>
+                        <th scope="col">Přijmout</th>
                         <th scope="col">Smazat</th>
                     </tr>
                 </thead>
@@ -56,15 +56,15 @@
                         {% if PERMISSION_EXAMINATIONS_ACCEPT %}
                         <td class="col text-center">
                             <a href="{{url_for('examination_requests_accept', id=request.id)}}"
-                                class="btn btn-primary text-uppercase fw-bold bi-pencil-fill editExamination"
+                                class="btn btn-primary text-uppercase fw-bold bi-plus-lg editExamination"
                                 role="button"></a>
                         </td>
                         {% endif %}
-                        
+
                         {% if PERMISSION_EXAMINATIONS_DELETE %}
                         <td class="col text-center">
                             <a href="{{url_for('examination_requests_decline', id=request.id)}}"
-                                class="btn btn-primary text-uppercase fw-bold bi-trash-fill deleteExamination"
+                                class="btn btn-danger text-uppercase fw-bold bi-trash-fill deleteExamination"
                                 role="button"></a>
                         </td>
                         {% endif %}
@@ -78,7 +78,7 @@
             <table class="table table-striped table-bordered align-middle medicalRecords">
                 <thead class="table-dark">
                     <tr>
-                        <th class="h3" scope="col" colspan="11">Naplanovane prohlidky</th>
+                        <th class="h3" scope="col" colspan="11">Naplánované prohlídky</th>
                     </tr>
                     <tr>
                         <th scope="col">Jméno zvířete</th>
@@ -110,9 +110,9 @@
                         <td>{{ request.request }}</td>
 
                         {% if PERMISSION_EXAMINATIONS_PERFORM %}
-                        <td>
+                        <td class="col text-center">
                             <a type="button" href="{{url_for('examination_requests_perform', id=request.id)}}"
-                                class="btn btn-primary btn-login text-uppercase fw-bold bi-pencil-fill">
+                                class="btn btn-success btn-login text-uppercase fw-bold bi bi-file-earmark-check-fill">
                             </a>
                         </td>
                         {% endif %}
@@ -120,7 +120,7 @@
                         {% if PERMISSION_EXAMINATIONS_DELETE %}
                         <td class="col text-center">
                             <a href="{{url_for('examination_requests_decline', id=request.id)}}"
-                                class="btn btn-primary text-uppercase fw-bold bi-trash-fill deleteExamination"
+                                class="btn btn-danger text-uppercase fw-bold bi-trash-fill deleteExamination"
                                 role="button"></a>
                         </td>
                         {% endif %}

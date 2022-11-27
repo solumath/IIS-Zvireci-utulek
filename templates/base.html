@@ -5,15 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type="text/javascript" charset="utf8"
-    src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+        src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8"
-    src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+        src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
     <script src="{{ url_for('static', filename='js/base.js') }}"></script>
     <link rel="icon" href="{{ url_for('static', filename='assets/pets_blue.ico') }}">
@@ -48,40 +48,44 @@
                     {% endif %}
 
                     <!-- MY WALKS -->
-                    {% if PERMISSION_MY_WALKS_SHOW %}      
+                    {% if PERMISSION_MY_WALKS_SHOW %}
                     <li class="nav-item">
                         <a href="{{ url_for('my_walks') }}" class="nav-link">Moje Procházky</a>
                     </li>
                     {% endif %}
-                    
+
                     {% if PERMISSION_MY_EXAMINATIONS_SHOW %}
                     <li class="nav-item">
-                        <a href="{{ url_for('examination_requests') }}" class="nav-link">Prohlidky</a>
+                        <a href="{{ url_for('examination_requests') }}" class="nav-link">Prohlídky</a>
                     </li>
                     {% endif %}
 
                     <!-- ADMINISTRATION -->
                     {% if PERMISSION_USERS_SHOW or PERMISSION_WALKS_SHOW or PERMISSION_EXAMINATIONS_SHOW %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Administrace</a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-expanded="false">Administrace</a>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <!-- USERS -->
                             {% if PERMISSION_USERS_SHOW %}
-                            <li class="dropdown-item"><a href="{{ url_for('users') }}" class="nav-link">Uživatelé</a></li>
-                            {% endif %}
-                            
-                            <!-- WALKS -->
-                            {% if PERMISSION_WALKS_SHOW %}
-                            <li class="dropdown-item"><a href="{{ url_for('walks') }}" class="nav-link">Procházky</a></li>
-                            {% endif %}
-                            
-                            <!-- EXAMINATIONS -->
-                            {% if PERMISSION_EXAMINATIONS_SHOW %}
-                            <li class="dropdown-item"><a href="{{ url_for('medical_records') }}" class="nav-link">Zdravotni zaznamy</a></li>
+                            <li class="dropdown-item"><a href="{{ url_for('users') }}" class="nav-link">Uživatelé</a>
+                            </li>
                             {% endif %}
 
-                          </ul>
-                      </li>
+                            <!-- WALKS -->
+                            {% if PERMISSION_WALKS_SHOW %}
+                            <li class="dropdown-item"><a href="{{ url_for('walks') }}" class="nav-link">Procházky</a>
+                            </li>
+                            {% endif %}
+
+                            <!-- EXAMINATIONS -->
+                            {% if PERMISSION_EXAMINATIONS_SHOW %}
+                            <li class="dropdown-item"><a href="{{ url_for('medical_records') }}"
+                                    class="nav-link">Zdravotní záznamy</a></li>
+                            {% endif %}
+
+                        </ul>
+                    </li>
                     {% endif %}
 
                     <!-- PROFILE, LOGOUT | LOGIN -->

@@ -17,18 +17,24 @@
     <div class="container">
         <!-- tabulka pro nepotvrzené prohlídky (zadané pečovatelem) -->
         <div class="mb-5 mt-2">
-            <a href="{{ url_for('medical_records_add') }}" class="btn btn-primary my-2" role="button">Vytvorit novy zaznam</a>
+            <a href="{{ url_for('medical_records_add') }}" class="btn btn-primary my-2" role="button">Vytvořit nový
+                záznam</a>
             <table class="table table-striped table-bordered align-middle requestExaminations">
+                {% if PERMISSION_MY_EXAMINATIONS_SHOW %}
+                <caption>Správu jednotlivých prohlídek lze provést v <a href="{{ url_for('examination_requests') }}"
+                        class="nav-link">Prohlídky</a></caption>
+                {% endif %}
+
                 <thead class="table-dark">
                     <tr>
-                        <th class="h3" scope="col" colspan="11">Žádosti o prohlídky</th>
+                        <th class="h3" scope="col" colspan="11">Budoucí prohlídky</th>
                     </tr>
                     <tr>
-                        <th scope="col">Jméno lékaře</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Jméno zvířete</th>
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
-                        <th scope="col">Jméno zvířete</th>
+                        <th scope="col">Veterinář</th>
+                        <th scope="col">Email</th>
                         <th scope="col">Popis</th>
                         <th scope="col">Stav</th>
                         <th scope="col">Smazat</th>
@@ -51,17 +57,17 @@
                         {% endif %}
                         <td>{{ request.user.email }}</td>
                         <td>{{ request.request }}</td>
-                        
+
                         {% if request.accepted %}
-                        <td>Naplanovana prehliadka</td>
+                        <td>Naplánováno</td>
                         {% else %}
-                        <td>Ziadost</td>
+                        <td>Nenaplánováno</td>
                         {% endif %}
-                        
+
                         {% if PERMISSION_EXAMINATIONS_DELETE %}
                         <td class="col text-center">
                             <a href="{{url_for('examination_requests_delete', id=request.id)}}"
-                                class="btn btn-primary text-uppercase fw-bold bi-trash-fill deleteExamination"
+                                class="btn btn-danger text-uppercase fw-bold bi-trash-fill deleteExamination"
                                 role="button"></a>
                         </td>
                         {% endif %}
@@ -69,6 +75,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+
         </div>
         <!-- tabulka pro naplánované prohlídky - potvrzené -->
         <div class="mb-5 mt-2">

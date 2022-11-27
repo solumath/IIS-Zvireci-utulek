@@ -29,7 +29,7 @@
                         <th scope="col">Konec</th>
                         <th scope="col">Jméno zvířete</th>
                         {% if PERMISSION_WALKS_CONFIRM %}
-                        <th scope="col">Potvrdit</th>
+                        <th scope="col">Potvrzeno</th>
                         <th scope="col">Vráceno</th>
                         {% endif %}
                         {% if PERMISSION_WALKS_DELETE %}
@@ -39,65 +39,66 @@
                 </thead>
                 <tbody>
                     {% for future in future_events %}
-                        <tr>
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ future.user.name + " " + future.user.surname }}</td>
-                            <td>{{ future.user.email}}</td>
-                            <td>{{ future.start }}</td>
-                            <td>{{ future.end }}</td>
-                            <td>
-                                <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}" class="btn btn-primary">{{ future.animal.name }}</a>
-                            </td>
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ future.user.name + " " + future.user.surname }}</td>
+                        <td>{{ future.user.email}}</td>
+                        <td>{{ future.start }}</td>
+                        <td>{{ future.end }}</td>
+                        <td>
+                            <a type="button" href="{{url_for('animals_detail', id=future.animal.id)}}"
+                                class="btn btn-primary">{{ future.animal.name }}</a>
+                        </td>
 
-                            {% if PERMISSION_WALKS_CONFIRM %}
-                            {% if future.confirmed %}
-                            <!-- CONFIRMED WALKS -->
-                            <td data-order="1" class="col text-center">
-                                <form method="POST" action="{{ url_for('walks_unconfirm') }}">
-                                    <button class="btn btn-success bi-check-lg" type="submit"></button>
-                                    <input type="hidden" value="{{ future.id }}" name="id" />
-                                </form>
-                            </td>
-                            {% else %}
-                            <!-- UNCONFIRMED WALKS -->
-                            <td data-order="2" class="col text-center">
-                                <form method="POST" action="{{ url_for('walks_confirm') }}">
-                                    <button class="btn btn-danger bi-x-lg" type="submit"></button>
-                                    <input type="hidden" value="{{ future.id }}" name="id" />
-                                </form>
-                            </td>
-                            {% endif %}
-
-                            {% if future.returned %}
-                            <!-- RETURNED WALKS -->
-                            <td data-order="1" class="col text-center">
-                                <form method="POST" action="{{ url_for('walks_unreturned') }}">
-                                    <button class="btn btn-success bi-check-lg" type="submit"></button>
-                                    <input type="hidden" value="{{ future.id }}" name="id" />
-                                </form>
-                            </td>
-                            {% else %}
-                            <!-- UNRETURNED WALKS -->
-                            <td data-order="2" class="col text-center">
-                                <form method="POST" action="{{ url_for('walks_returned') }}">
-                                    <button class="btn btn-danger bi-x-lg" type="submit"></button>
-                                    <input type="hidden" value="{{ future.id }}" name="id" />
-                                </form>
-                            </td>
-                            {% endif %}
-                            
-                            <!-- WALK DELETE -->
-                            {% if PERMISSION_WALKS_DELETE %}
-                            <td class="col text-center">
-                                <form method="POST" class="deleteWalk" action="{{ url_for('walks_delete') }}">
-                                    <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteWalk"
-                                    type="submit"></button>
-                                    <input type="hidden" value="{{ future.id }}" name="id" />
-                                </form>
-                            </td>
-                            {% endif %}
-                        </tr>
+                        {% if PERMISSION_WALKS_CONFIRM %}
+                        {% if future.confirmed %}
+                        <!-- CONFIRMED WALKS -->
+                        <td data-order="1" class="col text-center">
+                            <form method="POST" action="{{ url_for('walks_unconfirm') }}">
+                                <button class="btn btn-success bi-check-lg" type="submit"></button>
+                                <input type="hidden" value="{{ future.id }}" name="id" />
+                            </form>
+                        </td>
+                        {% else %}
+                        <!-- UNCONFIRMED WALKS -->
+                        <td data-order="2" class="col text-center">
+                            <form method="POST" action="{{ url_for('walks_confirm') }}">
+                                <button class="btn btn-primary bi-plus-lg" type="submit"></button>
+                                <input type="hidden" value="{{ future.id }}" name="id" />
+                            </form>
+                        </td>
                         {% endif %}
+
+                        {% if future.returned %}
+                        <!-- RETURNED WALKS -->
+                        <td data-order="1" class="col text-center">
+                            <form method="POST" action="{{ url_for('walks_unreturned') }}">
+                                <button class="btn btn-success bi-check-lg" type="submit"></button>
+                                <input type="hidden" value="{{ future.id }}" name="id" />
+                            </form>
+                        </td>
+                        {% else %}
+                        <!-- UNRETURNED WALKS -->
+                        <td data-order="2" class="col text-center">
+                            <form method="POST" action="{{ url_for('walks_returned') }}">
+                                <button class="btn btn-danger" type="submit">Vrátit</button>
+                                <input type="hidden" value="{{ future.id }}" name="id" />
+                            </form>
+                        </td>
+                        {% endif %}
+
+                        <!-- WALK DELETE -->
+                        {% if PERMISSION_WALKS_DELETE %}
+                        <td class="col text-center">
+                            <form method="POST" class="deleteWalk" action="{{ url_for('walks_delete') }}">
+                                <button class="btn btn-danger btn-login text-uppercase fw-bold bi-trash-fill deleteWalk"
+                                    type="submit"></button>
+                                <input type="hidden" value="{{ future.id }}" name="id" />
+                            </form>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
@@ -118,7 +119,7 @@
                         <th scope="col">Začátek</th>
                         <th scope="col">Konec</th>
                         <th scope="col">Jméno zvířete</th>
-                        <th scope="col">Vráceno</th>
+                        <!-- <th scope="col">Vráceno</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -131,26 +132,26 @@
                         <td>{{ past.end }}</td>
                         <td>
                             <a type="button" href="{{url_for('animals_detail', id=past.animal.id)}}"
-                                class="btn btn-primary">{{ past.animal.name }}</a>
+                                class="btn btn-primary ">{{ past.animal.name }}</a>
                         </td>
                         {% if past.returned %}
-                            <!-- RETURNED WALKS -->
-                            <td data-order="1" class="col text-center">
-                                <form method="POST" action="{{ url_for('walks_unreturned') }}">
-                                    <button class="btn btn-success bi-check-lg" type="submit"></button>
-                                    <input type="hidden" value="{{ past.id }}" name="id" />
-                                </form>
-                            </td>
-                            {% else %}
-                            <!-- UNRETURNED WALKS -->
-                            <td data-order="2" class="col text-center">
-                                <form method="POST" action="{{ url_for('walks_returned') }}">
-                                    <button class="btn btn-danger bi-x-lg" type="submit"></button>
-                                    <input type="hidden" value="{{ past.id }}" name="id" />
-                                </form>
-                            </td>
-                            {% endif %}
-                            
+                        <!-- RETURNED WALKS -->
+                        <!-- <td data-order="1" class="col text-center">
+                            <form method="POST" action="{{ url_for('walks_unreturned') }}">
+                                <button class="btn btn-success bi-check-lg" type="submit"></button>
+                                <input type="hidden" value="{{ past.id }}" name="id" />
+                            </form>
+                        </td> -->
+                        {% else %}
+                        <!-- UNRETURNED WALKS -->
+                        <!-- <td data-order="2" class="col text-center">
+                            <form method="POST" action="{{ url_for('walks_returned') }}">
+                                <button class="btn btn-danger bi-x-lg" type="submit"></button>
+                                <input type="hidden" value="{{ past.id }}" name="id" />
+                            </form>
+                        </td> -->
+                        {% endif %}
+
                     </tr>
                     {% endfor %}
                 </tbody>
