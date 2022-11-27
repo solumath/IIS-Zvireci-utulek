@@ -49,3 +49,23 @@ img {
 .card {
     background-color: #6d6d6d
 }
+
+.a:link {
+    color: #0dcaf0;
+    text-decoration: none;
+}
+
+.a:visited {
+    color: #0dcaf0;
+    text-decoration: none;
+}
+
+.a:hover {
+    color: #d9514e;
+    text-decoration: none;
+}
+
+.a:active {
+    color: #d9514e;
+    text-decoration: none;
+}
