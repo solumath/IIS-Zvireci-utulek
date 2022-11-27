@@ -24,11 +24,7 @@
 </head>
 
 <body>
-
-    <!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
- podle použitého editoru -->
-
-    <h1>Zvířecí útulek</h1> <!-- Nahradte názvem svého zadání -->
+    <h1>Zvířecí útulek</h1>
 
     <dl>
         <dt>Autoři</dt>
@@ -62,27 +58,27 @@
         </tr>
         <tr>
             <td>admin</td>
-            <td>tryhards</td>
+            <td>admin</td>
             <td>Administrátor</td>
         </tr>
         <tr>
             <td>vet</td>
-            <td>treehards</td>
+            <td>vet</td>
             <td>Veterinář</td>
         </tr>
         <tr>
             <td>caretaker</td>
-            <td>1234</td>
+            <td>caretaker</td>
             <td>Pečovatel</td>
         </tr>
         <tr>
             <td>volunteer</td>
-            <td>abcd</td>
+            <td>volunteer</td>
             <td>Dobrovolník</td>
         </tr>
         <tr>
             <td>unverified</td>
-            <td>poop</td>
+            <td>unverified</td>
             <td>Neověřený uživatel</td>
         </tr>
     </table>
@@ -98,25 +94,29 @@
     <h2>Implementace</h2>
     <!-- <p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují
         jednotlivé případy použití.</p> -->
-    <p><b>Neregistrovaný uživatel</b> může prohlížet informace o útulku (about.html), prohlížet všechna zvířata z útulku
+    <p><b>Neregistrovaný uživatel</b> může prohlížet informace o útulku, prohlížet všechna zvířata z útulku
         a prohlížet detaily zvířete.
-        Taktéž se může registrovat.(soubor <b>login.py</b>)</p>
+        Taktéž se může registrovat (soubor <b>login.py</b>).</p>
     <p>Po registraci se z něho stane <b>neověřený uživatel</b>, který čeká na ověření, zároveň již může
         prohlížet svůj profil.</p>
-    <p>Po ověření se změní na <b>dobrovolníka</b>, ten již může rezervovat jednotlivá zvířata k venčení, konkrétně na
-        detailní stránce chtěného zvířete. Může rezervovat více zvířat ve stejný čas. Přehled svých naplánovaných i
-        již proběhlých procházek najde po kliknutí na "Moje procházky" v navigační liště. Po rezervování procházky ještě
+    <p>Po ověření se změní na <b>dobrovolníka</b>, ten může rezervovat jednotlivá zvířata k venčení, konkrétně na
+        detailní stránce chtěného zvířete. Může rezervovat více zvířat ve stejný čas. Nebereme ohledy na druh zvířete, i
+        rybky mohou dobrovolníci "venčit" v jezírku před útulkem. Přehled svých naplánovaných i
+        již proběhlých procházek najde po kliknutí na "Moje procházky" v navigační liště. Po rezervování procházky
         čeká na její schválení.</p>
-    <p><b>Veterinář</b> po rozkliknutí "Administrace/Prohlídky" zobrazuje nejprve tabulku s požadavky, které mu zaslal
-        pečovatel, následně i tabulku s již naplánovanými prohlídkami. Pro schválení požadavku od pečovatele musí
-        naplánovat vyšetření, to znamená naplánovat čas vyšetření a změnit typ prohlídky na vhodný vyšetření. Spravuje
-        vyšetření - plánuje nové, upravuje, maže. Zobrazuje si záznamy jednotlivých zvířat vždy v kartě konkrétního
-        zvířete, tyto záznamy
-        může upravovat.</p>
+    <p><b>Veterinář</b> po zkliknutí na "Prohlídky" z navigační lišty zobrazuje nejprve tabulku s požadavky, které mu
+        zaslal
+        pečovatel, následně i tabulku s již naplánovanými prohlídkami. Pokud se rozhodne požadavek schválit, musí
+        si vyšetření naplánovat, v opačném případě požadavek smaže. K dokončení prohlídky je nutné upravit její záznam.
+        Spravuje vyšetření - plánuje nové, upravuje, maže. Upravovat a mazat může pouze záznamy, které sám vypsal.
+        Ty si zobrazí v "Administrace/Zdravotní záznamy". Pokud si chce veterinář zobrazit celý zdravotní záznam
+        zvířete, tak se k němu dostane v detailu zvířete tlačítkem "Zdravotní záznam".</p>
     <p><b>Pečovatel</b> spravuje zvířata - přidává a maže zvířata v kartě "Nalezená zvířata", upravuje jednotlivá
         zvířata v detailu zvířete. V kartě "Administrace/Uživatelé" schvaluje
         dobrovolníky, v kartě "Administrace/Procházky" schvaluje rezervace jednotlivých procházek, eviduje zapůjčení a
-        vrácení zvířete. V kartě konkrétního zvířete vytváři požadavek na veterináře.</p>
+        vrácení zvířete. V kartě konkrétního zvířete vytváři požadavek na veterináře (soubor
+        <b>examination_requests.py</b>).
+    </p>
 
     <p>Rozvrhy venčení vytváří systém sám, vždy na následující týden.</p>
 
@@ -132,7 +132,8 @@
     <p>Veškeré stránky týkající se zvířat jsou implementované v souboru <b>animals.py</b>, tj. veškerá správa zvířat
         (mazání, upravování, přidávání), zdravotní záznamy, detaily i požadavky na veterináře konkrétních zvířat, a
         celkový přehled. </p>
-    <p>Správu prohlídek najdeme v souboru <b>examinations.py</b>, správu vlastních procházek v souboru
+    <p>Správu prohlídek a zdravotních záznamů najdeme v souboru <b>medical_records.py</b>, správu vlastních procházek v
+        souboru
         <b>my_walks.py</b> a správu
         uživatelů v <b>users.py</b>.
     </p>
@@ -142,11 +143,22 @@
 
     Zde vložte grafické schéma relační databáze (tabulek v databázi).
 
-    <h2>Instalace</h2>
+    <h2>Instalace a spuštění</h2>
     <code><ol>
         <li>pip3 install -r requirements.txt</li>
         <li>python3 main.py</li>
     </ol></code>
+    <p>Ke správnému spuštění projektu potřebujete komponenty, které najdete v <b>requirements.txt</b>, těmi jsou
+        konkrétně:</p>
+    <code><ul>
+        <li>Flask 2.2.2</li>
+        <li>Flask_Cors 3.0.10</li>
+        <li>Flask_Login 0.6.2</li>
+        <li>flask_sqlalchemy 3.0.2</li>
+        <li>marshmallow 3.18.0</li>
+        <li>SQLAlchemy 1.4.42</li>
+        <li>munch 2.5.0</li>
+    </ul></code>
 
     <!-- Stručně popište:
     <ul>
@@ -156,9 +168,11 @@
     </ul> -->
 
     <h2>Známé problémy</h2>
-    <p>Zde popište, které body zadání nejsou implementovány a z jakého důvodu. Např. &bdquo;Z časových důvodů nebyla
+    <!-- <p>Zde popište, které body zadání nejsou implementovány a z jakého důvodu. Např. &bdquo;Z časových důvodů nebyla
         implementována správa uživatelů.&rdquo; Pomůžete tím zrychlit hodnocení, když neimplementované funkce nebudeme
-        muset dlouze hledat.</p>
+        muset dlouze hledat.</p> -->
+    Ne úplně problémem, ale jiným přístupem k řešení v tomto projektu je plánování rozvrhu venčení. Naše řešení je
+    implementováno tak, že rozvrhy se tvoří automaticky na každý týden, a tak nemá pečovatel práci navíc.
 
 </body>
 
