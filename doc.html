@@ -134,7 +134,9 @@
 
     <h2>Instalace a spuštění</h2>
     <code><ol>
+        <li>docker run --name iis_utulek -dp 5432:5432 -e POSTGRES_PASSWORD=iispass -e POSTGRES_USER=iis -e POSTGRES_DB=iis postgres:latest</li>
         <li>pip3 install -r requirements.txt</li>
+        <li>python3<br/>>>> import main<br/>>>> main.reset_db()</li>
         <li>python3 main.py</li>
     </ol></code>
     <p>Ke správnému spuštění projektu potřebujete komponenty, které najdete v <b>requirements.txt</b>, těmi jsou
