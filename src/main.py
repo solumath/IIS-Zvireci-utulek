@@ -11,4 +11,4 @@ if __name__ == "__main__":
     #     db.db.create_all()
     #     import data
     #     data.add_data()
-    app.run(host="194.146.12.40",port = 9566)
+    app.run()
