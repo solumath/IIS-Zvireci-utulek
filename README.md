@@ -16,9 +16,7 @@ Inicializacia db:
 ```
 $ python3
 >>> import main
->>> main.db.db.create_all()
->>> import data
->>> data.add_data()
+>>> main.reset_db()
 ```
 
 Start main
