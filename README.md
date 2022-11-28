@@ -3,25 +3,29 @@
 ## Spuštění projektu
 
 Postgress inicializacia:
-```
+
+```shell
 docker run --name iis_utulek -dp 5432:5432 -e POSTGRES_PASSWORD=iispass -e POSTGRES_USER=iis -e POSTGRES_DB=iis postgres:latest
 ```
 
 Python:
-```
-$ pip3 install -r requirements.txt
+
+```python
+pip3 install -r requirements.txt
 ```
 
 Inicializacia db:
-```
-$ python3
+
+```python
+python3
 >>> import main
 >>> main.reset_db()
 ```
 
 Start main
-```
-$ python3 main.py
+
+```python
+python3 main.py
 ```
 
 ## Popis
@@ -59,6 +63,7 @@ $ python3 main.py
 
 - [x] Dokumentace
 - [x] Video
+- [x] Submitted
 
 ## Náměty na možná rozšíření
 

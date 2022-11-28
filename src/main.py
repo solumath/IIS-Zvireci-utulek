@@ -13,5 +13,4 @@ def reset_db():
 
 
 if __name__ == "__main__":
-    # temporary reseting database data for debuging purposes
     app.run()
